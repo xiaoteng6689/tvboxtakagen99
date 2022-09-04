@@ -513,3 +513,10 @@ import com.undcover.freedom.pyramid.PythonLoader;
 public class ApiConfig {
     //...
 }
+private void parseJson(String apiUrl, String jsonStr) {
+    //pyramid-add-start
+	PythonLoader.getInstance().setConfig(jsonStr);
+    //pyramid-add-end
+	JsonObject infoJson = new Gson().fromJson(jsonStr, JsonObject.class);
+	//....
+}

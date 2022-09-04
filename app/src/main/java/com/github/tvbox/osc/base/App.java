@@ -78,3 +78,9 @@ public class App extends MultiDexApplication {
     }
 
 }
+// 添加引用
+import com.undcover.freedom.pyramid.PythonLoader;
+
+public class App extends MultiDexApplication {
+    //...
+}

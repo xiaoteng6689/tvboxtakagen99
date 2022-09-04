@@ -76,6 +76,10 @@ android {
 dependencies {
     api fileTree(dir: "libs", include: ["*.jar"])
 
+    //添加pyramid.aar引用
+
+    implementation files('libs\\pyramid.aar')
+
     // for WebDAV
     implementation ('com.github.thegrizzlylabs:sardine-android:0.5') {
         exclude group: 'com.squareup.okhttp3'

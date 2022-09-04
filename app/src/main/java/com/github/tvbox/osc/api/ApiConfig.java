@@ -507,3 +507,9 @@ public class ApiConfig {
         return content.replace("clan://", fix);
     }
 }
+// 添加引用
+import com.github.catvod.crawler.SpiderNull;
+import com.undcover.freedom.pyramid.PythonLoader;
+public class ApiConfig {
+    //...
+}

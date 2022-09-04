@@ -84,3 +84,10 @@ import com.undcover.freedom.pyramid.PythonLoader;
 public class App extends MultiDexApplication {
     //...
 }
+public void onCreate() {
+	// ....
+	PlayerHelper.init();
+    //pyramid-add-start
+	PythonLoader.getInstance().setApplication(this);
+    //pyramid-add-end
+}

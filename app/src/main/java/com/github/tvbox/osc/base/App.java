@@ -25,39 +25,15 @@ import me.jessyan.autosize.unit.Subunits;
  */
 public class App extends MultiDexApplication {
     private static App instance;
+    
+    @Override
     public void onCreate() {
 	// ....
 	PlayerHelper.init();
     //pyramid-add-start
 	PythonLoader.getInstance().setApplication(this);
     //pyramid-add-end
-    }
-
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        instance = this;
-        initParams();
-        // takagen99 : Initialize Locale
-        initLocale();
-        // OKGo
-        OkGoHelper.init();
-        // 初始化Web服务器
-        ControlManager.init(this);
-        //初始化数据库
-        AppDataManager.init();
-        LoadSir.beginBuilder()
-                .addCallback(new EmptyCallback())
-                .addCallback(new LoadingCallback())
-                .commit();
-        AutoSizeConfig.getInstance().setCustomFragment(true).getUnitsManager()
-                .setSupportDP(false)
-                .setSupportSP(false)
-                .setSupportSubunits(Subunits.MM);
-        PlayerHelper.init();
-    }
-
+    }  
     private void initParams() {
         // Hawk
         Hawk.init(this).build();

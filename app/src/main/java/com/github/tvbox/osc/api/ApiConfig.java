@@ -41,14 +41,14 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import com.github.catvod.crawler.SpiderNull;
+import com.undcover.freedom.pyramid.PythonLoader;
 
 /**
  * @author pj567
  * @date :2020/12/18
  * @description:
  */
-import com.github.catvod.crawler.SpiderNull;
-import com.undcover.freedom.pyramid.PythonLoader;
 public class ApiConfig {
     private static ApiConfig instance;
     private LinkedHashMap<String, SourceBean> sourceBeanList;

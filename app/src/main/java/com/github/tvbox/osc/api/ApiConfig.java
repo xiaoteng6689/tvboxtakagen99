@@ -407,21 +407,18 @@ public class ApiConfig {
     public String getSpider() {
         return spider;
     }
-    public Spider getCSP(SourceBean sourceBean) {
-    //pyramid-add-start
-    if (sourceBean.getApi().startsWith("py_")) {
-        try {
-            return PythonLoader.getInstance().getSpider(sourceBean.getKey(), sourceBean.getExt());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new SpiderNull();
-        }
-    }
-    //pyramid-add-end
-        return jarLoader.getSpider(sourceBean.getKey(), sourceBean.getApi(), sourceBean.getExt());
-    }
 
     public Spider getCSP(SourceBean sourceBean) {
+        //pyramid-add-start
+        if (sourceBean.getApi().startsWith("py_")) {
+            try {
+                return PythonLoader.getInstance().getSpider(sourceBean.getKey(), sourceBean.getExt());
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new SpiderNull();
+            }
+        }
+        //pyramid-add-end
         return jarLoader.getSpider(sourceBean.getKey(), sourceBean.getApi(), sourceBean.getExt(), sourceBean.getJar());
     }
     

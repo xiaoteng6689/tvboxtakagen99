@@ -418,7 +418,7 @@ public class ApiConfig {
             }
         }
         //pyramid-add-end
-        return jarLoader.getSpider(sourceBean.getKey(), sourceBean.getApi(), sourceBean.getExt());
+        return jarLoader.getSpider(sourceBean.getKey(), sourceBean.getApi(), sourceBean.getExt(), sourceBean.getJar());
     }
     
     public Object[] proxyLocal(Map param) {

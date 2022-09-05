@@ -28,11 +28,9 @@ public class App extends MultiDexApplication {
     
     @Override
     public void onCreate() {
-	// ....
-	PlayerHelper.init();
-    //pyramid-add-start
+        //pyramid-add-start
 	PythonLoader.getInstance().setApplication(this);
-    //pyramid-add-end
+        //pyramid-add-end
         super.onCreate();
         instance = this;
         initParams();

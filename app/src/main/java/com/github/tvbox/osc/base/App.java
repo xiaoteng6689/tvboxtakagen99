@@ -25,6 +25,14 @@ import me.jessyan.autosize.unit.Subunits;
  */
 public class App extends MultiDexApplication {
     private static App instance;
+    public void onCreate() {
+	// ....
+	PlayerHelper.init();
+    //pyramid-add-start
+	PythonLoader.getInstance().setApplication(this);
+    //pyramid-add-end
+    }
+
 
     @Override
     public void onCreate() {

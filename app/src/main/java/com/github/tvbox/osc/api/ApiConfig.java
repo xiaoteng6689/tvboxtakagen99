@@ -84,6 +84,13 @@ public class ApiConfig {
         }
         return instance;
     }
+    private void parseJson(String apiUrl, String jsonStr) {
+    //pyramid-add-start
+	PythonLoader.getInstance().setConfig(jsonStr);
+    //pyramid-add-end
+	JsonObject infoJson = new Gson().fromJson(jsonStr, JsonObject.class);
+	//....
+    }
 
     public void loadConfig(boolean useCache, LoadConfigCallback callback, Activity activity) {
         // Embedded Source : Update in Strings.xml if required
@@ -515,15 +522,6 @@ public class ApiConfig {
 
 
 
-
-
-private void parseJson(String apiUrl, String jsonStr) {
-    //pyramid-add-start
-	PythonLoader.getInstance().setConfig(jsonStr);
-    //pyramid-add-end
-	JsonObject infoJson = new Gson().fromJson(jsonStr, JsonObject.class);
-	//....
-}
 public Spider getCSP(SourceBean sourceBean) {
     //pyramid-add-start
     if (sourceBean.getApi().startsWith("py_")) {

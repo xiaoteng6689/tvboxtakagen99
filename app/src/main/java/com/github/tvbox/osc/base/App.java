@@ -33,7 +33,27 @@ public class App extends MultiDexApplication {
     //pyramid-add-start
 	PythonLoader.getInstance().setApplication(this);
     //pyramid-add-end
-    }  
+        super.onCreate();
+        instance = this;
+        initParams();
+        // takagen99 : Initialize Locale
+        initLocale();
+        // OKGo
+        OkGoHelper.init();
+        // 初始化Web服务器
+        ControlManager.init(this);
+        //初始化数据库
+        AppDataManager.init();
+        LoadSir.beginBuilder()
+                .addCallback(new EmptyCallback())
+                .addCallback(new LoadingCallback())
+                .commit();
+        AutoSizeConfig.getInstance().setCustomFragment(true).getUnitsManager()
+                .setSupportDP(false)
+                .setSupportSP(false)
+                .setSupportSubunits(Subunits.MM);
+        PlayerHelper.init();
+    }
     private void initParams() {
         // Hawk
         Hawk.init(this).build();

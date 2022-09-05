@@ -2,6 +2,7 @@ package com.github.tvbox.osc.base;
 
 import androidx.multidex.MultiDexApplication;
 
+import com.undcover.freedom.pyramid.PythonLoader;
 import com.github.tvbox.osc.callback.EmptyCallback;
 import com.github.tvbox.osc.callback.LoadingCallback;
 import com.github.tvbox.osc.data.AppDataManager;
@@ -77,17 +78,4 @@ public class App extends MultiDexApplication {
         }
     }
 
-}
-// 添加引用
-import com.undcover.freedom.pyramid.PythonLoader;
-
-public class App extends MultiDexApplication {
-    //...
-}
-public void onCreate() {
-	// ....
-	PlayerHelper.init();
-    //pyramid-add-start
-	PythonLoader.getInstance().setApplication(this);
-    //pyramid-add-end
 }

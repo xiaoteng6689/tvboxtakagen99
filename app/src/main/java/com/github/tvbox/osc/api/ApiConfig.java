@@ -428,6 +428,23 @@ public class ApiConfig {
     public Spider getCSP(SourceBean sourceBean) {
         return jarLoader.getSpider(sourceBean.getKey(), sourceBean.getApi(), sourceBean.getExt(), sourceBean.getJar());
     }
+    
+    public Object[] proxyLocal(Map param) {
+    //pyramid-add-start
+    try {
+        if(param.containsKey("api")){
+            String doStr = param.get("do").toString();
+            if(doStr.equals("ck"))
+                return PythonLoader.getInstance().proxyLocal("","",param);
+            SourceBean sourceBean = ApiConfig.get().getSource(doStr);
+            return PythonLoader.getInstance().proxyLocal(sourceBean.getKey(),sourceBean.getExt(),param);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    //pyramid-add-end
+        return jarLoader.proxyInvoke(param);
+    }
 
     public Object[] proxyLocal(Map param) {
         return jarLoader.proxyInvoke(param);
@@ -529,32 +546,4 @@ public class ApiConfig {
         String fix = lanLink.substring(0, lanLink.indexOf("/file/") + 6);
         return content.replace("clan://", fix);
     }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-public Object[] proxyLocal(Map param) {
-    //pyramid-add-start
-    try {
-        if(param.containsKey("api")){
-            String doStr = param.get("do").toString();
-            if(doStr.equals("ck"))
-                return PythonLoader.getInstance().proxyLocal("","",param);
-            SourceBean sourceBean = ApiConfig.get().getSource(doStr);
-            return PythonLoader.getInstance().proxyLocal(sourceBean.getKey(),sourceBean.getExt(),param);
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-    //pyramid-add-end
-    return jarLoader.proxyInvoke(param);
 }

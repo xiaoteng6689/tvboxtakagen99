@@ -51,6 +51,7 @@ import java.util.Map;
  * @description:
  */
 public class ApiConfig {
+    //...
     private static ApiConfig instance;
     private LinkedHashMap<String, SourceBean> sourceBeanList;
     private SourceBean mHomeSource;
@@ -515,9 +516,7 @@ public class ApiConfig {
 
 
 
-public class ApiConfig {
-    //...
-}
+
 private void parseJson(String apiUrl, String jsonStr) {
     //pyramid-add-start
 	PythonLoader.getInstance().setConfig(jsonStr);

@@ -5,9 +5,6 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Base64;
 
-import com.github.catvod.crawler.SpiderNull;
-import com.undcover.freedom.pyramid.PythonLoader;
-
 import com.github.catvod.crawler.JarLoader;
 import com.github.catvod.crawler.Spider;
 import com.github.tvbox.osc.R;
@@ -50,6 +47,8 @@ import java.util.Map;
  * @date :2020/12/18
  * @description:
  */
+import com.github.catvod.crawler.SpiderNull;
+import com.undcover.freedom.pyramid.PythonLoader;
 public class ApiConfig {
     private static ApiConfig instance;
     private LinkedHashMap<String, SourceBean> sourceBeanList;
@@ -419,7 +418,7 @@ public class ApiConfig {
             }
         }
         //pyramid-add-end
-        return jarLoader.getSpider(sourceBean.getKey(), sourceBean.getApi(), sourceBean.getExt(), sourceBean.getJar());
+        return jarLoader.getSpider(sourceBean.getKey(), sourceBean.getApi(), sourceBean.getExt());
     }
     
     public Object[] proxyLocal(Map param) {

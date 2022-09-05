@@ -76,10 +76,6 @@ android {
 dependencies {
     api fileTree(dir: "libs", include: ["*.jar"])
 
-    //添加pyramid.aar引用
-
-    implementation files('libs\\pyramid.aar')
-
     // for WebDAV
     implementation ('com.github.thegrizzlylabs:sardine-android:0.5') {
         exclude group: 'com.squareup.okhttp3'
@@ -93,6 +89,9 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation files('libs\\thunder.jar')
+
+    //添加pyramid.aar引用
+    implementation files('libs\\pyramid.aar')
 
     annotationProcessor 'androidx.room:room-compiler:2.3.0'
     implementation 'androidx.room:room-runtime:2.3.0'

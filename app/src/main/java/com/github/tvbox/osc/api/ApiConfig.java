@@ -51,7 +51,6 @@ import java.util.Map;
  * @description:
  */
 public class ApiConfig {
-    //...
     private static ApiConfig instance;
     private LinkedHashMap<String, SourceBean> sourceBeanList;
     private SourceBean mHomeSource;
@@ -423,7 +422,7 @@ public class ApiConfig {
         }
     }
     //pyramid-add-end
-    return jarLoader.getSpider(sourceBean.getKey(), sourceBean.getApi(), sourceBean.getExt());
+        return jarLoader.getSpider(sourceBean.getKey(), sourceBean.getApi(), sourceBean.getExt());
     }
 
     public Spider getCSP(SourceBean sourceBean) {

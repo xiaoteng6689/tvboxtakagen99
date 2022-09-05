@@ -5,6 +5,9 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Base64;
 
+import com.github.catvod.crawler.SpiderNull;
+import com.undcover.freedom.pyramid.PythonLoader;
+
 import com.github.catvod.crawler.JarLoader;
 import com.github.catvod.crawler.Spider;
 import com.github.tvbox.osc.R;
@@ -507,9 +510,11 @@ public class ApiConfig {
         return content.replace("clan://", fix);
     }
 }
-// 添加引用
-import com.github.catvod.crawler.SpiderNull;
-import com.undcover.freedom.pyramid.PythonLoader;
+
+
+
+
+
 public class ApiConfig {
     //...
 }

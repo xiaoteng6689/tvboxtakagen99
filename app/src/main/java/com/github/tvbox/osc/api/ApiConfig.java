@@ -439,10 +439,6 @@ public class ApiConfig {
         return jarLoader.proxyInvoke(param);
     }
 
-    public Object[] proxyLocal(Map param) {
-        return jarLoader.proxyInvoke(param);
-    }
-
     public JSONObject jsonExt(String key, LinkedHashMap<String, String> jxs, String url) {
         return jarLoader.jsonExt(key, jxs, url);
     }

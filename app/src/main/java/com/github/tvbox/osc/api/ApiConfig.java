@@ -299,7 +299,7 @@ public class ApiConfig {
         liveChannelGroupList.clear();           //修复从后台切换重复加载频道列表
         try {
             String lives = infoJson.get("lives").getAsJsonArray().toString();
-            int index = lives.indexOf("UndCover/proxy");
+            int index = lives.indexOf("http://127.0.0.1:UndCover/proxy?");
             if (index != -1) {
                 int endIndex = lives.lastIndexOf("\"");
                 String url = lives.substring(index, endIndex);

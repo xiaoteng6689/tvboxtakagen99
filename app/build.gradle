@@ -90,6 +90,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
     implementation files('libs\\thunder.jar')
 
+    //添加pyramid.aar引用
+    implementation files('libs\\pyramid.aar')
+
     annotationProcessor 'androidx.room:room-compiler:2.3.0'
     implementation 'androidx.room:room-runtime:2.3.0'
     implementation 'androidx.multidex:multidex:2.0.1'

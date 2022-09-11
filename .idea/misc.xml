@@ -58,6 +58,8 @@
         <entry key="..\:/android/repository/TVBoxOSC/app/src/main/res/layout/activity_live_play.xml" value="0.1" />
         <entry key="..\:/android/repository/TVBoxOSC/app/src/main/res/layout/item_channel_group_layout.xml" value="0.22826086956521738" />
         <entry key="..\:/android/repository/TVBoxOSC/app/src/main/res/layout/item_live_channel_layout.xml" value="0.22826086956521738" />
+        <entry key="..\:/maotv/new-privatej-ar/Box/app/src/main/res/layout/activity_play.xml" value="0.18489583333333334" />
+        <entry key="..\:/maotv/new-privatej-ar/Box/app/src/main/res/layout/player_vod_control_view.xml" value="0.1" />
       </map>
     </option>
   </component>

@@ -41,4 +41,54 @@
         android:text="Now Loading"
         android:textColor="@color/color_CCFFFFFF"
         android:textSize="@dimen/ts_24" />
+
+    <TextView
+        android:id="@+id/playNetSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="5mm"
+        android:layout_marginRight="5mm"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="16mm"
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|left"
+        android:layout_marginTop="5mm"
+        android:layout_marginLeft="5mm"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:text="1080px / 850px"
+        android:textColor="@android:color/white"
+        android:textSize="16mm"
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="5mm"
+        android:layout_marginRight="5mm"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="16mm"
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/playnow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_marginBottom="5mm"
+        android:layout_marginLeft="5mm"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="16mm"
+        android:visibility="gone" />
 </FrameLayout>

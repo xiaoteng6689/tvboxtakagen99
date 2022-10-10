@@ -58,6 +58,10 @@
         <entry key="..\:/android/repository/TVBoxOSC/app/src/main/res/layout/activity_live_play.xml" value="0.1" />
         <entry key="..\:/android/repository/TVBoxOSC/app/src/main/res/layout/item_channel_group_layout.xml" value="0.22826086956521738" />
         <entry key="..\:/android/repository/TVBoxOSC/app/src/main/res/layout/item_live_channel_layout.xml" value="0.22826086956521738" />
+        <entry key="..\:/github/Box/app/src/main/res/drawable/shape_dialog_pg_search_checkbox.xml" value="0.217" />
+        <entry key="..\:/github/Box/app/src/main/res/layout/activity_search.xml" value="0.22916666666666666" />
+        <entry key="..\:/github/Box/app/src/main/res/layout/dialog_checkbox_search.xml" value="0.22916666666666666" />
+        <entry key="..\:/github/Box/app/src/main/res/layout/item_dialog_checkbox_search.xml" value="0.22916666666666666" />
       </map>
     </option>
   </component>

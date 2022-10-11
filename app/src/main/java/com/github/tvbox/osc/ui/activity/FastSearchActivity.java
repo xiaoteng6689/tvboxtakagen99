@@ -24,6 +24,7 @@ import com.github.tvbox.osc.ui.adapter.FastListAdapter;
 import com.github.tvbox.osc.ui.adapter.FastSearchAdapter;
 import com.github.tvbox.osc.ui.adapter.SearchWordAdapter;
 import com.github.tvbox.osc.util.FastClickCheckUtil;
+import com.github.tvbox.osc.util.SearchHelper;
 import com.github.tvbox.osc.viewmodel.SourceViewModel;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -72,6 +73,7 @@ public class FastSearchActivity extends BaseActivity {
     private HashMap<String, ArrayList<Movie.Video>> resultVods; // 搜索结果
     private int finishedCount = 0;
     private List<String> quickSearchWord = new ArrayList<>();
+    private HashMap<String, String> mCheckSources = null;
 
     private View.OnFocusChangeListener focusChangeListener = new View.OnFocusChangeListener() {
         @Override
@@ -299,6 +301,7 @@ public class FastSearchActivity extends BaseActivity {
     }
 
     private void initData() {
+        initCheckedSourcesForSearch();
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("title")) {
             String title = intent.getStringExtra("title");
@@ -335,6 +338,9 @@ public class FastSearchActivity extends BaseActivity {
                 searchWordAdapter.setNewData(data);
             }
         }
+        if (mSearchTitle != null) {
+            mSearchTitle.setText(String.format("搜索(%d/%d)", resultVods.size(), spNames.size()));
+        }
     }
 
     private void search(String title) {
@@ -355,6 +361,10 @@ public class FastSearchActivity extends BaseActivity {
         finishedCount = 0;
 
         searchResult();
+    }
+
+    private void initCheckedSourcesForSearch() {
+        mCheckSources = SearchHelper.getSourcesForSearch();
     }
 
     private ExecutorService searchExecutorService = null;
@@ -387,6 +397,9 @@ public class FastSearchActivity extends BaseActivity {
         spListAdapter.addData(getString(R.string.fs_show_all));
         for (SourceBean bean : searchRequestList) {
             if (!bean.isSearchable()) {
+                continue;
+            }
+            if (mCheckSources != null && !mCheckSources.containsKey(bean.getKey())) {
                 continue;
             }
             siteKey.add(bean.getKey());

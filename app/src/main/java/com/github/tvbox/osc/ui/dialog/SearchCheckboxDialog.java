@@ -28,9 +28,9 @@ public class SearchCheckboxDialog extends BaseDialog{
     private TextView clearAll;
     private List<SourceBean> mSourceList;
 
-    public HashMap<String, SourceBean> mCheckSourcees = new HashMap<>();
+    public HashMap<String, String> mCheckSourcees = new HashMap<>();
 
-    public SearchCheckboxDialog(@NonNull @NotNull Context context, List<SourceBean> sourceList, HashMap<String, SourceBean> checkedSources) {
+    public SearchCheckboxDialog(@NonNull @NotNull Context context, List<SourceBean> sourceList, HashMap<String, String> checkedSources) {
         super(context);
         if (context instanceof Activity) {
             setOwnerActivity((Activity) context);
@@ -88,7 +88,7 @@ public class SearchCheckboxDialog extends BaseDialog{
                     if (mCheckSourcees.containsKey(sourceBean.getKey())) {
                         mCheckSourcees.remove(sourceBean.getKey());
                     } else {
-                        mCheckSourcees.put(sourceBean.getKey(), null);
+                        mCheckSourcees.put(sourceBean.getKey(), "1");
                     }
                 }
                 checkboxSearchAdapter.setData(mSourceList, mCheckSourcees);

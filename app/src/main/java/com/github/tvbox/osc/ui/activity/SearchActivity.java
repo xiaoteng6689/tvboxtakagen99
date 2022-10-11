@@ -30,6 +30,7 @@ import com.github.tvbox.osc.ui.tv.QRCodeGen;
 import com.github.tvbox.osc.ui.tv.widget.SearchKeyboard;
 import com.github.tvbox.osc.util.FastClickCheckUtil;
 import com.github.tvbox.osc.util.HawkConfig;
+import com.github.tvbox.osc.util.SearchHelper;
 import com.github.tvbox.osc.viewmodel.SourceViewModel;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -76,7 +77,7 @@ public class SearchActivity extends BaseActivity {
     private String searchTitle = "";
     private TextView tvSearchCheckboxBtn;
 
-    private HashMap<String, SourceBean> mCheckSourcees = null;
+    private HashMap<String, String> mCheckSources = null;
     private SearchCheckboxDialog mSearchCheckboxDialog = null;
 
     @Override
@@ -207,21 +208,15 @@ public class SearchActivity extends BaseActivity {
         tvSearchCheckboxBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                List<SourceBean> allSourceBean = ApiConfig.get().getSourceBeanList();
-                List<SourceBean> searchAbleSource = new ArrayList<>();
                 if (mSearchCheckboxDialog == null) {
-                    mCheckSourcees = new HashMap<>();
-                }
-                for(SourceBean sourceBean : allSourceBean) {
-                    if (sourceBean.isSearchable()) {
-                        searchAbleSource.add(sourceBean);
-                        if (mSearchCheckboxDialog == null) {
-                            mCheckSourcees.put(sourceBean.getKey(), sourceBean);
+                    List<SourceBean> allSourceBean = ApiConfig.get().getSourceBeanList();
+                    List<SourceBean> searchAbleSource = new ArrayList<>();
+                    for(SourceBean sourceBean : allSourceBean) {
+                        if (sourceBean.isSearchable()) {
+                            searchAbleSource.add(sourceBean);
                         }
                     }
-                }
-                if (mSearchCheckboxDialog == null) {
-                    mSearchCheckboxDialog = new SearchCheckboxDialog(SearchActivity.this, searchAbleSource, mCheckSourcees);
+                    mSearchCheckboxDialog = new SearchCheckboxDialog(SearchActivity.this, searchAbleSource, mCheckSources);
                 }
                 mSearchCheckboxDialog.show();
             }
@@ -232,6 +227,9 @@ public class SearchActivity extends BaseActivity {
         sourceViewModel = new ViewModelProvider(this).get(SourceViewModel.class);
     }
 
+    private void initCheckedSourcesForSearch() {
+        mCheckSources = SearchHelper.getSourcesForSearch();
+    }
     /**
      * 拼音联想
      */
@@ -252,7 +250,7 @@ public class SearchActivity extends BaseActivity {
                             JsonArray itemList = json.get("item").getAsJsonArray();
                             for (JsonElement ele : itemList) {
                                 JsonObject obj = (JsonObject) ele;
-                                hots.add(obj.get("word").getAsString().trim());
+                                hots.add(obj.get("word").getAsString().trim().replaceAll("<|>|《|》|-", "").split(" ")[0]);
                             }
                             wordAdapter.setNewData(hots);
                         } catch (Throwable th) {
@@ -268,6 +266,7 @@ public class SearchActivity extends BaseActivity {
     }
 
     private void initData() {
+        initCheckedSourcesForSearch();
         refreshQRCode();
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("title")) {
@@ -380,7 +379,7 @@ public class SearchActivity extends BaseActivity {
             if (!bean.isSearchable()) {
                 continue;
             }
-            if (mCheckSourcees != null && !mCheckSourcees.containsKey(bean.getKey())) {
+            if (mCheckSources != null && !mCheckSources.containsKey(bean.getKey())) {
                 continue;
             }
             siteKey.add(bean.getKey());

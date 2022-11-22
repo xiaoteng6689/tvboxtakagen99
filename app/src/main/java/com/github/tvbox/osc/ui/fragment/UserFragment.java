@@ -132,10 +132,19 @@ public class UserFragment extends BaseLazyFragment implements View.OnClickListen
                     return;
                 Movie.Video vod = ((Movie.Video) adapter.getItem(position));
                 if (vod.id != null && !vod.id.isEmpty()) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("id", vod.id);
-                    bundle.putString("sourceKey", vod.sourceKey);
-                    jumpActivity(DetailActivity.class, bundle);
+                    if (vod.id.startsWith("msearch:"))
+                    {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("title", vod.name);
+                        jumpActivity(FastSearchActivity.class, bundle);
+                    }
+                    else
+                    {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", vod.id);
+                        bundle.putString("sourceKey", vod.sourceKey);
+                        jumpActivity(DetailActivity.class, bundle);
+                    }
                 } else {
                     Intent newIntent = new Intent(mContext, SearchActivity.class);
                     newIntent.putExtra("title", vod.name);

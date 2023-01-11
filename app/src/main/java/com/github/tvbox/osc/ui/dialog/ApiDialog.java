@@ -41,6 +41,8 @@ public class ApiDialog extends BaseDialog {
     private final ImageView ivQRCode;
     private final TextView tvAddress;
     private final EditText inputApi;
+    private final EditText inputLive;
+    private final EditText inputEPG;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refresh(RefreshEvent event) {
@@ -57,10 +59,19 @@ public class ApiDialog extends BaseDialog {
         tvAddress = findViewById(R.id.tvAddress);
         inputApi = findViewById(R.id.input);
         inputApi.setText(Hawk.get(HawkConfig.API_URL, ""));
+
+        // takagen99: Add Live & EPG Address
+        inputLive = findViewById(R.id.input_live);
+        inputLive.setText(Hawk.get(HawkConfig.LIVE_URL, ""));
+        inputEPG = findViewById(R.id.input_epg);
+        inputEPG.setText(Hawk.get(HawkConfig.EPG_URL, ""));
+
         findViewById(R.id.inputSubmit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String newApi = inputApi.getText().toString().trim();
+                String newLive = inputLive.getText().toString().trim();
+                String newEPG = inputEPG.getText().toString().trim();
                 // takagen99: Convert all to clan://localhost format
                 if (newApi.startsWith("file://")) {
                     newApi = newApi.replace("file://", "clan://localhost/");
@@ -77,6 +88,19 @@ public class ApiDialog extends BaseDialog {
                     listener.onchange(newApi);
                     dismiss();
                 }
+
+                // Capture Live input into Settings & Live History (max 20)
+                Hawk.put(HawkConfig.LIVE_URL, newLive);
+                if (!newLive.isEmpty()) {
+                    ArrayList<String> liveHistory = Hawk.get(HawkConfig.LIVE_HISTORY, new ArrayList<String>());
+                    if (!liveHistory.contains(newLive))
+                        liveHistory.add(0, newLive);
+                    if (liveHistory.size() > 20)
+                        liveHistory.remove(20);
+                    Hawk.put(HawkConfig.LIVE_HISTORY, liveHistory);
+                }
+                // Capture EPG input into Settings
+                Hawk.put(HawkConfig.EPG_URL, newEPG);
             }
         });
         findViewById(R.id.apiHistory).setOnClickListener(new View.OnClickListener() {
@@ -104,6 +128,34 @@ public class ApiDialog extends BaseDialog {
                         Hawk.put(HawkConfig.API_HISTORY, data);
                     }
                 }, history, idx);
+                dialog.show();
+            }
+        });
+        findViewById(R.id.liveHistory).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<String> liveHistory = Hawk.get(HawkConfig.LIVE_HISTORY, new ArrayList<String>());
+                if (liveHistory.isEmpty())
+                    return;
+                String current = Hawk.get(HawkConfig.LIVE_URL, "");
+                int idx = 0;
+                if (liveHistory.contains(current))
+                    idx = liveHistory.indexOf(current);
+                ApiHistoryDialog dialog = new ApiHistoryDialog(getContext());
+                dialog.setTip(HomeActivity.getRes().getString(R.string.dia_history_live));
+                dialog.setAdapter(new ApiHistoryDialogAdapter.SelectDialogInterface() {
+                    @Override
+                    public void click(String liveURL) {
+                        inputLive.setText(liveURL);
+                        Hawk.put(HawkConfig.LIVE_URL, liveURL);
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void del(String value, ArrayList<String> data) {
+                        Hawk.put(HawkConfig.LIVE_HISTORY, data);
+                    }
+                }, liveHistory, idx);
                 dialog.show();
             }
         });

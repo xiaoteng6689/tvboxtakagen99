@@ -11,12 +11,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.Icon;
+import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Rational;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -128,6 +130,8 @@ public class PlayActivity extends BaseActivity {
     private static final int PIP_BOARDCAST_ACTION_PLAYPAUSE = 1;
     private static final int PIP_BOARDCAST_ACTION_NEXT = 2;
 
+    private String videoURL;
+
     @Override
     protected int getLayoutResID() {
         return R.layout.activity_play;
@@ -197,7 +201,7 @@ public class PlayActivity extends BaseActivity {
                     PlayActivity.this.playPrevious();
                 } else {
                     String preProgressKey = progressKey;
-                    PlayActivity.this.playNext();
+                    PlayActivity.this.playNext(rmProgress);
                     if (rmProgress && preProgressKey != null)
                         CacheManager.delete(MD5.string2MD5(preProgressKey), 0);
                 }
@@ -206,7 +210,7 @@ public class PlayActivity extends BaseActivity {
             @Override
             public void playPre() {
                 if (mVodInfo.reverseSort) {
-                    PlayActivity.this.playNext();
+                    PlayActivity.this.playNext(false);
                 } else {
                     PlayActivity.this.playPrevious();
                 }
@@ -247,6 +251,11 @@ public class PlayActivity extends BaseActivity {
             @Override
             public void selectAudioTrack() {
                 selectMyAudioTrack();
+            }
+
+            @Override
+            public void openVideo() {
+                openMyVideo();
             }
 
             @Override
@@ -487,6 +496,14 @@ public class PlayActivity extends BaseActivity {
         dialog.show();
     }
 
+    void openMyVideo() {
+        Intent i = new Intent();
+        i.addCategory(Intent.CATEGORY_DEFAULT);
+        i.setAction(android.content.Intent.ACTION_VIEW);
+        i.setDataAndType(Uri.parse(videoURL), "video/*");
+        startActivity(Intent.createChooser(i, "Open Video with ..."));
+    }
+
     void setTip(String msg, boolean loading, boolean err) {
         try {
             mPlayLoadTip.setText(msg);
@@ -527,6 +544,7 @@ public class PlayActivity extends BaseActivity {
                 if (mVideoView != null) {
                     mVideoView.release();
                     if (url != null) {
+                        videoURL = url;
                         try {
                             int playerType = mVodPlayerCfg.getInt("pl");
                             // takagen99: Check for External Player
@@ -711,16 +729,29 @@ public class PlayActivity extends BaseActivity {
 
     // takagen99 : Add check for external players not enter PIP
     private boolean extPlay = false;
-    boolean PIP = Hawk.get(HawkConfig.PIC_IN_PIC, false);
+    boolean PiPON = Hawk.get(HawkConfig.PIC_IN_PIC, false);
 
     @Override
     public void onUserLeaveHint() {
-        if (supportsPiPMode() && !extPlay && PIP) {
+        if (supportsPiPMode() && !extPlay && PiPON) {
+            // Calculate Video Resolution
+            int vWidth = mVideoView.getVideoSize()[0];
+            int vHeight = mVideoView.getVideoSize()[1];
+            Rational ratio = null;
+            if (vWidth != 0) {
+                if ((((double) vWidth) / ((double) vHeight)) > 2.39) {
+                    vHeight = (int) (((double) vWidth) / 2.35);
+                }
+                ratio = new Rational(vWidth, vHeight);
+            } else {
+                ratio = new Rational(16, 9);
+            }
             List<RemoteAction> actions = new ArrayList<>();
             actions.add(generateRemoteAction(android.R.drawable.ic_media_previous, PIP_BOARDCAST_ACTION_PREV, "Prev", "Play Previous"));
             actions.add(generateRemoteAction(android.R.drawable.ic_media_play, PIP_BOARDCAST_ACTION_PLAYPAUSE, "Play/Pause", "Play or Pause"));
             actions.add(generateRemoteAction(android.R.drawable.ic_media_next, PIP_BOARDCAST_ACTION_NEXT, "Next", "Play Next"));
             PictureInPictureParams params = new PictureInPictureParams.Builder()
+                    .setAspectRatio(ratio)
                     .setActions(actions).build();
             enterPictureInPictureMode(params);
             mController.hideBottom();
@@ -815,7 +846,7 @@ public class PlayActivity extends BaseActivity {
                     } else if (currentStatus == PIP_BOARDCAST_ACTION_PLAYPAUSE) {
                         mController.togglePlay();
                     } else if (currentStatus == PIP_BOARDCAST_ACTION_NEXT) {
-                        playNext();
+                        playNext(false);
                     }
                 }
             };
@@ -847,7 +878,7 @@ public class PlayActivity extends BaseActivity {
     private String sourceKey;
     private SourceBean sourceBean;
 
-    private void playNext() {
+    private void playNext(boolean inProgress) {
         boolean hasNext = true;
         if (mVodInfo == null || mVodInfo.seriesMap.get(mVodInfo.playFlag) == null) {
             hasNext = false;
@@ -860,6 +891,10 @@ public class PlayActivity extends BaseActivity {
         }
         if (!hasNext) {
             Toast.makeText(this, "已经是最后一集了", Toast.LENGTH_SHORT).show();
+            // takagen99: To auto go back to Detail Page after last episode
+            if (inProgress) {
+                this.finish();
+            }
             return;
         }
         if (mVodInfo.reverseSort) {

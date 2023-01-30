@@ -63,6 +63,7 @@
     <string name="mn_backup">Backup/Restore</string>
     <string name="mn_dns">DNS</string>
     <string name="mn_locale">Language</string>
+    <string name="mn_theme">Theme</string>
     <string name="mn_about">About</string>
 
     // Settings Dialog Pop-Up //
@@ -70,7 +71,8 @@
     <string name="dia_hm_type">Select Display Type</string>
     <string name="dia_history">Select History to Keep</string>
     <string name="dia_history_list">Configuration History List</string>
-    <string name="dia_history_live">Live Configuration History</string>
+    <string name="dia_history_live">Live History List</string>
+    <string name="dia_history_epg">EPG History List</string>
     <string name="dia_player">Select Player Type</string>
     <string name="dia_decode">Select IJK Decoder</string>
     <string name="dia_search">Select Search Mode</string>
@@ -80,6 +82,7 @@
     <string name="dia_bkpkg">Select Backup Package</string>
     <string name="dia_dns">Select DNS</string>
     <string name="dia_locale">Select Language</string>
+    <string name="dia_theme">Select Theme</string>
 
     // Settings Backup Restore Page //
     <string name="set_bkup_ok">Backup Success</string>

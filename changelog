@@ -1,0 +1,8 @@
+2022-09
+Contributor(s): 
+takagen99
+    Added double tap to fast forward 10 seconds (on mobile)VOD Controller Pause / Fast Forward UI updatesMinor translation
+    Misc UpdatesLive Player press left to open Settings (for Android with no menu button)Refined animation for VOD controller (again)Alist Support in [File] (credits Kensonmiao)
+    Minor Live UI layoutHide NavBar only if 3-Buttons NavigationUpdate IJK Library (credits 影魔)Some old codes clean-up
+- - - - - - - - - - - - - - - - - - - - - - - - - - - 
+

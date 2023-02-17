@@ -6,7 +6,8 @@
 2. More english string is being used
 3. Modified code to use strings.xml instead of random constants
 ## Future 
-Use Chinese utils to auto translate from sim_chin to trad_chin for contents
+Use Chinese utils to auto translate from sim_chin to trad_chin for contents\
+https://github.com/luhuiguo/chinese-utils
 # Box
 
 === Source Code - Editing the app default settings ===

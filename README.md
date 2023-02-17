@@ -1,4 +1,6 @@
 # 繁體中文支持的TV Box
+> Please report a issue if there is words that are not translated
+> 如有未被翻譯的地方可以提出issue
 # My modification
 1. Added Tradionale Chinese(增加 繁體中文)
 2. More english string is being used

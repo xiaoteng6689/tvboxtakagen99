@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TVBox</string>
+    <string name="app_home">首頁</string>
+    <string name="app_source"></string>
+
+    // Home Page //
+    <string name="hm_ok">加載成功</string>
+    <string name="hm_notok">失敗加載</string>
+    <string name="hm_retry">重試</string>
+    <string name="hm_cancel">取消</string>
+    <string name="hm_exit">再按一次返回鍵退出應用</string>
+    <string name="hm_exit_live">再按一次返回鍵退出直播</string>
+    <string name="hm_date1">MM月dd日</string>
+    <string name="hm_date2">EE hh:mm aa</string>
+    <string name="hm_hist">歷史</string>
+    <string name="hm_live">直播</string>
+    <string name="hm_search">搜索</string>
+    <string name="hm_push">推送</string>
+    <string name="hm_file">文件</string>
+    <string name="hm_fav">收藏</string>
+    <string name="hm_setting">設置</string>
+    <string name="hm_style_line">一行顯示</string>
+    <string name="hm_style_grid">多行顯示</string>
+    <string name="hm_hist_del">已删除當前記錄</string>
+    <string name="hm_cache_del">已删除緩存</string>
+
+    // Play Detail Page //
+    <string name="det_play">播放</string>
+    <string name="det_expand">全屏</string>
+    <string name="det_search">快搜</string>
+    <string name="det_sort">倒序</string>
+    <string name="det_fav">收藏</string>
+    <string name="det_fav_add">已添加收藏</string>
+    <string name="det_fav_del">已取消收藏</string>
+    <string name="det_fav_star">★ 收藏</string>
+    <string name="det_fav_unstar">☆ 收藏</string>
+    <string name="det_url">播放地址已複製</string>
+    <string name="det_source"></string>
+    <string name="det_year">年份</string>
+    <string name="det_area">地區</string>
+    <string name="det_lang">語言</string>
+    <string name="det_type">類型</string>
+    <string name="det_actor">演員</string>
+    <string name="det_dir">導演</string>
+    <string name="det_des"></string>
+
+    // Settings Menu Page //
+    <string name="mn_config">配置地址</string>
+    <string name="mn_home">數據源</string>
+    <string name="mn_home_show">數據源顯示</string>
+    <string name="mn_home_type">推薦</string>
+    <string name="mn_icon">按鈕位置</string>
+    <string name="mn_history_num">歷史條數</string>
+    <string name="mn_wall_change">換張壁紙</string>
+    <string name="mn_wall_load">壁紙更換中</string>
+    <string name="mn_wall_reset">重置壁紙</string>
+    <string name="mn_play_type">播放器</string>
+    <string name="mn_play_decode">IJK解碼</string>
+    <string name="mn_search">搜索展示</string>
+    <string name="mn_ratio">畫面缩放</string>
+    <string name="mn_pip">畫中畫</string>
+    <string name="mn_preview">窗口預覽</string>
+    <string name="mn_webview">嗅探Webview</string>
+    <string name="mn_render">渲染方式</string>
+    <string name="mn_backup">數據備份還原</string>
+    <string name="mn_dns">安全DNS</string>
+    <string name="mn_locale">語言</string>
+    <string name="mn_theme">主題</string>
+    <string name="mn_about">關於</string>
+    <string name="mn_no_more">没有更多了</string>
+
+
+    // Settings Dialog Pop-Up //
+    <string name="dia_source">請選擇數據源</string>
+    <string name="dia_hm_type">請選擇列表數據</string>
+    <string name="dia_hm_icon">首頁按鈕位置</string>
+    <string name="dia_history">歷史條數保留</string>
+    <string name="dia_history_list">配置歷史列表</string>
+    <string name="dia_history_live">直播歷史列表</string>
+    <string name="dia_history_epg">EPG歷史列表</string>
+    <string name="dia_player">請選擇默认播放器</string>
+    <string name="dia_decode">請選擇IJK解碼</string>
+    <string name="dia_search">請選擇搜索视图</string>
+    <string name="dia_ratio">請選擇默认畫面缩放</string>
+    <string name="dia_render">請選擇默认渲染方式</string>
+    <string name="dia_bkres">數據備份還原</string>
+    <string name="dia_bkpkg">点击下方數據還原</string>
+    <string name="dia_dns">請選擇安全DNS</string>
+    <string name="dia_locale">請選擇應用語言</string>
+    <string name="dia_theme">請選擇主題</string>
+
+    // Settings Backup Restore Page //
+    <string name="set_bkup_ok">備份成功!</string>
+    <string name="set_bkup_del">備份删除</string>
+    <string name="set_bkup_fail">備份失敗!</string>
+    <string name="set_bkup_fail_hk">備份Hawk失敗!</string>
+    <string name="set_bkup_fail_db">DB文件不存在!</string>
+    <string name="set_rest_ok">恢復成功,請重啟應用!</string>
+    <string name="set_rest_fail_hk">Hawk恢復失敗!</string>
+    <string name="set_rest_fail_db">DB文件恢復失敗!</string>
+    <string name="set_permission_ok">已獲得存儲權限</string>
+    <string name="set_permission_fail1">獲取存儲權限失敗</string>
+    <string name="set_permission_fail2">獲取存儲權限失敗,請在系统設置中開啟</string>
+
+    // Activity Page //
+    <string name="act_app">我的應用</string>
+    <string name="act_app_sel">确定键删除當前選中應用</string>
+    <string name="act_app_rm">删除應用</string>
+    <string name="act_fav">收藏夹</string>
+    <string name="act_fav_sel">确定键删除當前選中收藏</string>
+    <string name="act_fav_rm">删除收藏</string>
+    <string name="act_drive">存儲空间</string>
+    <string name="act_hist">歷史記錄</string>
+    <string name="act_hist_sel">确定键删除當前選中記錄</string>
+    <string name="act_hist_rm">删除記錄</string>
+    <string name="act_search">搜索</string>
+    <string name="act_search_clr">清空</string>
+    <string name="act_search_del">删除</string>
+    <string name="act_search_rem">遠程搜索</string>
+    <string name="act_search_trend">熱門搜索</string>
+    <string name="act_search_txt">請輸入要搜索的内容</string>
+    <string name="act_settings">設置</string>
+    <string name="act_home">首頁</string>
+    <string name="act_player">播放器</string>
+    <string name="act_system">系統</string>
+
+    // Search Page //
+    <string name="search_input">輸入内容不能為空</string>
+    <string name="search_site">没有指定搜索源</string>
+    <string name="search_checkAll">全選</string>
+    <string name="search_clearAll">全不選</string>
+
+    // Fast Search Page //
+    <string name="fs_show_all">全部顯示</string>
+    <string name="fs_results">搜索結果</string>
+
+    // VOD //
+    <string name="vod_audio">切換音軌</string>
+    <string name="vod_no_audio">没有音軌</string>
+    <string name="vod_sub_option">字幕選項</string>
+    <string name="vod_sub_sel">切換内置字幕</string>
+    <string name="vod_sub_na">没有内置字幕</string>
+    <string name="vod_sub_int">内置</string>
+    <string name="vod_sub_ext">外置</string>
+    <string name="vod_sub_remote">搜索</string>
+    <string name="vod_sub_size">大小</string>
+    <string name="vod_sub_delay">延遲</string>
+    <string name="vod_sub_search">搜索</string>
+    <string name="vod_sub_off">字幕已關閉</string>
+    <string name="vod_play_error">視頻播放出錯</string>
+    <string name="vod_use_external">調用外部播放器</string>
+    <string name="vod_use_external2">進行</string>
+    <string name="vod_get_play_data_error">獲取播放信息錯誤</string>
+    <string name="vod_last_episode">已經是最後一集了</string>
+    <string name="vod_obtaining_playdata">正在獲取播放信息</string>
+    <string name="vod_sniffing_video_url">正在臭探撥付地址</string>
+    <string name="vod_sniff_error">嗅探錯誤</string>
+    <string name="vod_parsing_video_url">正在解析播放地址</string>
+    <string name="vod_network_request_error">網絡請求錯誤</string>
+    <string name="vod_parse_error">解析錯誤</string>
+    <string name="vod_parse_from">解析来自:</string>
+    <string name="vod_xwalk_not_compatible">XWalkView不兼容，已替換為系統自带WebView</string>
+    <string name="vod_xwalk_not_downloaded">XWalkView運行組件未下載，已替換為系統自带WebView</string>
+
+    // Settings Options //
+    <string name="set_enable">開啟</string>
+    <string name="set_disable">關閉</string>
+    <string name="set_webview_system">系統自帶</string>
+    <string name="dia_XWalkView_warn">注意: XWalkView只適用於部分低Android版本，Android5.0以上推薦使用系统自带</string>
+    <string name="set_homerec_site">站點推薦</string>
+    <string name="set_homerec_hist">觀看歷史</string>
+    <string name="set_homerec_douban">豆瓣热播</string>
+    <string name="set_searchview_textlist">文字列表</string>
+    <string name="set_searchview_thumbnail">縮略圖</string>
+    <string name="set_theme_netflix">Netflix</string>
+    <string name="set_theme_dora">哆啦</string>
+    <string name="set_theme_pepsi">百事</string>
+    <string name="set_theme_naruto">鳴人</string>
+    <string name="set_theme_yellow">小黃</string>
+    <string name="set_theme_yagami">八神</string>
+    <string name="set_theme_sakura">櫻花</string>
+    <string name="set_dns_tencent">騰訊</string>
+    <string name="set_dns_ali">阿里</string>
+    <string name="set_dns_google">Google</string>
+    <string name="set_ijkcodec_hard">硬解碼</string>
+    <string name="set_ijkcodec_soft">軟解碼</string>
+    <string name="set_scale_default">默認</string>
+    <string name="set_scale_match_parent">填充</string>
+    <string name="set_scale_original">原始</string>
+    <string name="set_scale_center_crop">裁剪</string>
+    <string name="set_hist_num_unit">條</string>
+
+    // Live //
+    <string name="live_no_program_data">暫無節目信息</string>
+    <string name="live_yesterday">昨天</string>
+    <string name="live_today">今天</string>
+    <string name="live_tomorrow">明天</string>
+    <string name="live_day_after_tomorrow">後天</string>
+    <string name="live_empty_list">頻道列表為空</string>
+    <string name="live_line_select">線路選擇</string>
+    <string name="live_screen_ratio">畫面比例</string>
+    <string name="live_codec">播放解碼</string>
+    <string name="live_overtime_source_change">超時換源</string>
+    <string name="live_preference">偏好設置</string>
+    <string name="live_ijk_hard">ijk硬解</string>
+    <string name="live_ijk_soft">ijk軟解</string>
+    <string name="live_prep_show_time">顯示時間</string>
+    <string name="live_prep_show_speed">顯示網速</string>
+    <string name="live_prep_reverse_change">換台反轉</string>
+    <string name="live_prep_cross_selection">跨選分類</string>
+    <string name="live_prep_disable_password">關閉密碼</string>
+    <string name="live_prep_live_source_list">直播列表</string>
+    <string name="live_wrong_pass">密碼錯誤</string>
+    <string name="live_please_select_channel">請先選擇頻道</string>
+    <string name="live_button_arrow1">節目</string>
+    <string name="live_button_arrow2">信息</string>
+    <string name="live_button_arrow3">更多</string>
+    <string name="live_epg_state_1">回看</string>
+    <string name="live_epg_state_2">直播中</string>
+    <string name="live_epg_state_3">預約</string>
+    <string name="live_epg_state_4">回看中</string>
+
+
+    //  Universal //
+    <string name="uni_success">成功</string>
+    <string name="uni_fail">失敗</string>
+
+</resources>

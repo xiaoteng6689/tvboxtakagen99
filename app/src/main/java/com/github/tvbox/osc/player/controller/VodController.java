@@ -57,6 +57,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -645,7 +646,11 @@ public class VodController extends BaseController {
 
                         @Override
                         public String getDisplay(Integer val) {
-                            return PlayerHelper.getPlayerName(val);
+                            if(val == 0){
+                                return getContext().getResources().getString(R.string.act_system);
+                            }else {
+                                return PlayerHelper.getPlayerName(val);
+                            }
                         }
                     }, new DiffUtil.ItemCallback<Integer>() {
                         @Override
@@ -879,9 +884,27 @@ public class VodController extends BaseController {
                 mSpeedHidell.setVisibility(GONE);
                 mSpeedll.setVisibility(GONE);
             }
-            mPlayerTxt.setText(PlayerHelper.getPlayerName(playerType));
-            mPlayerScaleTxt.setText(PlayerHelper.getScaleName(mPlayerConfig.getInt("sc")));
-            mPlayerIJKBtn.setText(mPlayerConfig.getString("ijk"));
+            if(playerType == 0){
+                mPlayerTxt.setText(PlayerHelper.getPlayerName(R.string.act_system));
+            }else{
+                mPlayerTxt.setText(PlayerHelper.getPlayerName(playerType));
+            }
+            ArrayList<String> tvScaleList = new ArrayList<>(
+                    Arrays.asList(
+                            getContext().getResources().getString(R.string.set_scale_default),
+                            getContext().getResources().getString(R.string.set_scale_16_9),
+                            getContext().getResources().getString(R.string.set_scale_4_3),
+                            getContext().getResources().getString(R.string.set_scale_match_parent),
+                            getContext().getResources().getString(R.string.set_scale_original),
+                            getContext().getResources().getString(R.string.set_scale_center_crop)
+                    )
+            );
+            mPlayerScaleTxt.setText(tvScaleList.get(mPlayerConfig.getInt("sc")));
+            if(mPlayerConfig.getString("ijk").contains("硬")){
+                mPlayerIJKBtn.setText(R.string.set_ijkcodec_hard);
+            }else{
+                mPlayerIJKBtn.setText(R.string.set_ijkcodec_soft);
+            }
             mPlayerIJKBtn.setVisibility(playerType == 1 ? VISIBLE : GONE);
             mFFwdTxt.setText("x" + mPlayerConfig.getDouble("sp"));
             mPlayerTimeStartBtn.setText(PlayerUtils.stringForTime(mPlayerConfig.getInt("st") * 1000));

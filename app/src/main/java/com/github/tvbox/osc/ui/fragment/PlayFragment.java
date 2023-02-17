@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Network;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
@@ -149,7 +150,7 @@ public class PlayFragment extends BaseLazyFragment {
                 switch (msg.what) {
                     case 100:
                         stopParse();
-                        errorWithRetry("嗅探错误", false);
+                        errorWithRetry(getString(R.string.vod_sniff_error), false);
                         break;
                 }
                 return false;
@@ -230,7 +231,7 @@ public class PlayFragment extends BaseLazyFragment {
 
             @Override
             public void errReplay() {
-                errorWithRetry("视频播放出错", false);
+                errorWithRetry(getString(R.string.vod_play_error), false);
             }
 
             @Override
@@ -546,7 +547,7 @@ public class PlayFragment extends BaseLazyFragment {
                             if (playerType >= 10) {
                                 VodInfo.VodSeries vs = mVodInfo.seriesMap.get(mVodInfo.playFlag).get(mVodInfo.playIndex);
                                 String playTitle = mVodInfo.name + " : " + vs.name;
-                                setTip("调用外部播放器" + PlayerHelper.getPlayerName(playerType) + "进行播放", true, false);
+                                setTip(getString(R.string.vod_use_external) + PlayerHelper.getPlayerName(playerType) + getString(R.string.vod_use_external2), true, false);
                                 boolean callResult = false;
                                 switch (playerType) {
                                     case 10: {
@@ -565,7 +566,7 @@ public class PlayFragment extends BaseLazyFragment {
                                         break;
                                     }
                                 }
-                                setTip("调用外部播放器" + PlayerHelper.getPlayerName(playerType) + (callResult ? "成功" : "失败"), callResult, !callResult);
+                                setTip(getString(R.string.vod_use_external) + PlayerHelper.getPlayerName(playerType) + (callResult ? getString(R.string.uni_success) : getString(R.string.uni_fail)), callResult, !callResult);
                                 return;
                             }
                         } catch (JSONException e) {
@@ -666,10 +667,10 @@ public class PlayFragment extends BaseLazyFragment {
                             playUrl(playUrl + url, headers);
                         }
                     } catch (Throwable th) {
-                        errorWithRetry("获取播放信息错误", true);
+                        errorWithRetry(getString(R.string.vod_play_error), true);
                     }
                 } else {
-                    errorWithRetry("获取播放信息错误", true);
+                    errorWithRetry(getString(R.string.vod_play_error), true);
                 }
             }
         });
@@ -806,7 +807,7 @@ public class PlayFragment extends BaseLazyFragment {
             hasNext = mVodInfo.playIndex + 1 < mVodInfo.seriesMap.get(mVodInfo.playFlag).size();
         }
         if (!hasNext) {
-            Toast.makeText(requireContext(), "已经是最后一集了", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), R.string.vod_last_episode, Toast.LENGTH_SHORT).show();
             // takagen99: To auto go back to Detail Page after last episode
             if (inProgress && ((DetailActivity) mActivity).fullWindows) {
                 ((DetailActivity) mActivity).toggleFullPreview();
@@ -826,7 +827,7 @@ public class PlayFragment extends BaseLazyFragment {
             hasPre = mVodInfo.playIndex - 1 >= 0;
         }
         if (!hasPre) {
-            Toast.makeText(requireContext(), "已经是第一集了", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), R.string.vod_last_episode, Toast.LENGTH_SHORT).show();
             return;
         }
         mVodInfo.playIndex--;
@@ -849,7 +850,7 @@ public class PlayFragment extends BaseLazyFragment {
     public void play(boolean reset) {
         VodInfo.VodSeries vs = mVodInfo.seriesMap.get(mVodInfo.playFlag).get(mVodInfo.playIndex);
         EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_REFRESH, mVodInfo.playIndex));
-        setTip("正在获取播放信息", true, false);
+        setTip(getString(R.string.vod_obtaining_playdata), true, false);
         String playTitleInfo = mVodInfo.name + " : " + vs.name;
         mController.setTitle(playTitleInfo);
 
@@ -977,12 +978,12 @@ public class PlayFragment extends BaseLazyFragment {
     private void doParse(ParseBean pb) {
         stopParse();
         if (pb.getType() == 0) {
-            setTip("正在嗅探播放地址", true, false);
+            setTip(getString(R.string.vod_sniffing_video_url), true, false);
             mHandler.removeMessages(100);
             mHandler.sendEmptyMessageDelayed(100, 20 * 1000);
             loadWebView(pb.getUrl() + webUrl);
         } else if (pb.getType() == 1) { // json 解析
-            setTip("正在解析播放地址", true, false);
+            setTip(getString(R.string.vod_parsing_video_url), true, false);
             // 解析ext
             HttpHeaders reqHeaders = new HttpHeaders();
             try {
@@ -1007,7 +1008,7 @@ public class PlayFragment extends BaseLazyFragment {
                             if (response.body() != null) {
                                 return response.body().string();
                             } else {
-                                throw new IllegalStateException("网络请求错误");
+                                throw new IllegalStateException(getString(R.string.vod_network_request_error));
                             }
                         }
 
@@ -1035,18 +1036,18 @@ public class PlayFragment extends BaseLazyFragment {
                                 playUrl(rs.getString("url"), headers);
                             } catch (Throwable e) {
                                 e.printStackTrace();
-                                errorWithRetry("解析错误", false);
+                                errorWithRetry(getString(R.string.vod_parse_error), false);
                             }
                         }
 
                         @Override
                         public void onError(Response<String> response) {
                             super.onError(response);
-                            errorWithRetry("解析错误", false);
+                            errorWithRetry(getString(R.string.vod_parse_error), false);
                         }
                     });
         } else if (pb.getType() == 2) { // json 扩展
-            setTip("正在解析播放地址", true, false);
+            setTip(getString(R.string.vod_parsing_video_url), true, false);
             parseThreadPool = Executors.newSingleThreadExecutor();
             LinkedHashMap<String, String> jxs = new LinkedHashMap<>();
             for (ParseBean p : ApiConfig.get().getParseBeanList()) {
@@ -1059,7 +1060,7 @@ public class PlayFragment extends BaseLazyFragment {
                 public void run() {
                     JSONObject rs = ApiConfig.get().jsonExt(pb.getUrl(), jxs, webUrl);
                     if (rs == null || !rs.has("url")) {
-                        errorWithRetry("解析错误", false);
+                        errorWithRetry(getString(R.string.vod_parse_error), false);
                     } else {
                         HashMap<String, String> headers = null;
                         if (rs.has("header")) {
@@ -1081,7 +1082,7 @@ public class PlayFragment extends BaseLazyFragment {
                             requireActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(mContext, "解析来自:" + rs.optString("jxFrom"), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(mContext, getString(R.string.vod_parse_from) + rs.optString("jxFrom"), Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
@@ -1096,7 +1097,7 @@ public class PlayFragment extends BaseLazyFragment {
                 }
             });
         } else if (pb.getType() == 3) { // json 聚合
-            setTip("正在解析播放地址", true, false);
+            setTip(getString(R.string.vod_parsing_video_url), true, false);
             parseThreadPool = Executors.newSingleThreadExecutor();
             LinkedHashMap<String, HashMap<String, String>> jxs = new LinkedHashMap<>();
             String extendName = "";
@@ -1116,7 +1117,7 @@ public class PlayFragment extends BaseLazyFragment {
                 public void run() {
                     JSONObject rs = ApiConfig.get().jsonExtMix(parseFlag + "111", pb.getUrl(), finalExtendName, jxs, webUrl);
                     if (rs == null || !rs.has("url")) {
-                        errorWithRetry("解析错误", false);
+                        errorWithRetry(getString(R.string.vod_parse_error), false);
                     } else {
                         if (rs.has("parse") && rs.optInt("parse", 0) == 1) {
                             requireActivity().runOnUiThread(new Runnable() {
@@ -1124,7 +1125,7 @@ public class PlayFragment extends BaseLazyFragment {
                                 public void run() {
                                     String mixParseUrl = DefaultConfig.checkReplaceProxy(rs.optString("url", ""));
                                     stopParse();
-                                    setTip("正在嗅探播放地址", true, false);
+                                    setTip(getString(R.string.vod_sniffing_video_url), true, false);
                                     mHandler.removeMessages(100);
                                     mHandler.sendEmptyMessageDelayed(100, 20 * 1000);
                                     loadWebView(mixParseUrl);
@@ -1184,14 +1185,14 @@ public class PlayFragment extends BaseLazyFragment {
 
                     @Override
                     public void fail() {
-                        Toast.makeText(mContext, "XWalkView不兼容，已替换为系统自带WebView", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, getString(R.string.vod_xwalk_not_compatible), Toast.LENGTH_SHORT).show();
                         initWebView(true);
                         loadUrl(url);
                     }
 
                     @Override
                     public void ignore() {
-                        Toast.makeText(mContext, "XWalkView运行组件未下载，已替换为系统自带WebView", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, getString(R.string.vod_xwalk_not_downloaded), Toast.LENGTH_SHORT).show();
                         initWebView(true);
                         loadUrl(url);
                     }

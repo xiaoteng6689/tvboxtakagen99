@@ -68,6 +68,7 @@
     <string name="mn_locale">语言</string>
     <string name="mn_theme">主题</string>
     <string name="mn_about">关于</string>
+    <string name="mn_no_more">没有更多了</string>
 
     // Settings Dialog Pop-Up //
     <string name="dia_source">请选择数据源</string>
@@ -87,6 +88,7 @@
     <string name="dia_dns">请选择安全DNS</string>
     <string name="dia_locale">请选择应用语言</string>
     <string name="dia_theme">请选择主题</string>
+
 
     // Settings Backup Restore Page //
     <string name="set_bkup_ok">备份成功!</string>
@@ -136,7 +138,7 @@
     // VOD //
     <string name="vod_audio">切换音轨</string>
     <string name="vod_no_audio">没有音轨</string>
-    <string name="vod_sub_option">字幕选项</string>
+    <string name="vod_sub_option">字幕選項</string>
     <string name="vod_sub_sel">切换内置字幕</string>
     <string name="vod_sub_na">没有内置字幕</string>
     <string name="vod_sub_int">内置</string>
@@ -145,6 +147,82 @@
     <string name="vod_sub_size">大小</string>
     <string name="vod_sub_delay">延迟</string>
     <string name="vod_sub_search">搜索</string>
-    <string name="vod_sub_off">字幕已关闭</string>
+    <string name="vod_play_error">视频播放出错</string>
+    <string name="vod_use_external">调用外部播放器</string>
+    <string name="vod_use_external2">进行播放</string>
+    <string name="vod_get_play_data_error">获取播放信息错误</string>
+    <string name="vod_last_episode">已经是最后一集了</string>
+    <string name="vod_obtaining_playdata">正在获取播放信息</string>
+    <string name="vod_sniffing_video_url">正在嗅探播放地址</string>
+    <string name="vod_sniff_error">嗅探错误</string>
+    <string name="vod_parsing_video_url">正在解析播放地址</string>
+    <string name="vod_network_request_error">网络请求错误</string>
+    <string name="vod_parse_error">解析错误</string>
+    <string name="vod_parse_from">解析来自:</string>
+    <string name="vod_xwalk_not_compatible">XWalkView不兼容，已替换为系统自带WebView</string>
+    <string name="vod_xwalk_not_downloaded">XWalkView运行组件未下载，已替换为系统自带WebView</string>
+    
+    // Settings Options //
+    <string name="vod_sub_off">字幕已關閉</string>
+    <string name="set_enable">开启</string>
+    <string name="set_disable">关闭</string>
+    <string name="set_webview_system">系统自带</string>
+    <string name="dia_XWalkView_warn">注意: XWalkView只适用于部分低Android版本，Android5.0以上推荐使用系统自带</string>
+    <string name="set_homerec_site">站点推荐</string>
+    <string name="set_homerec_hist">观看历史</string>
+    <string name="set_homerec_douban">豆瓣熱播</string>
+    <string name="set_searchview_textlist">文字列表</string>
+    <string name="set_searchview_thumbnail">缩略图</string>
+    <string name="set_theme_netflix">奈飞</string>
+    <string name="set_theme_dora">哆啦</string>
+    <string name="set_theme_pepsi">百事</string>
+    <string name="set_theme_naruto">鸣人</string>
+    <string name="set_theme_yellow">小黄</string>
+    <string name="set_theme_yagami">八神</string>
+    <string name="set_theme_sakura">樱花</string>
+    <string name="set_dns_tencent">腾讯</string>
+    <string name="set_dns_ali">阿里</string>
+    <string name="set_dns_google">谷歌</string>
+    <string name="set_ijkcodec_hard">硬解码</string>
+    <string name="set_ijkcodec_soft">软解码</string>
+    <string name="set_scale_default">默认</string>
+    <string name="set_scale_match_parent">填充</string>
+    <string name="set_scale_original">原始</string>
+    <string name="set_scale_center_crop">裁剪</string>
+    <string name="set_hist_num_unit">条</string>
+
+    // Live //
+    <string name="live_no_program_data">暂无节目信息</string>
+    <string name="live_yesterday">昨天</string>
+    <string name="live_today">今天</string>
+    <string name="live_tomorrow">明天</string>
+    <string name="live_day_after_tomorrow">后天</string>
+    <string name="live_empty_list">频道列表为空</string>
+    <string name="live_line_select">线路选择</string>
+    <string name="live_screen_ratio">画面比例</string>
+    <string name="live_codec">播放解码</string>
+    <string name="live_overtime_source_change">超时换源</string>
+    <string name="live_preference">偏好设置</string>
+    <string name="live_ijk_hard">ijk硬解</string>
+    <string name="live_ijk_soft">ijk软解</string>
+    <string name="live_prep_show_time">显示时间</string>
+    <string name="live_prep_show_speed">显示网速</string>
+    <string name="live_prep_reverse_change">换台反转</string>
+    <string name="live_prep_cross_selection">跨选分类</string>
+    <string name="live_prep_disable_password">关闭密码</string>
+    <string name="live_prep_live_source_list">直播列表</string>
+    <string name="live_wrong_pass">密码错误</string>
+    <string name="live_please_select_channel">请先选择频道</string>
+    <string name="live_button_arrow1">节目</string>
+    <string name="live_button_arrow2">信息</string>
+    <string name="live_button_arrow3">更多</string>
+    <string name="live_epg_state_1">回看</string>
+    <string name="live_epg_state_2">直播中</string>
+    <string name="live_epg_state_3">预约</string>
+    <string name="live_epg_state_4">回看中</string>
+
+    //  Universal //
+    <string name="uni_success">成功</string>
+    <string name="uni_fail">失败</string>
 
 </resources>

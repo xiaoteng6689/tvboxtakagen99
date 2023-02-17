@@ -70,9 +70,13 @@ public class App extends MultiDexApplication {
     }
 
     private void initLocale() {
-        if (Hawk.get(HawkConfig.HOME_LOCALE, 0) == 0) {
+        int localeval = Hawk.get(HawkConfig.HOME_LOCALE, 0);
+        if (localeval == 0) {
             LocaleHelper.setLocale(App.this, "zh");
-        } else {
+        } else if(localeval == 1){
+            LocaleHelper.setLocale(App.this,"ch");
+        }
+        else{
             LocaleHelper.setLocale(App.this, "");
         }
     }

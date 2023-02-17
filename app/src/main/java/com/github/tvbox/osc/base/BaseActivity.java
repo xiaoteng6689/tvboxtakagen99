@@ -52,9 +52,13 @@ public abstract class BaseActivity extends AppCompatActivity implements CustomAd
     // takagen99 : Fix for Locale change not persist on higher Android version
     @Override
     protected void attachBaseContext(Context base) {
-        if (Hawk.get(HawkConfig.HOME_LOCALE, 0) == 0) {
+        int localeval =  Hawk.get(HawkConfig.HOME_LOCALE, 0);
+        if (localeval == 0) {
             super.attachBaseContext(LocaleHelper.onAttach(base, "zh"));
-        } else {
+        } else if(localeval == 1){
+            super.attachBaseContext(LocaleHelper.onAttach(base,"ch"));
+        }
+        else{
             super.attachBaseContext(LocaleHelper.onAttach(base, ""));
         }
     }

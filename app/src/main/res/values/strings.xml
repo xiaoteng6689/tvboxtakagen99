@@ -68,6 +68,7 @@
     <string name="mn_locale">Language</string>
     <string name="mn_theme">Theme</string>
     <string name="mn_about">About</string>
+    <string name="mn_no_more">There is no more.</string>
 
     // Settings Dialog Pop-Up //
     <string name="dia_source">Select Source</string>
@@ -87,6 +88,7 @@
     <string name="dia_dns">Select DNS</string>
     <string name="dia_locale">Select Language</string>
     <string name="dia_theme">Select Theme</string>
+    <string name="dia_XWalkView_warn">Caution: XWalkView is only suitable for some old Android version，For versions above Android5.0, it is recommend to use the system default.</string>
 
     // Settings Backup Restore Page //
     <string name="set_bkup_ok">Backup Success</string>
@@ -146,5 +148,86 @@
     <string name="vod_sub_delay">Delay</string>
     <string name="vod_sub_search">Search</string>
     <string name="vod_sub_off">Subtitle Off</string>
+    <string name="vod_play_error">Video Playback Error</string>
+    <string name="vod_use_external">"Using external player "</string>
+    <string name="vod_use_external2">"to play"</string>
+    <string name="vod_get_play_data_error">Fail to Obtain PlayUrl</string>
+    <string name="vod_last_episode">Already last episode</string>
+    <string name="vod_obtaining_playdata">Obtaining play data</string>
+    <string name="vod_sniffing_video_url">Sniffing Video Url</string>
+    <string name="vod_parsing_video_url">Parsing Video Url</string>
+    <string name="vod_sniff_error">Sniff Error</string>
+    <string name="vod_network_request_error">Network Request Error</string>
+    <string name="vod_parse_error">Parse Error</string>
+    <string name="vod_parse_from">Parse from:</string>
+    <string name="vod_xwalk_not_compatible">XWalkView not compatible. Auto change to system WebView.</string>
+    <string name="vod_xwalk_not_downloaded">XWalkView not downloaded. Auto change to system WebView.</string>
 
+    // Settings Options //
+    <string name="set_enable">Enabled</string>
+    <string name="set_disable">Disabled</string>
+    <string name="set_webview_system">System Default</string>
+    <string name="set_webview_XWalkView" translatable="false">XWalkView</string>
+    <string name="set_homerec_site">Site Recommendation</string>
+    <string name="set_homerec_hist">History</string>
+    <string name="set_homerec_douban">Douban trends</string>
+    <string name="set_searchview_textlist">Text List</string>
+    <string name="set_searchview_thumbnail">Thumbnail</string>
+    <string name="set_theme_netflix">Netflix</string>
+    <string name="set_theme_dora">Doraemon</string>
+    <string name="set_theme_pepsi">Pepsi</string>
+    <string name="set_theme_naruto">Naruto</string>
+    <string name="set_theme_yellow">Little Yellow</string>
+    <string name="set_theme_yagami">Yagami</string>
+    <string name="set_theme_sakura">Sakura</string>
+    <string name="set_dns_tencent">Tencent</string>
+    <string name="set_dns_ali">alidns</string>
+    <string name="set_dns_360" translatable="false">360</string>
+    <string name="set_dns_google">Google</string>
+    <string name="set_dns_adguard" translatable="false">AdGuard</string>
+    <string name="set_dns_quad9" translatable="false">Quad9</string>
+    <string name="set_ijkcodec_hard">Hardware</string>
+    <string name="set_ijkcodec_soft">Software</string>
+    <string name="set_scale_default">Default</string>
+    <string name="set_scale_16_9" translatable="false">16:9</string>
+    <string name="set_scale_4_3" translatable="false">4:3</string>
+    <string name="set_scale_match_parent">Fill</string>
+    <string name="set_scale_original">Original</string>
+    <string name="set_scale_center_crop">Center crop</string>
+    <string name="set_hist_num_unit">line</string>
+    
+    // Live //
+    <string name="live_no_program_data">No Program Data</string>
+    <string name="live_yesterday">Yesterday</string>
+    <string name="live_today">Today</string>
+    <string name="live_tomorrow">Tomorrow</string>
+    <string name="live_day_after_tomorrow">Day After Tomorrow</string>
+    <string name="live_empty_list">The Chanel list is empty</string>
+    <string name="live_line_select">Route Selection</string>
+    <string name="live_screen_ratio">Screen Ratio</string>
+    <string name="live_codec">Video Codecs</string>
+    <string name="live_overtime_source_change">Overtime change route</string>
+    <string name="live_preference">Preference</string>
+    <string name="live_ijk_hard">ijk Hardware</string>
+    <string name="live_ijk_soft">ijk Software</string>
+    <string name="live_prep_show_time">Show Time</string>
+    <string name="live_prep_show_speed">Show Network Speed</string>
+    <string name="live_prep_reverse_change">Reverse Switch Channel</string>
+    <string name="live_prep_cross_selection">Category Cross Selection</string>
+    <string name="live_prep_disable_password">Disable Password</string>
+    <string name="live_prep_live_source_list">Source List</string>
+    <string name="live_wrong_pass">Wrong Password</string>
+    <string name="live_please_select_channel">Please select a channel</string>
+    <string name="live_button_arrow1">Programs</string>
+    <string name="live_button_arrow2">Guide</string>
+    <string name="live_button_arrow3">More</string>
+    <string name="live_epg_state_1">Replay</string>
+    <string name="live_epg_state_2">Live</string>
+    <string name="live_epg_state_3">Scheduled</string>
+    <string name="live_epg_state_4">Replaying</string>
+
+
+    //  Universal //
+    <string name="uni_success">Success</string>
+    <string name="uni_fail">Failed</string>
 </resources>

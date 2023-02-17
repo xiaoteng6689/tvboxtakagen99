@@ -183,7 +183,7 @@ public class PlayActivity extends BaseActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                long skip = st * 1000;
+                long skip =     st * 1000;
                 if (CacheManager.getCache(MD5.string2MD5(url)) == null) {
                     return skip;
                 }
@@ -236,7 +236,7 @@ public class PlayActivity extends BaseActivity {
 
             @Override
             public void errReplay() {
-                errorWithRetry("视频播放出错", false);
+                errorWithRetry(getString(R.string.vod_play_error), false);
             }
 
             @Override
@@ -552,7 +552,7 @@ public class PlayActivity extends BaseActivity {
                             if (playerType >= 10) {
                                 VodInfo.VodSeries vs = mVodInfo.seriesMap.get(mVodInfo.playFlag).get(mVodInfo.playIndex);
                                 String playTitle = mVodInfo.name + " : " + vs.name;
-                                setTip("调用外部播放器" + PlayerHelper.getPlayerName(playerType) + "进行播放", true, false);
+                                setTip(getString(R.string.vod_use_external) + PlayerHelper.getPlayerName(playerType) + getString(R.string.vod_use_external2), true, false);
                                 boolean callResult = false;
                                 switch (playerType) {
                                     case 10: {
@@ -571,7 +571,7 @@ public class PlayActivity extends BaseActivity {
                                         break;
                                     }
                                 }
-                                setTip("调用外部播放器" + PlayerHelper.getPlayerName(playerType) + (callResult ? "成功" : "失败"), callResult, !callResult);
+                                setTip( getString(R.string.vod_use_external) + PlayerHelper.getPlayerName(playerType) + (callResult ? getString(R.string.uni_success) : getString(R.string.uni_fail)), callResult, !callResult);
                                 return;
                             }
                         } catch (JSONException e) {
@@ -672,10 +672,10 @@ public class PlayActivity extends BaseActivity {
                             playUrl(playUrl + url, headers);
                         }
                     } catch (Throwable th) {
-                        errorWithRetry("获取播放信息错误", true);
+                        errorWithRetry(getString(R.string.vod_get_play_data_error), true);
                     }
                 } else {
-                    errorWithRetry("获取播放信息错误", true);
+                    errorWithRetry(getString(R.string.vod_get_play_data_error), true);
                 }
             }
         });
@@ -919,7 +919,7 @@ public class PlayActivity extends BaseActivity {
             }
         }
         if (!hasNext) {
-            Toast.makeText(this, "已经是最后一集了", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.vod_last_episode, Toast.LENGTH_SHORT).show();
             // takagen99: To auto go back to Detail Page after last episode
             if (inProgress) {
                 this.finish();
@@ -946,7 +946,7 @@ public class PlayActivity extends BaseActivity {
             }
         }
         if (!hasPre) {
-            Toast.makeText(this, "已经是第一集了", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.vod_last_episode, Toast.LENGTH_SHORT).show();
             return;
         }
         if (mVodInfo.reverseSort) {
@@ -973,7 +973,7 @@ public class PlayActivity extends BaseActivity {
     public void play(boolean reset) {
         VodInfo.VodSeries vs = mVodInfo.seriesMap.get(mVodInfo.playFlag).get(mVodInfo.playIndex);
         EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_REFRESH, mVodInfo.playIndex));
-        setTip("正在获取播放信息", true, false);
+        setTip(getString(R.string.vod_obtaining_playdata), true, false);
         String playTitleInfo = mVodInfo.name + " : " + vs.name;
         mController.setTitle(playTitleInfo);
 
@@ -1118,12 +1118,12 @@ public class PlayActivity extends BaseActivity {
     private void doParse(ParseBean pb) {
         stopParse();
         if (pb.getType() == 0) {
-            setTip("正在嗅探播放地址", true, false);
+            setTip(getString(R.string.vod_sniffing_video_url), true, false);
             mHandler.removeMessages(100);
             mHandler.sendEmptyMessageDelayed(100, 20 * 1000);
             loadWebView(pb.getUrl() + webUrl);
         } else if (pb.getType() == 1) { // json 解析
-            setTip("正在解析播放地址", true, false);
+            setTip(getString(R.string.vod_parsing_video_url), true, false);
             // 解析ext
             HttpHeaders reqHeaders = new HttpHeaders();
             try {
@@ -1148,7 +1148,7 @@ public class PlayActivity extends BaseActivity {
                             if (response.body() != null) {
                                 return response.body().string();
                             } else {
-                                throw new IllegalStateException("网络请求错误");
+                                throw new IllegalStateException(getString(R.string.vod_network_request_error));
                             }
                         }
 
@@ -1176,18 +1176,18 @@ public class PlayActivity extends BaseActivity {
                                 playUrl(rs.getString("url"), headers);
                             } catch (Throwable e) {
                                 e.printStackTrace();
-                                errorWithRetry("解析错误", false);
+                                errorWithRetry(getString(R.string.vod_parse_error), false);
                             }
                         }
 
                         @Override
                         public void onError(Response<String> response) {
                             super.onError(response);
-                            errorWithRetry("解析错误", false);
+                            errorWithRetry(getString(R.string.vod_parse_error), false);
                         }
                     });
         } else if (pb.getType() == 2) { // json 扩展
-            setTip("正在解析播放地址", true, false);
+            setTip(getString(R.string.vod_parsing_video_url), true, false);
             parseThreadPool = Executors.newSingleThreadExecutor();
             LinkedHashMap<String, String> jxs = new LinkedHashMap<>();
             for (ParseBean p : ApiConfig.get().getParseBeanList()) {
@@ -1200,7 +1200,7 @@ public class PlayActivity extends BaseActivity {
                 public void run() {
                     JSONObject rs = ApiConfig.get().jsonExt(pb.getUrl(), jxs, webUrl);
                     if (rs == null || !rs.has("url")) {
-                        errorWithRetry("解析错误", false);
+                        errorWithRetry(getString(R.string.vod_parse_error), false);
                     } else {
                         HashMap<String, String> headers = null;
                         if (rs.has("header")) {
@@ -1222,7 +1222,7 @@ public class PlayActivity extends BaseActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(mContext, "解析来自:" + rs.optString("jxFrom"), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(mContext, getString(R.string.vod_parse_from) + rs.optString("jxFrom"), Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
@@ -1237,7 +1237,7 @@ public class PlayActivity extends BaseActivity {
                 }
             });
         } else if (pb.getType() == 3) { // json 聚合
-            setTip("正在解析播放地址", true, false);
+            setTip(getString(R.string.vod_parsing_video_url), true, false);
             parseThreadPool = Executors.newSingleThreadExecutor();
             LinkedHashMap<String, HashMap<String, String>> jxs = new LinkedHashMap<>();
             String extendName = "";
@@ -1257,7 +1257,7 @@ public class PlayActivity extends BaseActivity {
                 public void run() {
                     JSONObject rs = ApiConfig.get().jsonExtMix(parseFlag + "111", pb.getUrl(), finalExtendName, jxs, webUrl);
                     if (rs == null || !rs.has("url")) {
-                        errorWithRetry("解析错误", false);
+                        errorWithRetry(getString(R.string.vod_parse_error), false);
                     } else {
                         if (rs.has("parse") && rs.optInt("parse", 0) == 1) {
                             runOnUiThread(new Runnable() {
@@ -1265,7 +1265,7 @@ public class PlayActivity extends BaseActivity {
                                 public void run() {
                                     String mixParseUrl = DefaultConfig.checkReplaceProxy(rs.optString("url", ""));
                                     stopParse();
-                                    setTip("正在嗅探播放地址", true, false);
+                                    setTip(getString(R.string.vod_sniffing_video_url), true, false);
                                     mHandler.removeMessages(100);
                                     mHandler.sendEmptyMessageDelayed(100, 20 * 1000);
                                     loadWebView(mixParseUrl);
@@ -1292,7 +1292,7 @@ public class PlayActivity extends BaseActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(mContext, "解析来自:" + rs.optString("jxFrom"), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(mContext, getString(R.string.vod_parse_from) + rs.optString("jxFrom"), Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
@@ -1325,14 +1325,14 @@ public class PlayActivity extends BaseActivity {
 
                     @Override
                     public void fail() {
-                        Toast.makeText(mContext, "XWalkView不兼容，已替换为系统自带WebView", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, R.string.vod_xwalk_not_compatible, Toast.LENGTH_SHORT).show();
                         initWebView(true);
                         loadUrl(url);
                     }
 
                     @Override
                     public void ignore() {
-                        Toast.makeText(mContext, "XWalkView运行组件未下载，已替换为系统自带WebView", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext,R.string.vod_xwalk_not_downloaded , Toast.LENGTH_SHORT).show();
                         initWebView(true);
                         loadUrl(url);
                     }

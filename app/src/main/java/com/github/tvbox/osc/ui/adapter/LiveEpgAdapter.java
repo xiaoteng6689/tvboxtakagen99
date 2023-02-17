@@ -56,17 +56,17 @@ public class LiveEpgAdapter extends BaseQuickAdapter<Epginfo, BaseViewHolder> {
             shiyi.setVisibility(View.VISIBLE);
             shiyi.setBackgroundColor(mContext.getResources().getColor(R.color.color_32364E));
             shiyi.setTextColor(mContext.getResources().getColor(R.color.color_FFFFFF));
-            shiyi.setText("直播");
+            shiyi.setText(R.string.live_epg_state_2);
         } else if (now.compareTo(value.enddateTime) > 0 && source_include_back) {
             shiyi.setVisibility(View.VISIBLE);
             shiyi.setBackgroundColor(mContext.getResources().getColor(R.color.color_32364E_40));
             shiyi.setTextColor(mContext.getResources().getColor(R.color.color_FFFFFF));
-            shiyi.setText("回看");
+            shiyi.setText(R.string.live_epg_state_1);
         } else if (now.compareTo(value.startdateTime) < 0 && source_include_back) {
             shiyi.setVisibility(View.VISIBLE);
             shiyi.setBackgroundColor(mContext.getResources().getColor(R.color.color_3D3D3D));
             shiyi.setTextColor(mContext.getResources().getColor(R.color.color_FFFFFF));
-            shiyi.setText("预约");
+            shiyi.setText(R.string.live_epg_state_3);
         } else {
             shiyi.setVisibility(View.GONE);
         }
@@ -85,7 +85,7 @@ public class LiveEpgAdapter extends BaseQuickAdapter<Epginfo, BaseViewHolder> {
                 timeview.setTextColor(((BaseActivity) mContext).getThemeColor());
                 textview.setFreezesText(true);
                 timeview.setFreezesText(true);
-                shiyi.setText("直播中");
+                shiyi.setText(R.string.live_epg_state_2);
             } else {
                 wqddg_AudioWaveView.setVisibility(View.GONE);
             }
@@ -99,9 +99,9 @@ public class LiveEpgAdapter extends BaseQuickAdapter<Epginfo, BaseViewHolder> {
                 timeview.setTextColor(((BaseActivity) mContext).getThemeColor());
                 textview.setFreezesText(true);
                 timeview.setFreezesText(true);
-                shiyi.setText("回看中");
+                shiyi.setText(R.string.live_epg_state_4);
                 if (now.compareTo(value.startdateTime) >= 0 && now.compareTo(value.enddateTime) <= 0) {
-                    shiyi.setText("直播中");
+                    shiyi.setText(R.string.live_epg_state_2);
                 }
                 wqddg_AudioWaveView.setVisibility(View.VISIBLE);
             } else {

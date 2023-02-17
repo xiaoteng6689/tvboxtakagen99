@@ -60,7 +60,7 @@
                 android:shadowDx="0"
                 android:shadowDy="0"
                 android:shadowRadius="3"
-                android:text="更 多"
+                android:text="@string/live_button_arrow3"
                 android:textColor="@color/color_FFFFFF"
                 android:textSize="@dimen/ts_18"
                 android:textStyle="bold" />
@@ -85,7 +85,7 @@
                 android:shadowDx="0"
                 android:shadowDy="0"
                 android:shadowRadius="3"
-                android:text="节 目"
+                android:text="@string/live_button_arrow1"
                 android:textColor="@color/color_FFFFFF"
                 android:textSize="@dimen/ts_18"
                 android:textStyle="bold" />
@@ -140,7 +140,7 @@
                 android:shadowDx="0"
                 android:shadowDy="0"
                 android:shadowRadius="3"
-                android:text="节 目"
+                android:text="@string/live_button_arrow1"
                 android:textColor="@color/color_FFFFFF"
                 android:textSize="@dimen/ts_18"
                 android:textStyle="bold" />
@@ -165,7 +165,7 @@
                 android:shadowDx="0"
                 android:shadowDy="0"
                 android:shadowRadius="3"
-                android:text="信 息"
+                android:text="@string/live_button_arrow2"
                 android:textColor="@color/color_FFFFFF"
                 android:textSize="@dimen/ts_18"
                 android:textStyle="bold" />
@@ -216,7 +216,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="暂无节目信息…"
+                android:text="@string/live_no_program_data"
                 android:textColor="@color/color_FFFFFF"
                 android:visibility="gone" />
 

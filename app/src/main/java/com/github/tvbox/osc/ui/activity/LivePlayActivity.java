@@ -626,7 +626,7 @@ public class LivePlayActivity extends BaseActivity {
             }
         } else {
 
-            Epginfo epgbcinfo = new Epginfo(date, "暂无节目信息", date, "00:00", "23:59", 0);
+            Epginfo epgbcinfo = new Epginfo(date, getString(R.string.live_no_program_data), date, "00:00", "23:59", 0);
             arrayList.add(epgbcinfo);
             epgdata = arrayList;
             epgListAdapter.setNewData(epgdata);
@@ -1090,13 +1090,13 @@ public class LivePlayActivity extends BaseActivity {
 
             // takagen99: Yesterday / Today / Tomorrow
             if (i == 5) {
-                epgDate.setDatePresented("昨天");
+                epgDate.setDatePresented(getString(R.string.live_yesterday));
             } else if (i == 6) {
-                epgDate.setDatePresented("今天");
+                epgDate.setDatePresented(getString(R.string.live_today));
             } else if (i == 7) {
-                epgDate.setDatePresented("明天");
+                epgDate.setDatePresented(getString(R.string.live_tomorrow));
             } else if (i == 8) {
-                epgDate.setDatePresented("后天");
+                epgDate.setDatePresented(getString(R.string.live_day_after_tomorrow));
             } else {
                 epgDate.setDatePresented(datePresentFormat.format(dateIns));
             }
@@ -1486,7 +1486,7 @@ public class LivePlayActivity extends BaseActivity {
     private void initLiveChannelList() {
         List<LiveChannelGroup> list = ApiConfig.get().getChannelGroupList();
         if (list.isEmpty()) {
-            Toast.makeText(App.getInstance(), "频道列表为空", Toast.LENGTH_SHORT).show();
+            Toast.makeText(App.getInstance(), R.string.live_empty_list, Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
@@ -1508,7 +1508,7 @@ public class LivePlayActivity extends BaseActivity {
             Uri parsedUrl = Uri.parse(url);
             url = new String(Base64.decode(parsedUrl.getQueryParameter("ext"), Base64.DEFAULT | Base64.URL_SAFE | Base64.NO_WRAP), "UTF-8");
         } catch (Throwable th) {
-            Toast.makeText(App.getInstance(), "频道列表为空", Toast.LENGTH_SHORT).show();
+            Toast.makeText(App.getInstance(), R.string.live_empty_list, Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
@@ -1530,7 +1530,7 @@ public class LivePlayActivity extends BaseActivity {
                 ApiConfig.get().loadLives(livesArray);
                 List<LiveChannelGroup> list = ApiConfig.get().getChannelGroupList();
                 if (list.isEmpty()) {
-                    Toast.makeText(App.getInstance(), "频道列表为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(App.getInstance(), R.string.live_empty_list, Toast.LENGTH_SHORT).show();
                     finish();
                     return;
                 }
@@ -1609,13 +1609,13 @@ public class LivePlayActivity extends BaseActivity {
     }
 
     private void initLiveSettingGroupList() {
-        ArrayList<String> groupNames = new ArrayList<>(Arrays.asList("线路选择", "画面比例", "播放解码", "超时换源", "偏好设置"));
+        ArrayList<String> groupNames = new ArrayList<>(Arrays.asList(getString(R.string.live_line_select), getString(R.string.live_screen_ratio), getString(R.string.live_codec), getString(R.string.live_overtime_source_change), getString(R.string.live_preference)));
         ArrayList<ArrayList<String>> itemsArrayList = new ArrayList<>();
         ArrayList<String> sourceItems = new ArrayList<>();
-        ArrayList<String> scaleItems = new ArrayList<>(Arrays.asList("默认", "16:9", "4:3", "填充", "原始", "裁剪"));
-        ArrayList<String> playerDecoderItems = new ArrayList<>(Arrays.asList("系统", "ijk硬解", "ijk软解", "exo"));
+        ArrayList<String> scaleItems = new ArrayList<>(Arrays.asList(getString(R.string.set_scale_default), getString(R.string.set_scale_16_9), getString(R.string.set_scale_4_3), getString(R.string.set_scale_match_parent), getString(R.string.set_scale_original), getString(R.string.set_scale_center_crop)));
+        ArrayList<String> playerDecoderItems = new ArrayList<>(Arrays.asList(getString(R.string.act_system), getString(R.string.live_ijk_hard), getString(R.string.live_ijk_soft), "exo"));
         ArrayList<String> timeoutItems = new ArrayList<>(Arrays.asList("5s", "10s", "15s", "20s", "25s", "30s"));
-        ArrayList<String> personalSettingItems = new ArrayList<>(Arrays.asList("显示时间", "显示网速", "换台反转", "跨选分类", "关闭密码", "直播列表"));
+        ArrayList<String> personalSettingItems = new ArrayList<>(Arrays.asList(getString(R.string.live_prep_show_time), getString(R.string.live_prep_show_speed), getString(R.string.live_prep_reverse_change), getString(R.string.live_prep_cross_selection), getString(R.string.live_prep_disable_password), getString(R.string.live_prep_live_source_list)));
         itemsArrayList.add(sourceItems);
         itemsArrayList.add(scaleItems);
         itemsArrayList.add(playerDecoderItems);
@@ -1715,7 +1715,7 @@ public class LivePlayActivity extends BaseActivity {
                     channelGroupPasswordConfirmed.add(groupIndex);
                     loadChannelGroupDataAndPlay(groupIndex, liveChannelIndex);
                 } else {
-                    Toast.makeText(App.getInstance(), "密码错误", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(App.getInstance(), R.string.live_wrong_pass, Toast.LENGTH_SHORT).show();
                 }
 
                 if (tvLeftChannelListLayout.getVisibility() == View.VISIBLE)
@@ -1825,7 +1825,7 @@ public class LivePlayActivity extends BaseActivity {
 
     private boolean isCurrentLiveChannelValid() {
         if (currentLiveChannelItem == null) {
-            Toast.makeText(App.getInstance(), "请先选择频道", Toast.LENGTH_SHORT).show();
+            Toast.makeText(App.getInstance(), R.string.live_please_select_channel, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

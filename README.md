@@ -1,3 +1,10 @@
+# 繁體中文支持的TV Box
+# My modification
+Added Tradionale Chinese(增加 繁體中文)\
+More english string is being used
+Modified code to use strings.xml instead of random constants
+## Future 
+Use Chinese utils to auto translate from sim_chin to trad_chin for contents
 # Box
 
 === Source Code - Editing the app default settings ===

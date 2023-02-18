@@ -1,7 +1,9 @@
 package com.github.tvbox.osc.viewmodel.drive;
 
+import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.bean.DriveFolderFile;
 import com.github.tvbox.osc.cache.StorageDrive;
+import com.github.tvbox.osc.ui.activity.HomeActivity;
 import com.github.tvbox.osc.util.StorageDriveType;
 import com.github.tvbox.osc.util.UA;
 import com.google.gson.JsonArray;
@@ -100,7 +102,7 @@ public class AlistDriveViewModel extends AbstractDriveViewModel {
                                         callback.callback(currentDriveNote.getChildren(), false);
                                 } catch (Exception ex) {
                                     if (callback != null)
-                                        callback.fail("无法访问，请注意地址格式");
+                                        callback.fail(HomeActivity.getRes().getString(R.string.drive_fail_access));
                                 }
                             }
                         });
@@ -174,7 +176,7 @@ public class AlistDriveViewModel extends AbstractDriveViewModel {
                                     callback.callback(items, false);
                             } catch (Exception ex) {
                                 if (callback != null)
-                                    callback.fail("无法访问，请注意地址格式");
+                                    callback.fail(HomeActivity.getRes().getString(R.string.drive_fail_access));
                             }
                         }
                     });

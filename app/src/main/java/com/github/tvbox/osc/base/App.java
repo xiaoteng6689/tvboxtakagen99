@@ -2,6 +2,8 @@ package com.github.tvbox.osc.base;
 
 import androidx.multidex.MultiDexApplication;
 
+import com.github.liuyueyi.quick.transfer.ChineseUtils;
+import com.github.liuyueyi.quick.transfer.constants.TransType;
 import com.github.tvbox.osc.callback.EmptyCallback;
 import com.github.tvbox.osc.callback.LoadingCallback;
 import com.github.tvbox.osc.data.AppDataManager;
@@ -50,7 +52,6 @@ public class App extends MultiDexApplication {
                 .setSupportSP(false)
                 .setSupportSubunits(Subunits.MM);
         PlayerHelper.init();
-
         // Add JS support
         JSEngine.getInstance().create();
     }
@@ -74,7 +75,9 @@ public class App extends MultiDexApplication {
         if (localeval == 0) {
             LocaleHelper.setLocale(App.this, "zh");
         } else if(localeval == 1){
-            LocaleHelper.setLocale(App.this,"ch");
+            LocaleHelper.setLocale(App.this,"ch");//traditional chin
+            //preload chinese dictonary
+            ChineseUtils.preLoad(true, TransType.SIMPLE_TO_TRADITIONAL);
         }
         else{
             LocaleHelper.setLocale(App.this, "");

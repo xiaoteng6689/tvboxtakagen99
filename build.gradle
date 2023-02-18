@@ -23,8 +23,8 @@ allprojects {
         maven { url "https://jitpack.io" }
         maven { url 'https://download.01.org/crosswalk/releases/crosswalk/android/maven2' }
     }
-}
 
+}
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

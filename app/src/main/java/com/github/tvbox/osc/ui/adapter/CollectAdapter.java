@@ -13,6 +13,7 @@ import com.github.tvbox.osc.api.ApiConfig;
 import com.github.tvbox.osc.bean.SourceBean;
 import com.github.tvbox.osc.cache.VodCollect;
 import com.github.tvbox.osc.picasso.RoundTransformation;
+import com.github.tvbox.osc.util.ChineseTran;
 import com.github.tvbox.osc.util.DefaultConfig;
 import com.github.tvbox.osc.util.HawkConfig;
 import com.github.tvbox.osc.util.MD5;
@@ -29,6 +30,11 @@ public class CollectAdapter extends BaseQuickAdapter<VodCollect, BaseViewHolder>
 
     @Override
     protected void convert(BaseViewHolder helper, VodCollect item) {
+        //check if traditional translate is needed
+        boolean trad = false;
+        if(ChineseTran.check()){
+            trad = true;
+        }
         // takagen99: Add Delete Mode
         FrameLayout tvDel = helper.getView(R.id.delFrameLayout);
         if (HawkConfig.hotVodDelete) {
@@ -41,10 +47,10 @@ public class CollectAdapter extends BaseQuickAdapter<VodCollect, BaseViewHolder>
         helper.setVisible(R.id.tvLang, false);
         helper.setVisible(R.id.tvArea, false);
         helper.setVisible(R.id.tvNote, false);
-        helper.setText(R.id.tvName, item.name);
+        helper.setText(R.id.tvName, ChineseTran.simToTran(item.name,trad));
         TextView tvYear = helper.getView(R.id.tvYear);
         SourceBean source = ApiConfig.get().getSource(item.sourceKey);
-        tvYear.setText(source!=null?source.getName():"");
+        tvYear.setText(source!=null?ChineseTran.simToTran(source.getName(),trad):"");
         ImageView ivThumb = helper.getView(R.id.ivThumb);
         //由于部分电视机使用glide报错
         if (!TextUtils.isEmpty(item.pic)) {

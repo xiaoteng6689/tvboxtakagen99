@@ -1,6 +1,8 @@
 package com.github.tvbox.osc.viewmodel.drive;
 
+import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.bean.DriveFolderFile;
+import com.github.tvbox.osc.ui.activity.HomeActivity;
 import com.google.gson.JsonObject;
 import com.thegrizzlylabs.sardineandroid.DavResource;
 import com.thegrizzlylabs.sardineandroid.Sardine;
@@ -49,7 +51,7 @@ public class WebDAVDriveViewModel extends AbstractDriveViewModel {
                 public void run() {
                     Sardine webDAV = getWebDAV();
                     if (webDAV == null && callback != null) {
-                        callback.fail("无法访问该WebDAV地址");
+                        callback.fail(HomeActivity.getRes().getString(R.string.drive_cannot_access_webdav));
                         return;
                     }
                     List<DavResource> files = null;
@@ -57,7 +59,7 @@ public class WebDAVDriveViewModel extends AbstractDriveViewModel {
                         files = webDAV.list(config.get("url").getAsString() + targetPath);
                     } catch (Exception ex) {
                         if (callback != null)
-                            callback.fail("无法访问该WebDAV地址");
+                            callback.fail(HomeActivity.getRes().getString(R.string.drive_cannot_access_webdav));
                         return;
                     }
 

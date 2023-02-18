@@ -44,6 +44,7 @@
     <string name="det_actor">Cast</string>
     <string name="det_dir">Director</string>
     <string name="det_des"></string>
+    <string name="det_order">Order</string>
 
     // Settings Menu Page //
     <string name="mn_config">Configuration Address</string>
@@ -89,6 +90,10 @@
     <string name="dia_locale">Select Language</string>
     <string name="dia_theme">Select Theme</string>
     <string name="dia_XWalkView_warn">Caution: XWalkView is only suitable for some old Android version，For versions above Android5.0, it is recommend to use the system default.</string>
+    <string name="dia_remote">Phone/PC scan the above QR code or use browser to visit the Address below</string>
+    <string name="dia_sub_empty">Input cannot be empty</string>
+    <string name="dia_sub_failtofind">Fail to find a matched subtitle</string>
+    <string name="dia_about">This software only provides aggregated display functions, all resources come from the Internet, and the software does not participate in any content production, upload, storage, download,etc.The software is only for learning reference, please delete it within 24 hours after installation. \n\nPlease keep the source after package distribution\nhttps://github.com/CatVodTVOfficial/TVBoxOSC</string>
 
     // Settings Backup Restore Page //
     <string name="set_bkup_ok">Backup Success</string>
@@ -148,6 +153,7 @@
     <string name="vod_sub_delay">Delay</string>
     <string name="vod_sub_search">Search</string>
     <string name="vod_sub_off">Subtitle Off</string>
+    <string name="vod_sub_style_suc">Style set successfully</string>
     <string name="vod_play_error">Video Playback Error</string>
     <string name="vod_use_external">"Using external player "</string>
     <string name="vod_use_external2">"to play"</string>
@@ -226,6 +232,30 @@
     <string name="live_epg_state_3">Scheduled</string>
     <string name="live_epg_state_4">Replaying</string>
 
+    // Drive //
+    <string name="drive_select_type">Select Drive type</string>
+    <string name="drive_order_select">Please select the order for the list</string>
+    <string name="drive_order_name_asc">By Name(Ascending)</string>
+    <string name="drive_order_name_dsc">By Name(Descending)</string>
+    <string name="drive_order_time_asc">By Modified time(Ascending)</string>
+    <string name="drive_order_time_dsc">By Modified time(Descending)</string>
+    <string name="drive_select_folder">Select a folder</string>
+    <string name="drive_confirm">Confirm</string>
+    <string name="drive_cancel">Cancel</string>
+    <string name="drive_folder_already_added">This folder is already added!</string>
+    <string name="drive_fail_access">Fail to access.Please be aware of the format of the address</string>
+    <string name="drive_cannot_access_webdav">Cannot access the WebDAV adress</string>
+    <string name="drive_webdav_new_name">Please give a name to the space</string>
+    <string name="drive_webdav_address">Please enter a WebDav address</string>
+    <string name="drive_alist_address">Please enter a Alist address</string>
+
+    // Api //
+    <string name="api_parse_config_fail">Fail to parse config</string>
+    <string name="api_pull_config_fail">Fail to pull config</string>
+
+    // Xwalk //
+    <string name="xwalk_download">Download XWalkView module</string>
+    <string name="xwalk_restart_download">Restart</string>
 
     //  Universal //
     <string name="uni_success">Success</string>

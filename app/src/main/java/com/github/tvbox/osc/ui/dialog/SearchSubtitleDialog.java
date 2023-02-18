@@ -132,7 +132,7 @@ public class SearchSubtitleDialog extends BaseDialog {
             searchWord = wd;
             subtitleViewModel.searchResult(wd, page = 1);
         } else {
-            Toast.makeText(getContext(), "输入内容不能为空", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.dia_sub_empty, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -148,7 +148,7 @@ public class SearchSubtitleDialog extends BaseDialog {
                     mGridView.post(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(getContext(), "未查询到匹配字幕", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), R.string.dia_sub_failtofind, Toast.LENGTH_SHORT).show();
                         }
                     });
                     return;

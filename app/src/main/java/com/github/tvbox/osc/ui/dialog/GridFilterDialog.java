@@ -54,7 +54,20 @@ public class GridFilterDialog extends BaseDialog {
         ArrayList<MovieSort.SortFilter> filters = sortData.filters;
         for (MovieSort.SortFilter filter : filters) {
             View line = LayoutInflater.from(getContext()).inflate(R.layout.item_grid_filter, null);
-            ((TextView) line.findViewById(R.id.filterName)).setText(filter.name);
+            if(filter.name.contains("年份")){
+                ((TextView) line.findViewById(R.id.filterName)).setText(R.string.det_year);
+            }else if(filter.name.contains("地区")){
+                ((TextView) line.findViewById(R.id.filterName)).setText(R.string.det_area);
+            }else if(filter.name.contains("语言")){
+                ((TextView) line.findViewById(R.id.filterName)).setText(R.string.det_lang);
+            }else if(filter.name.contains("类型")){
+                ((TextView) line.findViewById(R.id.filterName)).setText(R.string.det_area);
+            }else if(filter.name.contains("排序")){
+                ((TextView) line.findViewById(R.id.filterName)).setText(R.string.det_order);
+            }else {
+
+                ((TextView) line.findViewById(R.id.filterName)).setText(filter.name);
+            }
             TvRecyclerView gridView = line.findViewById(R.id.mFilterKv);
             gridView.setHasFixedSize(true);
             gridView.setLayoutManager(new V7LinearLayoutManager(getContext(), 0, false));

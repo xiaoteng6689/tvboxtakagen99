@@ -139,7 +139,7 @@ public class DriveActivity extends BaseActivity {
                 FastClickCheckUtil.check(view);
                 StorageDriveType.TYPE[] types = StorageDriveType.TYPE.values();
                 SelectDialog<StorageDriveType.TYPE> dialog = new SelectDialog<>(DriveActivity.this);
-                dialog.setTip("请选择存盘类型");
+                dialog.setTip(getString(R.string.drive_select_type));
                 dialog.setItemCheckDisplay(false);
                 String[] typeNames = StorageDriveType.getTypeNames();
                 dialog.setAdapter(new SelectDialogAdapter.SelectDialogInterface<StorageDriveType.TYPE>() {
@@ -306,10 +306,10 @@ public class DriveActivity extends BaseActivity {
     }
 
     private void openSortDialog() {
-        List<String> options = Arrays.asList(new String[]{"按名字升序", "按名字降序", "按修改时间升序", "按修改时间降序"});
+        List<String> options = Arrays.asList(new String[]{getString(R.string.drive_order_name_asc), getString(R.string.drive_order_name_dsc), getString(R.string.drive_order_time_asc), getString(R.string.drive_order_time_dsc)});
         int sort = Hawk.get(HawkConfig.STORAGE_DRIVE_SORT, 0);
         SelectDialog<String> dialog = new SelectDialog<>(DriveActivity.this);
-        dialog.setTip("请选择列表排序方式");
+        dialog.setTip(getString(R.string.drive_order_select));
         dialog.setAdapter(new SelectDialogAdapter.SelectDialogInterface<String>() {
             @Override
             public void click(String value, int pos) {
@@ -348,7 +348,7 @@ public class DriveActivity extends BaseActivity {
             toggleDelMode();
         ChooserDialog dialog = new ChooserDialog(mContext, R.style.FileChooserStyle);
         dialog
-                .withStringResources("选择一个文件夹", "确定", "取消")
+                .withStringResources(getString(R.string.drive_order_select), getString(R.string.drive_confirm), getString(R.string.drive_cancel))
                 .titleFollowsDir(true)
                 .displayPath(true)
                 .enableDpad(true)
@@ -359,7 +359,7 @@ public class DriveActivity extends BaseActivity {
                         String absPath = dirFile.getAbsolutePath();
                         for (DriveFolderFile drive : drives) {
                             if (drive.getDriveType() == StorageDriveType.TYPE.LOCAL && absPath.equals(drive.getDriveData().name)) {
-                                Toast.makeText(mContext, "此文件夹之前已被添加到空间列表！", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, R.string.drive_folder_already_added, Toast.LENGTH_SHORT).show();
                                 return;
                             }
                         }
@@ -542,7 +542,7 @@ public class DriveActivity extends BaseActivity {
             });
             searchExecutorService.execute(runnable);
         }
-        this.txtTitle.setText("搜索结果");
+        this.txtTitle.setText(R.string.fs_results);
     }
 
     private void cancel() {
@@ -569,7 +569,7 @@ public class DriveActivity extends BaseActivity {
         if (viewModel.getCurrentDriveNote() == null) {
             if (isInSearch) {
                 //if returns from a search result, back to search result
-                this.txtTitle.setText("搜索结果");
+                this.txtTitle.setText(R.string.fs_results);
                 adapter.setNewData(searchResult);
                 viewModel = null;
                 return;

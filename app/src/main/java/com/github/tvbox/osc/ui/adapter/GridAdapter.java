@@ -7,11 +7,16 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.github.liuyueyi.quick.transfer.ChineseUtils;
 import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.bean.Movie;
 import com.github.tvbox.osc.picasso.RoundTransformation;
+import com.github.tvbox.osc.util.ChineseTran;
 import com.github.tvbox.osc.util.DefaultConfig;
+import com.github.tvbox.osc.util.HawkConfig;
+import com.github.tvbox.osc.util.LocaleHelper;
 import com.github.tvbox.osc.util.MD5;
+import com.orhanobut.hawk.Hawk;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -33,9 +38,13 @@ public class GridAdapter extends BaseQuickAdapter<Movie.Video, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Movie.Video item) {
+        boolean trad = false;
+        if(ChineseTran.check()){
+            trad = true;
+        }
         if (this.mShowList) {
-            helper.setText(R.id.tvNote, item.note);
-            helper.setText(R.id.tvName, item.name);
+                helper.setText(R.id.tvNote, ChineseTran.simToTran(item.note,trad));
+                helper.setText(R.id.tvName, ChineseTran.simToTran(item.name,trad));
             ImageView ivThumb = helper.getView(R.id.ivThumb);
             //由于部分电视机使用glide报错
             if (!TextUtils.isEmpty(item.pic)) {
@@ -81,10 +90,10 @@ public class GridAdapter extends BaseQuickAdapter<Movie.Video, BaseViewHolder> {
             helper.setVisible(R.id.tvNote, false);
         } else {
             helper.setVisible(R.id.tvNote, true);
-            helper.setText(R.id.tvNote, item.note);
+            helper.setText(R.id.tvNote, ChineseTran.simToTran(item.note,trad));
         }
-        helper.setText(R.id.tvName, item.name);
-        helper.setText(R.id.tvActor, item.actor);
+        helper.setText(R.id.tvName, ChineseTran.simToTran(item.name,trad));
+        helper.setText(R.id.tvActor, ChineseTran.simToTran(item.actor,trad));
         ImageView ivThumb = helper.getView(R.id.ivThumb);
         //由于部分电视机使用glide报错
         if (!TextUtils.isEmpty(item.pic)) {

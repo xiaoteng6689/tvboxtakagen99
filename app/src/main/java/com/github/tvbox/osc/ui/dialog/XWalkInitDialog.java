@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.github.tvbox.osc.R;
+import com.github.tvbox.osc.ui.activity.HomeActivity;
 import com.github.tvbox.osc.util.FastClickCheckUtil;
 import com.github.tvbox.osc.util.XWalkUtils;
 import com.lzy.okgo.OkGo;
@@ -38,10 +39,10 @@ public class XWalkInitDialog extends BaseDialog {
         TextView downText = findViewById(R.id.downXWalk);
         TextView downTip = findViewById(R.id.downXWalkArch);
 
-        downTip.setText("下载XWalkView运行组件\nArch:" + XWalkUtils.getRuntimeAbi());
+        downTip.setText(HomeActivity.getRes().getString(R.string.xwalk_download) + "\nArch:" + XWalkUtils.getRuntimeAbi());
 
         if (XWalkUtils.xWalkLibExist(context)) {
-            downText.setText("重新下载");
+            downText.setText(R.string.xwalk_restart_download);
         }
 
         downText.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +62,7 @@ public class XWalkInitDialog extends BaseDialog {
                         try {
                             XWalkUtils.unzipXWalkZip(context, response.body().getAbsolutePath());
                             XWalkUtils.extractXWalkLib(context);
-                            downText.setText("重新下载");
+                            downText.setText(R.string.xwalk_restart_download);
                             if (listener != null)
                                 listener.onchange();
                             dismiss();

@@ -44,6 +44,8 @@
     <string name="det_actor">演员</string>
     <string name="det_dir">导演</string>
     <string name="det_des"></string>
+    <string name="det_order">排序</string>
+
 
     // Settings Menu Page //
     <string name="mn_config">配置地址</string>
@@ -88,7 +90,10 @@
     <string name="dia_dns">请选择安全DNS</string>
     <string name="dia_locale">请选择应用语言</string>
     <string name="dia_theme">请选择主题</string>
-
+    <string name="dia_remote">手机/电脑扫描上方二维码或者直接浏览器访问地址</string>
+    <string name="dia_sub_empty">输入内容不能为空</string>
+    <string name="dia_sub_failtofind">未查询到匹配字幕</string>
+    <string name="dia_about">本软件只提供聚合展示功能，所有资源来自网上, 软件不参与任何制作, 上传, 储存, 下载等内容. 软件仅供学习参考, 请于安装后24小时内删除。\n\n打包分发请保留出处\nhttps://github.com/CatVodTVOfficial/TVBoxOSC</string>
 
     // Settings Backup Restore Page //
     <string name="set_bkup_ok">备份成功!</string>
@@ -147,6 +152,7 @@
     <string name="vod_sub_size">大小</string>
     <string name="vod_sub_delay">延迟</string>
     <string name="vod_sub_search">搜索</string>
+    <string name="vod_sub_style_suc">设置样式成功</string>
     <string name="vod_play_error">视频播放出错</string>
     <string name="vod_use_external">调用外部播放器</string>
     <string name="vod_use_external2">进行播放</string>
@@ -220,6 +226,31 @@
     <string name="live_epg_state_2">直播中</string>
     <string name="live_epg_state_3">预约</string>
     <string name="live_epg_state_4">回看中</string>
+
+    // Drive //
+    <string name="drive_select_type">请选择存盘类型</string>
+    <string name="drive_order_select">请选择列表排序方式</string>
+    <string name="drive_order_name_asc">按名字升序</string>
+    <string name="drive_order_name_dsc">按名字降序</string>
+    <string name="drive_order_time_asc">按修改时间升序</string>
+    <string name="drive_order_time_dsc">按修改时间降序</string>
+    <string name="drive_select_folder">选择一个文件夹</string>
+    <string name="drive_confirm">确定</string>
+    <string name="drive_cancel">取消</string>
+    <string name="drive_folder_already_added">此文件夹之前已被添加到空间列表！</string>
+    <string name="drive_fail_access">无法访问，请注意地址格式</string>
+    <string name="drive_cannot_access_webdav">无法访问该WebDAV地址</string>
+    <string name="drive_webdav_new_name">请赋予一个空间名称</string>
+    <string name="drive_webdav_address">请务必填入WebDav地址</string>
+    <string name="drive_alist_address">请务必填入Alist地址</string>
+
+    // Api //
+    <string name="api_parse_config_fail">解析配置失败</string>
+    <string name="api_pull_config_fail">拉取配置失败</string>
+
+    // Xwalk //
+    <string name="xwalk_download">下载XWalkView运行组件</string>
+    <string name="xwalk_restart_download">重新下载</string>
 
     //  Universal //
     <string name="uni_success">成功</string>

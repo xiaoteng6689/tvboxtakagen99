@@ -11,6 +11,7 @@ import com.github.tvbox.osc.cache.CacheManager;
 import com.github.tvbox.osc.subtitle.DefaultSubtitleEngine;
 import com.github.tvbox.osc.subtitle.SubtitleEngine;
 import com.github.tvbox.osc.subtitle.model.Subtitle;
+import com.github.tvbox.osc.util.ChineseTran;
 import com.github.tvbox.osc.util.MD5;
 
 import java.util.List;
@@ -72,7 +73,7 @@ public class SimpleSubtitleView extends TextView
         text = text.replaceAll("(?:\\r)", "<br />");
         text = text.replaceAll("(?:\\n)", "<br />");
         text = text.replaceAll("\\{[\\s\\S]*\\}", "");
-        setText(Html.fromHtml(text));
+        setText(Html.fromHtml(ChineseTran.simToTran(text)));
     }
 
     @Override

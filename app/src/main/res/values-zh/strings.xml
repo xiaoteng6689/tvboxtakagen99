@@ -263,6 +263,9 @@
     <string name="xwalk_download">下载XWalkView运行组件</string>
     <string name="xwalk_restart_download">重新下载</string>
 
+    // Push //
+    <string name="push_clipboard">推送剪贴板内容</string>
+
     //  Universal //
     <string name="uni_success">成功</string>
     <string name="uni_fail">失败</string>

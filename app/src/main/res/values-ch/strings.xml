@@ -258,9 +258,13 @@
     // Api //
     <string name="api_parse_config_fail">解析配置失敗</string>
     <string name="api_pull_config_fail">拉取配置失敗</string>
+
     // Xwalk //
     <string name="xwalk_download">下載XWalkView運行組件</string>
     <string name="xwalk_restart_download">重新下載</string>
+
+    // Push //
+    <string name="push_clipboard">推送剪貼板內容</string>
 
     //  Universal //
     <string name="uni_success">成功</string>

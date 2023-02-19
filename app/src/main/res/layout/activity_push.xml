@@ -40,7 +40,7 @@
             android:focusable="true"
             android:gravity="center"
             android:padding="@dimen/vs_10"
-            android:text="推送剪贴板内容"
+            android:text="@string/push_clipboard"
             android:textColor="@color/color_FFFFFF"
             android:textSize="@dimen/ts_24" />
     </LinearLayout>

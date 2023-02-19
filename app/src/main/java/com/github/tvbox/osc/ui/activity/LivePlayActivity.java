@@ -45,6 +45,7 @@ import com.github.tvbox.osc.ui.adapter.LiveSettingGroupAdapter;
 import com.github.tvbox.osc.ui.adapter.LiveSettingItemAdapter;
 import com.github.tvbox.osc.ui.dialog.ApiHistoryDialog;
 import com.github.tvbox.osc.ui.dialog.LivePasswordDialog;
+import com.github.tvbox.osc.util.ChineseTran;
 import com.github.tvbox.osc.util.EpgUtil;
 import com.github.tvbox.osc.util.FastClickCheckUtil;
 import com.github.tvbox.osc.util.HawkConfig;
@@ -647,6 +648,10 @@ public class LivePlayActivity extends BaseActivity {
 
     //显示底部EPG
     private void showBottomEpg() {
+        boolean tran = false;
+        if(ChineseTran.check()){
+            tran = true;
+        }
         if (isSHIYI)
             return;
         if (channel_Name.getChannelName() != null) {
@@ -663,10 +668,10 @@ public class LivePlayActivity extends BaseActivity {
                         if (date.after(((Epginfo) arrayList.get(size)).startdateTime) & date.before(((Epginfo) arrayList.get(size)).enddateTime)) {
 //                            if (new Date().compareTo(((Epginfo) arrayList.get(size)).startdateTime) >= 0) {
                             tv_curr_time.setText(((Epginfo) arrayList.get(size)).start + " - " + ((Epginfo) arrayList.get(size)).end);
-                            tv_curr_name.setText(((Epginfo) arrayList.get(size)).title);
+                            tv_curr_name.setText(ChineseTran.simToTran(((Epginfo) arrayList.get(size)).title,tran));
                             if (size != arrayList.size() - 1) {
                                 tv_next_time.setText(((Epginfo) arrayList.get(size + 1)).start + " - " + ((Epginfo) arrayList.get(size + 1)).end);
-                                tv_next_name.setText(((Epginfo) arrayList.get(size + 1)).title);
+                                tv_next_name.setText(ChineseTran.simToTran(((Epginfo) arrayList.get(size + 1)).title,tran));
                             } else {
                                 tv_next_time.setText("00:00 - 23:59");
                                 tv_next_name.setText("No Information");
@@ -753,6 +758,10 @@ public class LivePlayActivity extends BaseActivity {
 
     //节目播放
     private boolean playChannel(int channelGroupIndex, int liveChannelIndex, boolean changeSource) {
+        boolean tran = false;
+        if(ChineseTran.check()){
+            tran = true;
+        }
         if ((channelGroupIndex == currentChannelGroupIndex && liveChannelIndex == currentLiveChannelIndex && !changeSource)
                 || (changeSource && currentLiveChannelItem.getSourceNum() == 1)) {
             showChannelInfo();
@@ -773,12 +782,12 @@ public class LivePlayActivity extends BaseActivity {
         mHandler.post(tv_sys_timeRunnable);
 
         // Channel Name & No. + Source No.
-        tv_channelname.setText(channel_Name.getChannelName());
+        tv_channelname.setText(ChineseTran.simToTran(channel_Name.getChannelName(),tran));
         tv_channelnum.setText("" + channel_Name.getChannelNum());
         if (channel_Name == null || channel_Name.getSourceNum() <= 0) {
             tv_source.setText("1/1");
         } else {
-            tv_source.setText("线路 " + (channel_Name.getSourceIndex() + 1) + "/" + channel_Name.getSourceNum());
+            tv_source.setText(getString(R.string.live_route) + " " + (channel_Name.getSourceIndex() + 1) + "/" + channel_Name.getSourceNum());
         }
 
         getEpg(new Date());

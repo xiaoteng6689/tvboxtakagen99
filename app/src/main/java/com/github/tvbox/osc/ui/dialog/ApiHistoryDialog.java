@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 
 import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.ui.adapter.ApiHistoryDialogAdapter;
+import com.github.tvbox.osc.util.ChineseTran;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 
 import org.jetbrains.annotations.NotNull;
@@ -26,7 +27,7 @@ public class ApiHistoryDialog extends BaseDialog {
     }
 
     public void setTip(String tip) {
-        ((TextView) findViewById(R.id.title)).setText(tip);
+        ((TextView) findViewById(R.id.title)).setText(ChineseTran.simToTran(tip));
     }
 
     public void setAdapter(ApiHistoryDialogAdapter.SelectDialogInterface sourceBeanSelectDialogInterface, List<String> data, int select) {

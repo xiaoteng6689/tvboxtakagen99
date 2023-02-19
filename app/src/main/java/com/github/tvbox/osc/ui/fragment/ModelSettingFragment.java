@@ -28,6 +28,7 @@ import com.github.tvbox.osc.ui.dialog.BackupDialog;
 import com.github.tvbox.osc.ui.dialog.HomeIconDialog;
 import com.github.tvbox.osc.ui.dialog.SelectDialog;
 import com.github.tvbox.osc.ui.dialog.XWalkInitDialog;
+import com.github.tvbox.osc.util.ChineseTran;
 import com.github.tvbox.osc.util.FastClickCheckUtil;
 import com.github.tvbox.osc.util.HawkConfig;
 import com.github.tvbox.osc.util.HistoryHelper;
@@ -105,7 +106,7 @@ public class ModelSettingFragment extends BaseLazyFragment {
         tvApi.setText(Hawk.get(HawkConfig.API_URL, ""));
         // Home Section
         tvHomeApi = findViewById(R.id.tvHomeApi);
-        tvHomeApi.setText(ApiConfig.get().getHomeSourceBean().getName());
+        tvHomeApi.setText(ChineseTran.simToTran(ApiConfig.get().getHomeSourceBean().getName()));
         tvHomeShow = findViewById(R.id.tvHomeShow);
         tvHomeShow.setText(Hawk.get(HawkConfig.HOME_SHOW_SOURCE, false) ? R.string.set_enable : R.string.set_disable);
         tvHomeRec = findViewById(R.id.tvHomeRec);
@@ -258,7 +259,7 @@ public class ModelSettingFragment extends BaseLazyFragment {
                         @Override
                         public void click(SourceBean value, int pos) {
                             ApiConfig.get().setSourceBean(value);
-                            tvHomeApi.setText(ApiConfig.get().getHomeSourceBean().getName());
+                            tvHomeApi.setText(ChineseTran.simToTran(ApiConfig.get().getHomeSourceBean().getName()));
                         }
 
                         @Override
@@ -357,7 +358,7 @@ public class ModelSettingFragment extends BaseLazyFragment {
 
                     @Override
                     public String getDisplay(Integer val) {
-                        return HistoryHelper.getHomeRecName(val);
+                        return HistoryHelper.getHomeRecName(val).replace("条",getString(R.string.set_hist_num_unit));
                     }
                 }, new DiffUtil.ItemCallback<Integer>() {
                     @Override

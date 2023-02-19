@@ -23,6 +23,7 @@ import com.github.tvbox.osc.event.ServerEvent;
 import com.github.tvbox.osc.ui.adapter.FastListAdapter;
 import com.github.tvbox.osc.ui.adapter.FastSearchAdapter;
 import com.github.tvbox.osc.ui.adapter.SearchWordAdapter;
+import com.github.tvbox.osc.util.ChineseTran;
 import com.github.tvbox.osc.util.FastClickCheckUtil;
 import com.github.tvbox.osc.util.SearchHelper;
 import com.github.tvbox.osc.util.js.JSEngine;
@@ -440,7 +441,7 @@ public class FastSearchActivity extends BaseActivity {
                 }
             }
 
-            spListAdapter.addData(name);
+            spListAdapter.addData(ChineseTran.simToTran(name));
             return key;
         } catch (Exception e) {
             return key;

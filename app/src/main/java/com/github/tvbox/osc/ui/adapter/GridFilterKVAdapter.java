@@ -3,6 +3,7 @@ package com.github.tvbox.osc.ui.adapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.github.tvbox.osc.R;
+import com.github.tvbox.osc.util.ChineseTran;
 
 import java.util.ArrayList;
 
@@ -13,6 +14,6 @@ public class GridFilterKVAdapter extends BaseQuickAdapter<String, BaseViewHolder
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
-        helper.setText(R.id.filterValue, item);
+        helper.setText(R.id.filterValue, ChineseTran.simToTran(item));
     }
 }

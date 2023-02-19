@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.tvbox.osc.R;
+import com.github.tvbox.osc.util.ChineseTran;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -78,7 +79,7 @@ public class ApiHistoryDialogAdapter extends ListAdapter<String, ApiHistoryDialo
         String name = value;
         if (select.equals(value))
             name = "√ " + name;
-        ((TextView) holder.itemView.findViewById(R.id.tvName)).setText(name);
+        ((TextView) holder.itemView.findViewById(R.id.tvName)).setText(ChineseTran.simToTran(name));
         holder.itemView.findViewById(R.id.tvName).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

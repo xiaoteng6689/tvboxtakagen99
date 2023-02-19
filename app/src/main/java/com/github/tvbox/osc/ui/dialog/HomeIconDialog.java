@@ -28,16 +28,16 @@ public class HomeIconDialog extends BaseDialog {
         setContentView(R.layout.dialog_homeoption);
         setCanceledOnTouchOutside(true);
         tvHomeSearch = findViewById(R.id.tvHomeSearch);
-        tvHomeSearch.setText(Hawk.get(HawkConfig.HOME_SEARCH_POSITION, true) ? "上方" : "下方");
+        tvHomeSearch.setText(Hawk.get(HawkConfig.HOME_SEARCH_POSITION, true) ? R.string.set_top : R.string.set_bottom);
         tvHomeMenu = findViewById(R.id.tvHomeMenu);
-        tvHomeMenu.setText(Hawk.get(HawkConfig.HOME_MENU_POSITION, true) ? "上方" : "下方");
+        tvHomeMenu.setText(Hawk.get(HawkConfig.HOME_MENU_POSITION, true) ? R.string.set_top : R.string.set_bottom);
 
         findViewById(R.id.llSearch).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FastClickCheckUtil.check(v);
                 Hawk.put(HawkConfig.HOME_SEARCH_POSITION, !Hawk.get(HawkConfig.HOME_SEARCH_POSITION, true));
-                tvHomeSearch.setText(Hawk.get(HawkConfig.HOME_SEARCH_POSITION, true) ? "上方" : "下方");
+                tvHomeSearch.setText(Hawk.get(HawkConfig.HOME_SEARCH_POSITION, true) ? R.string.set_top : R.string.set_bottom);
             }
         });
         findViewById(R.id.llMenu).setOnClickListener(new View.OnClickListener() {
@@ -45,7 +45,7 @@ public class HomeIconDialog extends BaseDialog {
             public void onClick(View v) {
                 FastClickCheckUtil.check(v);
                 Hawk.put(HawkConfig.HOME_MENU_POSITION, !Hawk.get(HawkConfig.HOME_MENU_POSITION, true));
-                tvHomeMenu.setText(Hawk.get(HawkConfig.HOME_MENU_POSITION, true) ? "上方" : "下方");
+                tvHomeMenu.setText(Hawk.get(HawkConfig.HOME_MENU_POSITION, true) ? R.string.set_top : R.string.set_bottom);
             }
         });
     }

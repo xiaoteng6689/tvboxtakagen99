@@ -94,6 +94,11 @@
     <string name="dia_sub_empty">输入内容不能为空</string>
     <string name="dia_sub_failtofind">未查询到匹配字幕</string>
     <string name="dia_about">本软件只提供聚合展示功能，所有资源来自网上, 软件不参与任何制作, 上传, 储存, 下载等内容. 软件仅供学习参考, 请于安装后24小时内删除。\n\n打包分发请保留出处\nhttps://github.com/CatVodTVOfficial/TVBoxOSC</string>
+    <string name="dia_quick_search">其他数据源中的相关资源, 没有找到可以尝试选词重搜</string>
+    <string name="dia_api_address_hint">1. 请输入数据源地址</string>
+    <string name="dia_live_address_hint">2. 请输入直播源地址 (optional)</string>
+    <string name="dia_epg_address_hint">3. 请输入直播EPG地址 (optional)</string>
+    <string name="dia_api_storage_request">存储权限</string>
 
     // Settings Backup Restore Page //
     <string name="set_bkup_ok">备份成功!</string>
@@ -153,6 +158,8 @@
     <string name="vod_sub_delay">延迟</string>
     <string name="vod_sub_search">搜索</string>
     <string name="vod_sub_style_suc">设置样式成功</string>
+    <string name="vod_sub_zip">压缩包</string>
+    <string name="vod_sub_file">文件</string>
     <string name="vod_play_error">视频播放出错</string>
     <string name="vod_use_external">调用外部播放器</string>
     <string name="vod_use_external2">进行播放</string>
@@ -196,6 +203,8 @@
     <string name="set_scale_original">原始</string>
     <string name="set_scale_center_crop">裁剪</string>
     <string name="set_hist_num_unit">条</string>
+    <string name="set_top">上方</string>
+    <string name="set_bottom">下方</string>
 
     // Live //
     <string name="live_no_program_data">暂无节目信息</string>
@@ -226,6 +235,7 @@
     <string name="live_epg_state_2">直播中</string>
     <string name="live_epg_state_3">预约</string>
     <string name="live_epg_state_4">回看中</string>
+    <string name="live_route">线路</string>
 
     // Drive //
     <string name="drive_select_type">请选择存盘类型</string>
@@ -243,6 +253,7 @@
     <string name="drive_webdav_new_name">请赋予一个空间名称</string>
     <string name="drive_webdav_address">请务必填入WebDav地址</string>
     <string name="drive_alist_address">请务必填入Alist地址</string>
+    <string name="drive_fail_address">不能获取该视频地址</string>
 
     // Api //
     <string name="api_parse_config_fail">解析配置失败</string>

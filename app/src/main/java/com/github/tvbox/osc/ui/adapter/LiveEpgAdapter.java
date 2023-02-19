@@ -9,6 +9,7 @@ import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.base.BaseActivity;
 import com.github.tvbox.osc.bean.Epginfo;
 import com.github.tvbox.osc.ui.tv.widget.AudioWaveView;
+import com.github.tvbox.osc.util.ChineseTran;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -71,7 +72,7 @@ public class LiveEpgAdapter extends BaseQuickAdapter<Epginfo, BaseViewHolder> {
             shiyi.setVisibility(View.GONE);
         }
 
-        textview.setText(value.title);
+        textview.setText(ChineseTran.simToTran(value.title));
         timeview.setText(value.start + " - " + value.end);
         textview.setTextColor(mContext.getResources().getColor(R.color.color_FFFFFF));
         timeview.setTextColor(mContext.getResources().getColor(R.color.color_FFFFFF));

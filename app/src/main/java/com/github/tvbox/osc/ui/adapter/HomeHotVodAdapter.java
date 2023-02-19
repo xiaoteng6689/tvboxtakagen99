@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.bean.Movie;
 import com.github.tvbox.osc.picasso.RoundTransformation;
+import com.github.tvbox.osc.util.ChineseTran;
 import com.github.tvbox.osc.util.DefaultConfig;
 import com.github.tvbox.osc.util.HawkConfig;
 import com.github.tvbox.osc.util.MD5;
@@ -28,7 +29,10 @@ public class HomeHotVodAdapter extends BaseQuickAdapter<Movie.Video, BaseViewHol
 
     @Override
     protected void convert(BaseViewHolder helper, Movie.Video item) {
-
+        boolean tran = false;
+        if(ChineseTran.check()){
+            tran = true;
+        }
         // takagen99: Add Delete Mode
         FrameLayout tvDel = helper.getView(R.id.delFrameLayout);
         if (HawkConfig.hotVodDelete) {
@@ -41,10 +45,10 @@ public class HomeHotVodAdapter extends BaseQuickAdapter<Movie.Video, BaseViewHol
         if (item.note == null || item.note.isEmpty()) {
             tvRate.setVisibility(View.GONE);
         } else {
-            tvRate.setText(item.note);
+            tvRate.setText(ChineseTran.simToTran(item.note,tran));
             tvRate.setVisibility(View.VISIBLE);
         }
-        helper.setText(R.id.tvName, item.name);
+        helper.setText(R.id.tvName, ChineseTran.simToTran(item.name,tran));
 
         ImageView ivThumb = helper.getView(R.id.ivThumb);
         //由于部分电视机使用glide报错

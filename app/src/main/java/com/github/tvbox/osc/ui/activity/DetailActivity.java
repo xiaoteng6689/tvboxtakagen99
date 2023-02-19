@@ -46,6 +46,7 @@ import com.github.tvbox.osc.ui.adapter.SeriesAdapter;
 import com.github.tvbox.osc.ui.adapter.SeriesFlagAdapter;
 import com.github.tvbox.osc.ui.dialog.QuickSearchDialog;
 import com.github.tvbox.osc.ui.fragment.PlayFragment;
+import com.github.tvbox.osc.util.ChineseTran;
 import com.github.tvbox.osc.util.DefaultConfig;
 import com.github.tvbox.osc.util.FastClickCheckUtil;
 import com.github.tvbox.osc.util.HawkConfig;
@@ -461,7 +462,7 @@ public class DetailActivity extends BaseActivity {
             return;
         }
         view.setVisibility(View.VISIBLE);
-        view.setText(Html.fromHtml(getHtml(tag, info)));
+        view.setText(ChineseTran.simToTran(Html.fromHtml(getHtml(tag, info)).toString()));
     }
 
     private String removeHtmlTag(String info) {
@@ -475,6 +476,10 @@ public class DetailActivity extends BaseActivity {
         sourceViewModel.detailResult.observe(this, new Observer<AbsXml>() {
             @Override
             public void onChanged(AbsXml absXml) {
+                boolean tran = false;
+                if(ChineseTran.check()){
+                    tran = true;
+                }
                 if (absXml != null && absXml.movie != null && absXml.movie.videoList != null && absXml.movie.videoList.size() > 0) {
                     showSuccess();
                     mVideo = absXml.movie.videoList.get(0);
@@ -482,15 +487,15 @@ public class DetailActivity extends BaseActivity {
                     vodInfo.setVideo(mVideo);
                     vodInfo.sourceKey = mVideo.sourceKey;
 
-                    tvName.setText(mVideo.name);
-                    setTextShow(tvSite, getString(R.string.det_source), ApiConfig.get().getSource(mVideo.sourceKey).getName());
+                    tvName.setText(ChineseTran.simToTran(mVideo.name,tran));
+                    setTextShow(tvSite, getString(R.string.det_source), ChineseTran.simToTran(ApiConfig.get().getSource(mVideo.sourceKey).getName(),tran));
                     setTextShow(tvYear, getString(R.string.det_year), mVideo.year == 0 ? "" : String.valueOf(mVideo.year));
-                    setTextShow(tvArea, getString(R.string.det_area), mVideo.area);
-                    setTextShow(tvLang, getString(R.string.det_lang), mVideo.lang);
-                    setTextShow(tvType, getString(R.string.det_type), mVideo.type);
-                    setTextShow(tvActor, getString(R.string.det_actor), mVideo.actor);
-                    setTextShow(tvDirector, getString(R.string.det_dir), mVideo.director);
-                    setTextShow(tvDes, getString(R.string.det_des), removeHtmlTag(mVideo.des));
+                    setTextShow(tvArea, getString(R.string.det_area), ChineseTran.simToTran(mVideo.area,tran));
+                    setTextShow(tvLang, getString(R.string.det_lang), ChineseTran.simToTran(mVideo.lang,tran));
+                    setTextShow(tvType, getString(R.string.det_type), ChineseTran.simToTran(mVideo.type,tran));
+                    setTextShow(tvActor, getString(R.string.det_actor), ChineseTran.simToTran(mVideo.actor,tran));
+                    setTextShow(tvDirector, getString(R.string.det_dir), ChineseTran.simToTran(mVideo.director,tran));
+                    setTextShow(tvDes, getString(R.string.det_des), ChineseTran.simToTran(removeHtmlTag(mVideo.des),tran));
                     if (!TextUtils.isEmpty(mVideo.pic)) {
                         Picasso.get()
                                 .load(DefaultConfig.checkReplaceProxy(mVideo.pic))

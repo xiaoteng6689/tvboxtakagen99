@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.base.BaseActivity;
 import com.github.tvbox.osc.bean.LiveChannelItem;
+import com.github.tvbox.osc.util.ChineseTran;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class LiveChannelItemAdapter extends BaseQuickAdapter<LiveChannelItem, Ba
         TextView tvChannelNum = holder.getView(R.id.tvChannelNum);
         TextView tvChannel = holder.getView(R.id.tvChannelName);
         tvChannelNum.setText(String.format("%s", item.getChannelNum()));
-        tvChannel.setText(item.getChannelName());
+        tvChannel.setText(ChineseTran.simToTran(item.getChannelName()));
         int channelIndex = item.getChannelIndex();
         if (channelIndex == selectedChannelIndex && channelIndex != focusedChannelIndex) {
             // takagen99: Added Theme Color

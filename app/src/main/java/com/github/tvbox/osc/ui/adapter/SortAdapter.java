@@ -4,6 +4,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.bean.MovieSort;
+import com.github.tvbox.osc.util.ChineseTran;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,6 @@ public class SortAdapter extends BaseQuickAdapter<MovieSort.SortData, BaseViewHo
 
     @Override
     protected void convert(BaseViewHolder helper, MovieSort.SortData item) {
-        helper.setText(R.id.tvTitle, item.name);
+        helper.setText(R.id.tvTitle, ChineseTran.simToTran(item.name));
     }
 }

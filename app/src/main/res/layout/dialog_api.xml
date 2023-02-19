@@ -67,7 +67,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@drawable/input_dialog_api_input"
-                            android:hint="1. 请输入数据源地址"
+                            android:hint="@string/dia_api_address_hint"
                             android:inputType="text"
                             android:maxLines="1"
                             android:paddingLeft="@dimen/vs_2"
@@ -117,7 +117,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@drawable/input_dialog_api_input"
-                            android:hint="2. 请输入直播源地址 (optional)"
+                            android:hint="@string/dia_live_address_hint"
                             android:inputType="text"
                             android:maxLines="1"
                             android:paddingLeft="@dimen/vs_2"
@@ -167,7 +167,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@drawable/input_dialog_api_input"
-                            android:hint="3. 请输入直播EPG地址 (optional)"
+                            android:hint="@string/dia_epg_address_hint"
                             android:inputType="text"
                             android:maxLines="1"
                             android:paddingLeft="@dimen/vs_2"
@@ -224,7 +224,7 @@
                     android:focusable="true"
                     android:gravity="center"
                     android:padding="@dimen/vs_10"
-                    android:text="存储权限"
+                    android:text="@string/dia_api_storage_request"
                     android:textColor="@color/color_FFFFFF"
                     android:textSize="@dimen/ts_22" />
 
@@ -238,7 +238,7 @@
                     android:focusable="true"
                     android:gravity="center"
                     android:padding="@dimen/vs_10"
-                    android:text="确定"
+                    android:text="@string/drive_confirm"
                     android:textColor="@color/color_FFFFFF"
                     android:textSize="@dimen/ts_22" />
             </LinearLayout>

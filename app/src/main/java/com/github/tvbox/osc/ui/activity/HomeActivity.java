@@ -53,6 +53,7 @@ import com.github.tvbox.osc.ui.tv.widget.FixedSpeedScroller;
 import com.github.tvbox.osc.ui.tv.widget.NoScrollViewPager;
 import com.github.tvbox.osc.ui.tv.widget.ViewObj;
 import com.github.tvbox.osc.util.AppManager;
+import com.github.tvbox.osc.util.ChineseTran;
 import com.github.tvbox.osc.util.DefaultConfig;
 import com.github.tvbox.osc.util.FileUtils;
 import com.github.tvbox.osc.util.HawkConfig;
@@ -352,7 +353,7 @@ public class HomeActivity extends BaseActivity {
         SourceBean home = ApiConfig.get().getHomeSourceBean();
         if (HomeShow) {
             if (home != null && home.getName() != null && !home.getName().isEmpty())
-                tvName.setText(home.getName());
+                tvName.setText(ChineseTran.simToTran(home.getName()));
         }
 
         // takagen99: If network available, check connected Wifi or Lan
@@ -596,7 +597,7 @@ public class HomeActivity extends BaseActivity {
         SourceBean home = ApiConfig.get().getHomeSourceBean();
         if (Hawk.get(HawkConfig.HOME_SHOW_SOURCE, false)) {
             if (home != null && home.getName() != null && !home.getName().isEmpty()) {
-                tvName.setText(home.getName());
+                tvName.setText(ChineseTran.simToTran(home.getName()));
             }
         } else {
             tvName.setText(R.string.app_name);

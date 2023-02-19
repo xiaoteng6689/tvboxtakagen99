@@ -226,14 +226,14 @@ public class AlistDriveViewModel extends AbstractDriveViewModel {
                                     }
                                 }
                                 if (callback != null)
-                                    callback.fail("不能获取该视频地址");
+                                    callback.fail(HomeActivity.getRes().getString(R.string.drive_fail_address));
 
                             }
                         });
                     } catch (Exception ex) {
                         ex.printStackTrace();
                         if (callback != null)
-                            callback.fail("不能获取该视频地址");
+                            callback.fail(HomeActivity.getRes().getString(R.string.drive_fail_address));
                     }
                 }
             }.start();

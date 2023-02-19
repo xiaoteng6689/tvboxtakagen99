@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.base.BaseActivity;
 import com.github.tvbox.osc.bean.VodInfo;
+import com.github.tvbox.osc.util.ChineseTran;
 
 import java.util.ArrayList;
 
@@ -31,6 +32,6 @@ public class SeriesAdapter extends BaseQuickAdapter<VodInfo.VodSeries, BaseViewH
         } else {
             tvSeries.setTextColor(Color.WHITE);
         }
-        helper.setText(R.id.tvSeries, item.name);
+        helper.setText(R.id.tvSeries, ChineseTran.simToTran(item.name));
     }
 }

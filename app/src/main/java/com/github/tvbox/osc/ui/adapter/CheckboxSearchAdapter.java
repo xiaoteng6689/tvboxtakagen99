@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.bean.SourceBean;
+import com.github.tvbox.osc.util.ChineseTran;
 import com.github.tvbox.osc.util.SearchHelper;
 
 import org.jetbrains.annotations.NotNull;
@@ -63,7 +64,7 @@ public class CheckboxSearchAdapter extends ListAdapter<SourceBean, CheckboxSearc
     public void onBindViewHolder(ViewHolder holder, int position) {
         int pos = holder.getAdapterPosition();
         SourceBean sourceBean = data.get(pos);
-        holder.oneSearchSource.setText(sourceBean.getName());
+        holder.oneSearchSource.setText(ChineseTran.simToTran(sourceBean.getName()));
         holder.oneSearchSource.setOnCheckedChangeListener(null);
         if (mCheckedSources != null) {
             holder.oneSearchSource.setChecked(mCheckedSources.containsKey(sourceBean.getKey()));

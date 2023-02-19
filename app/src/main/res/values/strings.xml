@@ -94,6 +94,11 @@
     <string name="dia_sub_empty">Input cannot be empty</string>
     <string name="dia_sub_failtofind">Fail to find a matched subtitle</string>
     <string name="dia_about">This software only provides aggregated display functions, all resources come from the Internet, and the software does not participate in any content production, upload, storage, download,etc.The software is only for learning reference, please delete it within 24 hours after installation. \n\nPlease keep the source after package distribution\nhttps://github.com/CatVodTVOfficial/TVBoxOSC</string>
+    <string name="dia_quick_search">Content from other data sources, if cannot found your desire content, retry with other words</string>
+    <string name="dia_api_address_hint">1. Please input api address</string>
+    <string name="dia_live_address_hint">2. Please input live address (optional)</string>
+    <string name="dia_epg_address_hint">3. Please input epg address (optional)</string>
+    <string name="dia_api_storage_request">Storage request</string>
 
     // Settings Backup Restore Page //
     <string name="set_bkup_ok">Backup Success</string>
@@ -154,6 +159,8 @@
     <string name="vod_sub_search">Search</string>
     <string name="vod_sub_off">Subtitle Off</string>
     <string name="vod_sub_style_suc">Style set successfully</string>
+    <string name="vod_sub_zip">Zip</string>
+    <string name="vod_sub_file">File</string>
     <string name="vod_play_error">Video Playback Error</string>
     <string name="vod_use_external">"Using external player "</string>
     <string name="vod_use_external2">"to play"</string>
@@ -200,8 +207,10 @@
     <string name="set_scale_match_parent">Fill</string>
     <string name="set_scale_original">Original</string>
     <string name="set_scale_center_crop">Center crop</string>
-    <string name="set_hist_num_unit">line</string>
-    
+    <string name="set_hist_num_unit"> line</string>
+    <string name="set_top">Top</string>
+    <string name="set_bottom">Bottom</string>
+
     // Live //
     <string name="live_no_program_data">No Program Data</string>
     <string name="live_yesterday">Yesterday</string>
@@ -231,6 +240,7 @@
     <string name="live_epg_state_2">Live</string>
     <string name="live_epg_state_3">Scheduled</string>
     <string name="live_epg_state_4">Replaying</string>
+    <string name="live_route">Route</string>
 
     // Drive //
     <string name="drive_select_type">Select Drive type</string>
@@ -248,6 +258,7 @@
     <string name="drive_webdav_new_name">Please give a name to the space</string>
     <string name="drive_webdav_address">Please enter a WebDav address</string>
     <string name="drive_alist_address">Please enter a Alist address</string>
+    <string name="drive_fail_address">Unable to get the URL of the video</string>
 
     // Api //
     <string name="api_parse_config_fail">Fail to parse config</string>

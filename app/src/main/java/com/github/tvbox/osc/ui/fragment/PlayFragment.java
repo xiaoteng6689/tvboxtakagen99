@@ -63,6 +63,7 @@ import com.github.tvbox.osc.ui.dialog.SearchSubtitleDialog;
 import com.github.tvbox.osc.ui.dialog.SelectDialog;
 import com.github.tvbox.osc.ui.dialog.SubtitleDialog;
 import com.github.tvbox.osc.util.AdBlocker;
+import com.github.tvbox.osc.util.ChineseTran;
 import com.github.tvbox.osc.util.DefaultConfig;
 import com.github.tvbox.osc.util.HawkConfig;
 import com.github.tvbox.osc.util.LOG;
@@ -546,7 +547,7 @@ public class PlayFragment extends BaseLazyFragment {
                             extPlay = false;
                             if (playerType >= 10) {
                                 VodInfo.VodSeries vs = mVodInfo.seriesMap.get(mVodInfo.playFlag).get(mVodInfo.playIndex);
-                                String playTitle = mVodInfo.name + " : " + vs.name;
+                                String playTitle = ChineseTran.simToTran(mVodInfo.name + " : " + vs.name);
                                 setTip(getString(R.string.vod_use_external) + PlayerHelper.getPlayerName(playerType) + getString(R.string.vod_use_external2), true, false);
                                 boolean callResult = false;
                                 switch (playerType) {
@@ -852,7 +853,7 @@ public class PlayFragment extends BaseLazyFragment {
         EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_REFRESH, mVodInfo.playIndex));
         setTip(getString(R.string.vod_obtaining_playdata), true, false);
         String playTitleInfo = mVodInfo.name + " : " + vs.name;
-        mController.setTitle(playTitleInfo);
+        mController.setTitle(ChineseTran.simToTran(playTitleInfo));
 
         stopParse();
         if (mVideoView != null) mVideoView.release();

@@ -86,7 +86,7 @@
     <string name="dia_ratio">請選擇默认畫面缩放</string>
     <string name="dia_render">請選擇默认渲染方式</string>
     <string name="dia_bkres">數據備份還原</string>
-    <string name="dia_bkpkg">点击下方數據還原</string>
+    <string name="dia_bkpkg">點擊下方數據還原</string>
     <string name="dia_dns">請選擇安全DNS</string>
     <string name="dia_locale">請選擇應用語言</string>
     <string name="dia_theme">請選擇主題</string>
@@ -94,6 +94,11 @@
     <string name="dia_sub_empty">輸入內容不能為空</string>
     <string name="dia_sub_failtofind">未查詢到匹配字幕</string>
     <string name="dia_about">本軟件只提供聚合展示功能，所有資源来自網上, 軟件不參與任何製作, 上傳, 存儲, 下載等内容. 軟件僅提供學習参考, 請於安裝後24小時内删除。\n\n打包分發請保留出處\nhttps://github.com/CatVodTVOfficial/TVBoxOSC</string>
+    <string name="dia_quick_search">其他數據源中的相關資源, 没有找到可以嘗試選詞重搜</string>
+    <string name="dia_api_address_hint">1. 請輸入數據源地址</string>
+    <string name="dia_live_address_hint">2. 請輸入直播源地址 (optional)</string>
+    <string name="dia_epg_address_hint">3. 請輸入直播EPG地址 (optional)</string>
+    <string name="dia_api_storage_request">存儲權限</string>
 
     // Settings Backup Restore Page //
     <string name="set_bkup_ok">備份成功!</string>
@@ -115,7 +120,7 @@
     <string name="act_fav">收藏夹</string>
     <string name="act_fav_sel">确定键删除當前選中收藏</string>
     <string name="act_fav_rm">删除收藏</string>
-    <string name="act_drive">存儲空间</string>
+    <string name="act_drive">存儲空間</string>
     <string name="act_hist">歷史記錄</string>
     <string name="act_hist_sel">确定键删除當前選中記錄</string>
     <string name="act_hist_rm">删除記錄</string>
@@ -154,6 +159,8 @@
     <string name="vod_sub_search">搜索</string>
     <string name="vod_sub_off">字幕已關閉</string>
     <string name="vod_sub_style_suc">設置樣式成功</string>
+    <string name="vod_sub_zip">壓縮包</string>
+    <string name="vod_sub_file">文件</string>
     <string name="vod_play_error">視頻播放出錯</string>
     <string name="vod_use_external">調用外部播放器</string>
     <string name="vod_use_external2">進行</string>
@@ -196,6 +203,8 @@
     <string name="set_scale_original">原始</string>
     <string name="set_scale_center_crop">裁剪</string>
     <string name="set_hist_num_unit">條</string>
+    <string name="set_top">上方</string>
+    <string name="set_bottom">下方</string>
 
     // Live //
     <string name="live_no_program_data">暫無節目信息</string>
@@ -226,6 +235,7 @@
     <string name="live_epg_state_2">直播中</string>
     <string name="live_epg_state_3">預約</string>
     <string name="live_epg_state_4">回看中</string>
+    <string name="live_route">線路</string>
 
     // Drive //
     <string name="drive_select_type">請選擇存盤類型</string>
@@ -243,6 +253,7 @@
     <string name="drive_webdav_new_name">請賦予一個空間名稱</string>
     <string name="drive_webdav_address">請務必填入WebDav地址</string>
     <string name="drive_alist_address">請務必填入Alist地址</string>
+    <string name="drive_fail_address">不能獲取該視頻地址</string>
 
     // Api //
     <string name="api_parse_config_fail">解析配置失敗</string>

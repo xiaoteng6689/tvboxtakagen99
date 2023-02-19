@@ -9,6 +9,7 @@ import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.api.ApiConfig;
 import com.github.tvbox.osc.bean.Movie;
 import com.github.tvbox.osc.picasso.RoundTransformation;
+import com.github.tvbox.osc.util.ChineseTran;
 import com.github.tvbox.osc.util.MD5;
 import com.squareup.picasso.Picasso;
 
@@ -23,13 +24,16 @@ public class FastSearchAdapter extends BaseQuickAdapter<Movie.Video, BaseViewHol
 
     @Override
     protected void convert(BaseViewHolder helper, Movie.Video item) {
-
+        boolean tran = false;
+        if(ChineseTran.check()){
+            tran = true;
+        }
         // with preview
-        helper.setText(R.id.tvName, item.name);
-        helper.setText(R.id.tvSite, ApiConfig.get().getSource(item.sourceKey).getName());
+        helper.setText(R.id.tvName, ChineseTran.simToTran(item.name,tran));
+        helper.setText(R.id.tvSite, ChineseTran.simToTran(ApiConfig.get().getSource(item.sourceKey).getName(),tran));
         helper.setVisible(R.id.tvNote, item.note != null && !item.note.isEmpty());
         if (item.note != null && !item.note.isEmpty()) {
-            helper.setText(R.id.tvNote, item.note);
+            helper.setText(R.id.tvNote, ChineseTran.simToTran(item.note,tran));
         }
         ImageView ivThumb = helper.getView(R.id.ivThumb);
         if (!TextUtils.isEmpty(item.pic)) {

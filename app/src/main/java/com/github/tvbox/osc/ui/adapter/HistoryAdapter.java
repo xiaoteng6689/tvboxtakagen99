@@ -12,6 +12,7 @@ import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.api.ApiConfig;
 import com.github.tvbox.osc.bean.VodInfo;
 import com.github.tvbox.osc.picasso.RoundTransformation;
+import com.github.tvbox.osc.util.ChineseTran;
 import com.github.tvbox.osc.util.DefaultConfig;
 import com.github.tvbox.osc.util.HawkConfig;
 import com.github.tvbox.osc.util.MD5;
@@ -33,6 +34,10 @@ public class HistoryAdapter extends BaseQuickAdapter<VodInfo, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, VodInfo item) {
+        boolean tran = false;
+        if(ChineseTran.check()){
+            tran = true;
+        }
         // takagen99: Add Delete Mode
         FrameLayout tvDel = helper.getView(R.id.delFrameLayout);
         if (HawkConfig.hotVodDelete) {
@@ -42,7 +47,7 @@ public class HistoryAdapter extends BaseQuickAdapter<VodInfo, BaseViewHolder> {
         }
 
         TextView tvYear = helper.getView(R.id.tvYear);
-        tvYear.setText(ApiConfig.get().getSource(item.sourceKey).getName());
+        tvYear.setText(ChineseTran.simToTran(ApiConfig.get().getSource(item.sourceKey).getName(),tran));
         /*if (item.year <= 0) {
             tvYear.setVisibility(View.GONE);
         } else {
@@ -76,9 +81,9 @@ public class HistoryAdapter extends BaseQuickAdapter<VodInfo, BaseViewHolder> {
         if (item.note == null || item.note.isEmpty()) {
             helper.setVisible(R.id.tvNote, false);
         } else {
-            helper.setText(R.id.tvNote, item.note);
+            helper.setText(R.id.tvNote, ChineseTran.simToTran(item.note,tran));
         }
-        helper.setText(R.id.tvName, item.name);
+        helper.setText(R.id.tvName, ChineseTran.simToTran(item.name,tran));
         // helper.setText(R.id.tvActor, item.actor);
         ImageView ivThumb = helper.getView(R.id.ivThumb);
         //由于部分电视机使用glide报错

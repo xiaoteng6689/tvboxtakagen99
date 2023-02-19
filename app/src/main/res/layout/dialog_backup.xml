@@ -53,7 +53,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:padding="@dimen/vs_10"
-                android:text="立即备份"
+                android:text="@string/dia_bkbk"
                 android:textColor="@color/color_FFFFFF"
                 android:textSize="@dimen/ts_22" />
 
@@ -69,7 +69,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:padding="@dimen/vs_10"
-                android:text="存储权限"
+                android:text="@string/dia_api_storage_request"
                 android:textColor="@color/color_FFFFFF"
                 android:textSize="@dimen/ts_22" />
         </LinearLayout>

@@ -87,6 +87,7 @@
     <string name="dia_render">請選擇默认渲染方式</string>
     <string name="dia_bkres">數據備份還原</string>
     <string name="dia_bkpkg">點擊下方數據還原</string>
+    <string name="dia_bkbk">立即備份</string>
     <string name="dia_dns">請選擇安全DNS</string>
     <string name="dia_locale">請選擇應用語言</string>
     <string name="dia_theme">請選擇主題</string>

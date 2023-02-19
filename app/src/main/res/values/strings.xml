@@ -86,6 +86,7 @@
     <string name="dia_render">Select Render Mode</string>
     <string name="dia_bkres">Backup / Restore</string>
     <string name="dia_bkpkg">Select Backup Package</string>
+    <string name="dia_bkbk">Backup</string>
     <string name="dia_dns">Select DNS</string>
     <string name="dia_locale">Select Language</string>
     <string name="dia_theme">Select Theme</string>
@@ -98,7 +99,7 @@
     <string name="dia_api_address_hint">1. Please input api address</string>
     <string name="dia_live_address_hint">2. Please input live address (optional)</string>
     <string name="dia_epg_address_hint">3. Please input epg address (optional)</string>
-    <string name="dia_api_storage_request">Storage request</string>
+    <string name="dia_api_storage_request">Storage</string>
 
     // Settings Backup Restore Page //
     <string name="set_bkup_ok">Backup Success</string>

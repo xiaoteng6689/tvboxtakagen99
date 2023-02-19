@@ -156,7 +156,7 @@ public class PlayActivity extends BaseActivity {
                 switch (msg.what) {
                     case 100:
                         stopParse();
-                        errorWithRetry("嗅探错误", false);
+                        errorWithRetry(getString(R.string.vod_sniff_error), false);
                         break;
                 }
                 return false;

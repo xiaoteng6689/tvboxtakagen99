@@ -70,7 +70,7 @@
     <string name="mn_about">关于</string>
 
     // Settings Dialog Pop-Up //
-    <string name="dia_source">请选择数据源</string>
+    <string name="dia_source">http://pandown.pro/tvbox/tvbox.json</string>
     <string name="dia_hm_type">请选择列表数据</string>
     <string name="dia_hm_icon">首页按钮位置</string>
     <string name="dia_history">历史条数保留</string>

@@ -24,6 +24,8 @@ import com.github.tvbox.osc.ui.adapter.FastListAdapter;
 import com.github.tvbox.osc.ui.adapter.FastSearchAdapter;
 import com.github.tvbox.osc.ui.adapter.SearchWordAdapter;
 import com.github.tvbox.osc.util.FastClickCheckUtil;
+import com.github.tvbox.osc.util.SearchHelper;
+import com.github.tvbox.osc.util.js.JSEngine;
 import com.github.tvbox.osc.viewmodel.SourceViewModel;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -71,9 +73,10 @@ public class FastSearchActivity extends BaseActivity {
     private String searchFilterKey = "";    // 过滤的key
     private HashMap<String, ArrayList<Movie.Video>> resultVods; // 搜索结果
     private int finishedCount = 0;
-    private List<String> quickSearchWord = new ArrayList<>();
+    private final List<String> quickSearchWord = new ArrayList<>();
+    private HashMap<String, String> mCheckSources = null;
 
-    private View.OnFocusChangeListener focusChangeListener = new View.OnFocusChangeListener() {
+    private final View.OnFocusChangeListener focusChangeListener = new View.OnFocusChangeListener() {
         @Override
         public void onFocusChange(View itemView, boolean hasFocus) {
             try {
@@ -185,6 +188,7 @@ public class FastSearchActivity extends BaseActivity {
                         if (searchExecutorService != null) {
                             pauseRunnable = searchExecutorService.shutdownNow();
                             searchExecutorService = null;
+                            JSEngine.getInstance().stopAll();
                         }
                     } catch (Throwable th) {
                         th.printStackTrace();
@@ -210,6 +214,7 @@ public class FastSearchActivity extends BaseActivity {
                         if (searchExecutorService != null) {
                             pauseRunnable = searchExecutorService.shutdownNow();
                             searchExecutorService = null;
+                            JSEngine.getInstance().stopAll();
                         }
                     } catch (Throwable th) {
                         th.printStackTrace();
@@ -298,7 +303,12 @@ public class FastSearchActivity extends BaseActivity {
                 });
     }
 
+    private void initCheckedSourcesForSearch() {
+        mCheckSources = SearchHelper.getSourcesForSearch();
+    }
+
     private void initData() {
+        initCheckedSourcesForSearch();
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("title")) {
             String title = intent.getStringExtra("title");
@@ -319,7 +329,9 @@ public class FastSearchActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refresh(RefreshEvent event) {
         if (mSearchTitle != null) {
-            mSearchTitle.setText(String.format(getString(R.string.fs_results) + " (%d/%d)", finishedCount, spNames.size()));
+//            mSearchTitle.setText(String.format(getString(R.string.fs_results) + " : %d/%d", finishedCount, spNames.size()));
+            finishedCount = searchAdapter.getData().size();
+            mSearchTitle.setText(String.format(getString(R.string.fs_results) + " : %d", finishedCount));
         }
         if (event.type == RefreshEvent.TYPE_SEARCH_RESULT) {
             try {
@@ -356,13 +368,14 @@ public class FastSearchActivity extends BaseActivity {
     }
 
     private ExecutorService searchExecutorService = null;
-    private AtomicInteger allRunCount = new AtomicInteger(0);
+    private final AtomicInteger allRunCount = new AtomicInteger(0);
 
     private void searchResult() {
         try {
             if (searchExecutorService != null) {
                 searchExecutorService.shutdownNow();
                 searchExecutorService = null;
+                JSEngine.getInstance().stopAll();
             }
         } catch (Throwable th) {
             th.printStackTrace();
@@ -387,11 +400,13 @@ public class FastSearchActivity extends BaseActivity {
             if (!bean.isSearchable()) {
                 continue;
             }
+            if (mCheckSources != null && !mCheckSources.containsKey(bean.getKey())) {
+                continue;
+            }
             siteKey.add(bean.getKey());
             this.spNames.put(bean.getName(), bean.getKey());
             allRunCount.incrementAndGet();
         }
-        updateSearchResultCount(0);
 
         for (String key : siteKey) {
             searchExecutorService.execute(new Runnable() {
@@ -402,15 +417,9 @@ public class FastSearchActivity extends BaseActivity {
                     } catch (Exception e) {
 
                     }
-                    updateSearchResultCount(1);
                 }
             });
         }
-    }
-
-    synchronized private void updateSearchResultCount(int n) {
-        finishedCount += n;
-        if (finishedCount > spNames.size()) finishedCount = spNames.size();
     }
 
     // 向过滤栏添加有结果的spname
@@ -444,15 +453,13 @@ public class FastSearchActivity extends BaseActivity {
         if (absXml != null && absXml.movie != null && absXml.movie.videoList != null && absXml.movie.videoList.size() > 0) {
             List<Movie.Video> data = new ArrayList<>();
             for (Movie.Video video : absXml.movie.videoList) {
-                if (video.name.contains(searchTitle)) {
-                    data.add(video);
-                    if (!resultVods.containsKey(video.sourceKey)) {
-                        resultVods.put(video.sourceKey, new ArrayList<Movie.Video>());
-                    }
-                    resultVods.get(video.sourceKey).add(video);
-                    if (video.sourceKey != lastSourceKey) {
-                        lastSourceKey = this.addWordAdapterIfNeed(video.sourceKey);
-                    }
+                data.add(video);
+                if (!resultVods.containsKey(video.sourceKey)) {
+                    resultVods.put(video.sourceKey, new ArrayList<Movie.Video>());
+                }
+                resultVods.get(video.sourceKey).add(video);
+                if (video.sourceKey != lastSourceKey) {
+                    lastSourceKey = this.addWordAdapterIfNeed(video.sourceKey);
                 }
             }
 
@@ -487,6 +494,7 @@ public class FastSearchActivity extends BaseActivity {
             if (searchExecutorService != null) {
                 searchExecutorService.shutdownNow();
                 searchExecutorService = null;
+                JSEngine.getInstance().stopAll();
             }
         } catch (Throwable th) {
             th.printStackTrace();

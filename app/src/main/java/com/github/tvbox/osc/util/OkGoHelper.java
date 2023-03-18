@@ -27,7 +27,7 @@ import okhttp3.Cache;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.dnsoverhttps.DnsOverHttps;
-import okhttp3.internal.Version;
+import okhttp3.internal.Util;
 import xyz.doikki.videoplayer.exo.ExoMediaSourceHelper;
 
 public class OkGoHelper {
@@ -120,6 +120,17 @@ public class OkGoHelper {
         dnsOverHttps = new DnsOverHttps.Builder().client(dohClient).url(dohUrl.isEmpty() ? null : HttpUrl.get(dohUrl)).build();
     }
 
+    static OkHttpClient defaultClient = null;
+    static OkHttpClient noRedirectClient = null;
+
+    public static OkHttpClient getDefaultClient() {
+        return defaultClient;
+    }
+
+    public static OkHttpClient getNoRedirectClient() {
+        return noRedirectClient;
+    }
+
     public static void init() {
         initDnsOverHttps();
 
@@ -147,10 +158,16 @@ public class OkGoHelper {
             th.printStackTrace();
         }
 
-        HttpHeaders.setUserAgent(Version.userAgent());
+        HttpHeaders.setUserAgent(Util.userAgent);
 
         OkHttpClient okHttpClient = builder.build();
         OkGo.getInstance().setOkHttpClient(okHttpClient);
+
+        defaultClient = okHttpClient;
+
+        builder.followRedirects(false);
+        builder.followSslRedirects(false);
+        noRedirectClient = builder.build();
 
         initExoOkHttpClient();
         initPicasso(okHttpClient);

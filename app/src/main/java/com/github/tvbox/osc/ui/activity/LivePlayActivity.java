@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Base64;
+import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -168,6 +170,8 @@ public class LivePlayActivity extends BaseActivity {
 
     private boolean isSHIYI = false;
     private static String shiyi_time;//时移时间
+
+    private GestureDetector mGestureDetector;
 
     @Override
     protected int getLayoutResID() {
@@ -395,7 +399,7 @@ public class LivePlayActivity extends BaseActivity {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             int keyCode = event.getKeyCode();
             if (keyCode == KeyEvent.KEYCODE_MENU) {
-                showSettingGroup();
+                showSettingGroup(false);
             } else if (!isListOrSettingLayoutVisible()) {
                 switch (keyCode) {
                     case KeyEvent.KEYCODE_DPAD_UP:
@@ -414,7 +418,7 @@ public class LivePlayActivity extends BaseActivity {
                         // takagen99 : To cater for newer Android w no Menu button
                         // playPreSource();
                         if (!isVOD) {
-                            showSettingGroup();
+                            showSettingGroup(false);
                         } else {
                             showChannelInfo();
                         }
@@ -429,7 +433,7 @@ public class LivePlayActivity extends BaseActivity {
                     case KeyEvent.KEYCODE_DPAD_CENTER:
                     case KeyEvent.KEYCODE_ENTER:
                     case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
-                        showChannelList();
+                        showChannelList(false);
                         break;
                     default:
                         if (keyCode >= KeyEvent.KEYCODE_0 && keyCode <= KeyEvent.KEYCODE_9) {
@@ -505,15 +509,9 @@ public class LivePlayActivity extends BaseActivity {
         }
     }
 
-    private void showChannelList() {
+    private void showChannelList(boolean force) {
         mBack.setVisibility(View.INVISIBLE);
-        if (tvBottomLayout.getVisibility() == View.VISIBLE) {
-            mHandler.removeCallbacks(mHideChannelInfoRun);
-            mHandler.post(mHideChannelInfoRun);
-        } else if (tvRightSettingLayout.getVisibility() == View.VISIBLE) {
-            mHandler.removeCallbacks(mHideSettingLayoutRun);
-            mHandler.post(mHideSettingLayoutRun);
-        } else if (tvLeftChannelListLayout.getVisibility() == View.INVISIBLE & tvRightSettingLayout.getVisibility() == View.INVISIBLE) {
+        if (hideOverlay() || force) {
             //重新载入上一次状态
             liveChannelItemAdapter.setNewData(getLiveChannels(currentChannelGroupIndex));
             if (currentLiveChannelIndex > -1)
@@ -523,11 +521,6 @@ public class LivePlayActivity extends BaseActivity {
             mGroupGridView.setSelection(currentChannelGroupIndex);
             mHandler.postDelayed(mFocusCurrentChannelAndShowChannelList, 200);
             mHandler.post(tv_sys_timeRunnable);
-        } else {
-            mBack.setVisibility(View.INVISIBLE);
-            mHandler.removeCallbacks(mHideChannelListRun);
-            mHandler.post(mHideChannelListRun);
-            mHandler.removeCallbacks(tv_sys_timeRunnable);
         }
     }
 
@@ -539,7 +532,7 @@ public class LivePlayActivity extends BaseActivity {
         mDivLeft.setVisibility(View.VISIBLE);
         mDivRight.setVisibility(View.GONE);
         tvLeftChannelListLayout.setVisibility(View.INVISIBLE);
-        showChannelList();
+        showChannelList(false);
     }
 
     public void divLoadEpgL(View view) {
@@ -549,7 +542,7 @@ public class LivePlayActivity extends BaseActivity {
         mDivLeft.setVisibility(View.GONE);
         mDivRight.setVisibility(View.VISIBLE);
         tvLeftChannelListLayout.setVisibility(View.INVISIBLE);
-        showChannelList();
+        showChannelList(false);
     }
 
     private final Runnable mFocusCurrentChannelAndShowChannelList = new Runnable() {
@@ -654,19 +647,8 @@ public class LivePlayActivity extends BaseActivity {
     };
 
     private void toggleChannelInfo() {
-        if (tvLeftChannelListLayout.getVisibility() == View.VISIBLE) {
-            mHandler.removeCallbacks(mHideChannelListRun);
-            mHandler.post(mHideChannelListRun);
-        } else if (tvRightSettingLayout.getVisibility() == View.VISIBLE) {
-            mHandler.removeCallbacks(mHideSettingLayoutRun);
-            mHandler.post(mHideSettingLayoutRun);
-        } else if (tvBottomLayout.getVisibility() == View.INVISIBLE) {
+        if (hideOverlay()) {
             showChannelInfo();
-        } else {
-            mBack.setVisibility(View.INVISIBLE);
-            mHandler.removeCallbacks(mHideChannelInfoRun);
-            mHandler.post(mHideChannelInfoRun);
-            mHandler.post(mUpdateLayout);   // Workaround Fix : SurfaceView
         }
     }
 
@@ -930,16 +912,27 @@ public class LivePlayActivity extends BaseActivity {
         playChannel(currentChannelGroupIndex, currentLiveChannelIndex, true);
     }
 
-    //显示设置列表
-    private void showSettingGroup() {
-        mBack.setVisibility(View.INVISIBLE);
+    private boolean hideOverlay() {
         if (tvLeftChannelListLayout.getVisibility() == View.VISIBLE) {
             mHandler.removeCallbacks(mHideChannelListRun);
             mHandler.post(mHideChannelListRun);
         } else if (tvBottomLayout.getVisibility() == View.VISIBLE) {
             mHandler.removeCallbacks(mHideChannelInfoRun);
             mHandler.post(mHideChannelInfoRun);
-        } else if (tvRightSettingLayout.getVisibility() == View.INVISIBLE) {
+        } else if (tvRightSettingLayout.getVisibility() == View.VISIBLE) {
+            mBack.setVisibility(View.INVISIBLE);
+            mHandler.removeCallbacks(mHideSettingLayoutRun);
+            mHandler.post(mHideSettingLayoutRun);
+        } else {
+            return true;
+        }
+        return false;
+    }
+
+    //显示设置列表
+    private void showSettingGroup(boolean force) {
+        mBack.setVisibility(View.INVISIBLE);
+        if (hideOverlay() || force) {
             if (!isCurrentLiveChannelValid()) return;
             //重新载入默认状态
             loadCurrentSourceList();
@@ -948,10 +941,6 @@ public class LivePlayActivity extends BaseActivity {
             mSettingGroupView.scrollToPosition(0);
             mSettingItemView.scrollToPosition(currentLiveChannelItem.getSourceIndex());
             mHandler.postDelayed(mFocusAndShowSettingGroup, 200);
-        } else {
-            mBack.setVisibility(View.INVISIBLE);
-            mHandler.removeCallbacks(mHideSettingLayoutRun);
-            mHandler.post(mHideSettingLayoutRun);
         }
     }
 
@@ -1022,24 +1011,13 @@ public class LivePlayActivity extends BaseActivity {
         controller.setListener(new LiveController.LiveControlListener() {
             @Override
             public boolean singleTap(MotionEvent e) {
-                int fiveScreen = PlayerUtils.getScreenWidth(mContext, true) / 5;
-
-                if (e.getX() > 0 && e.getX() < (fiveScreen * 2)) {
-                    // left side <<<<<
-                    showChannelList();
-                } else if ((e.getX() > (fiveScreen * 2)) && (e.getX() < (fiveScreen * 3))) {
-                    // middle screen
-                    toggleChannelInfo();
-                } else if (e.getX() > (fiveScreen * 3)) {
-                    // right side >>>>>
-                    showSettingGroup();
-                }
+                mBack.setVisibility(View.INVISIBLE);
+                hideOverlay();
                 return true;
             }
 
             @Override
             public void longPress() {
-                showSettingGroup();
             }
 
             @Override
@@ -2061,5 +2039,47 @@ public class LivePlayActivity extends BaseActivity {
             return false;
         }
         return true;
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener(){
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                if (tvLeftChannelListLayout.getVisibility() == View.VISIBLE
+                        || tvRightSettingLayout.getVisibility() == View.VISIBLE)
+                    return false;
+
+                int fiveScreen = PlayerUtils.getScreenWidth(mContext, true) / 5;
+
+                if (e.getX() > 0 && e.getX() < (fiveScreen * 2)) {
+                    // left side <<<<<
+                    showChannelList(true);
+                } else if (tvBottomLayout.getVisibility() == View.VISIBLE) {
+                    return false;
+                } else if ((e.getX() > (fiveScreen * 2)) && (e.getX() < (fiveScreen * 3))) {
+                    // middle screen
+                    toggleChannelInfo();
+                } else if (e.getX() > (fiveScreen * 3)) {
+                    // right side >>>>>
+                    showSettingGroup(true);
+                }
+                return true;
+            }
+
+            @Override
+            public void onLongPress(MotionEvent e) {
+                if (tvLeftChannelListLayout.getVisibility() == View.VISIBLE
+                        || tvRightSettingLayout.getVisibility() == View.VISIBLE)
+                    return;
+                showSettingGroup(true);
+            }
+        });
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        return mGestureDetector.onTouchEvent(event) || super.dispatchTouchEvent(event);
     }
 }

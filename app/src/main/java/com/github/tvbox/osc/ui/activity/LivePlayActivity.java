@@ -872,6 +872,7 @@ public class LivePlayActivity extends BaseActivity {
         if (mVideoView == null) return true;
         mVideoView.release();
         if (!changeSource) {
+            currentLiveChangeSourceTimes = 0;
             currentChannelGroupIndex = channelGroupIndex;
             currentLiveChannelIndex = liveChannelIndex;
             currentLiveChannelItem = getLiveChannels(currentChannelGroupIndex).get(currentLiveChannelIndex);

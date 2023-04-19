@@ -332,7 +332,7 @@ public class LivePlayActivity extends BaseActivity {
             mHandler.removeCallbacks(mHideChannelInfoRun);
             mHandler.post(mHideChannelInfoRun);
         } else {
-            mHandler.removeCallbacks(mConnectTimeoutChangeSourceRun);
+            stopDelayedAutoChangeSource();
             mHandler.removeCallbacks(mUpdateNetSpeedRun);
             mHandler.removeCallbacks(mUpdateTimeRun);
             mHandler.removeCallbacks(tv_sys_timeRunnable);
@@ -864,6 +864,8 @@ public class LivePlayActivity extends BaseActivity {
 
     //节目播放
     private boolean playChannel(int channelGroupIndex, int liveChannelIndex, boolean changeSource) {
+        if (null == mVideoView)
+            return false;
         if ((channelGroupIndex == currentChannelGroupIndex && liveChannelIndex == currentLiveChannelIndex && !changeSource)
                 || (changeSource && currentLiveChannelItem.getSourceNum() == 1)) {
             showChannelInfo();
@@ -1000,6 +1002,21 @@ public class LivePlayActivity extends BaseActivity {
         }
     };
 
+    private void stopDelayedAutoChangeSource() {
+        mHandler.removeCallbacks(mConnectTimeoutChangeSourceRun);
+        mHandler.removeCallbacks(mConnectErrorChangeSourceRun);
+    }
+
+    private void scheduleAutoChangeSource(boolean onError, long delayMillis) {
+        stopDelayedAutoChangeSource();
+        Runnable r = onError ? mConnectErrorChangeSourceRun : mConnectTimeoutChangeSourceRun;
+        if (delayMillis > 0) {
+            mHandler.postDelayed(r, delayMillis);
+        } else {
+            mHandler.post(r);
+        }
+    }
+
     private void initVideoView() {
         controller = new LiveController(this);
         controller.setListener(new LiveController.LiveControlListener() {
@@ -1027,6 +1044,8 @@ public class LivePlayActivity extends BaseActivity {
 
             @Override
             public void playStateChanged(int playState) {
+                if (null == mVideoView)
+                    return;
                 switch (playState) {
                     case VideoView.STATE_IDLE:
                     case VideoView.STATE_PAUSED:
@@ -1053,30 +1072,17 @@ public class LivePlayActivity extends BaseActivity {
                     case VideoView.STATE_BUFFERED:
                     case VideoView.STATE_PLAYING:
                         currentLiveChangeSourceTimes = 0;
-                        mHandler.removeCallbacks(mConnectTimeoutChangeSourceRun);
-                        mHandler.removeCallbacks(mConnectTimeoutReplayRun);
+                        stopDelayedAutoChangeSource();
                         break;
                     case VideoView.STATE_ERROR:
+                        scheduleAutoChangeSource(true, 10);
+                        break;
                     case VideoView.STATE_PLAYBACK_COMPLETED:
-                        mHandler.removeCallbacks(mConnectTimeoutChangeSourceRun);
-                        mHandler.removeCallbacks(mConnectTimeoutReplayRun);
-                        if (Hawk.get(HawkConfig.LIVE_CONNECT_TIMEOUT, 2) == 0) {
-                            //缓冲30s重新播放
-                            mHandler.postDelayed(mConnectTimeoutReplayRun, 30 * 1000L);
-                        } else {
-                            mHandler.post(mConnectTimeoutChangeSourceRun);
-                        }
+                        scheduleAutoChangeSource(false, 10);
                         break;
                     case VideoView.STATE_PREPARING:
                     case VideoView.STATE_BUFFERING:
-                        mHandler.removeCallbacks(mConnectTimeoutChangeSourceRun);
-                        mHandler.removeCallbacks(mConnectTimeoutReplayRun);
-                        if (Hawk.get(HawkConfig.LIVE_CONNECT_TIMEOUT, 2) == 0) {
-                            //缓冲30s重新播放
-                            mHandler.postDelayed(mConnectTimeoutReplayRun, 30 * 1000L);
-                        } else {
-                            mHandler.postDelayed(mConnectTimeoutChangeSourceRun, (Hawk.get(HawkConfig.LIVE_CONNECT_TIMEOUT, 2)) * 5000L);
-                        }
+                        scheduleAutoChangeSource(false, (Hawk.get(HawkConfig.LIVE_CONNECT_TIMEOUT, 1) + 1) * 5000L);
                         break;
                 }
             }
@@ -1111,10 +1117,21 @@ public class LivePlayActivity extends BaseActivity {
         }
     };
 
-    private final Runnable mConnectTimeoutReplayRun = new Runnable() {
+    private final Runnable mConnectErrorChangeSourceRun = new Runnable() {
         @Override
         public void run() {
-            replayChannel();
+            currentLiveChangeSourceTimes++;
+            if (currentLiveChannelItem.getSourceNum() == currentLiveChangeSourceTimes) {
+                currentLiveChangeSourceTimes = 0;
+                Integer[] groupChannelIndex = getNextChannel(Hawk.get(HawkConfig.LIVE_CHANNEL_REVERSE, false) ? -1 : 1, true);
+                if (null == groupChannelIndex) {
+                    Toast.makeText(LivePlayActivity.this, "无法播放，请选择其他频道", Toast.LENGTH_SHORT).show();
+                } else {
+                    playChannel(groupChannelIndex[0], groupChannelIndex[1], false);
+                }
+            } else {
+                playNextSource();
+            }
         }
     };
 
@@ -1981,6 +1998,10 @@ public class LivePlayActivity extends BaseActivity {
     }
 
     private Integer[] getNextChannel(int direction) {
+        return getNextChannel(direction, false);
+    }
+
+    private Integer[] getNextChannel(int direction, boolean stopOnListEnd) {
         int channelGroupIndex = currentChannelGroupIndex;
         int liveChannelIndex = currentLiveChannelIndex;
 
@@ -1992,10 +2013,14 @@ public class LivePlayActivity extends BaseActivity {
                 if (Hawk.get(HawkConfig.LIVE_CROSS_GROUP, false)) {
                     do {
                         channelGroupIndex++;
-                        if (channelGroupIndex >= liveChannelGroupList.size())
+                        if (channelGroupIndex >= liveChannelGroupList.size()) {
+                            if (stopOnListEnd)
+                                return null;
                             channelGroupIndex = 0;
+                        }
                     } while (!liveChannelGroupList.get(channelGroupIndex).getGroupPassword().isEmpty() || channelGroupIndex == currentChannelGroupIndex);
-                }
+                } else if (stopOnListEnd)
+                    return null;
             }
         } else {
             liveChannelIndex--;
@@ -2003,10 +2028,14 @@ public class LivePlayActivity extends BaseActivity {
                 if (Hawk.get(HawkConfig.LIVE_CROSS_GROUP, false)) {
                     do {
                         channelGroupIndex--;
-                        if (channelGroupIndex < 0)
+                        if (channelGroupIndex < 0) {
+                            if (stopOnListEnd)
+                                return null;
                             channelGroupIndex = liveChannelGroupList.size() - 1;
+                        }
                     } while (!liveChannelGroupList.get(channelGroupIndex).getGroupPassword().isEmpty() || channelGroupIndex == currentChannelGroupIndex);
-                }
+                } else if (stopOnListEnd)
+                    return null;
                 liveChannelIndex = getLiveChannels(channelGroupIndex).size() - 1;
             }
         }

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="@dimen/vs_960"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_dialog_bg_main"
+        android:orientation="vertical"
+        android:padding="@dimen/vs_30">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/ts_40"
+                android:lineSpacingMultiplier="0"
+                android:padding="@dimen/vs_20"
+                android:singleLine="true"
+                android:text="@string/mn_jellyfin"
+                android:textColor="@color/color_FFFFFF"
+                android:textSize="@dimen/ts_24" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/vs_30"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/jellyfin_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/input_dialog_api_input"
+                android:hint="服务器地址 例：http://xxx:xxx"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/vs_2"
+                android:paddingTop="@dimen/vs_10"
+                android:paddingRight="@dimen/vs_2"
+                android:paddingBottom="@dimen/vs_10"
+                android:textColor="@color/color_FFFFFF"
+                android:textColorHint="@color/color_6CFFFFFF"
+                android:textSize="@dimen/ts_26" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/vs_30"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/jellyfin_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_dialog_api_input"
+                android:hint="用户名"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/vs_2"
+                android:paddingTop="@dimen/vs_10"
+                android:paddingRight="@dimen/vs_2"
+                android:paddingBottom="@dimen/vs_10"
+                android:textColor="@color/color_FFFFFF"
+                android:textColorHint="@color/color_6CFFFFFF"
+                android:textSize="@dimen/ts_26" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/vs_30"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/jellyfin_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_dialog_api_input"
+                android:hint="密  码"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/vs_2"
+                android:paddingTop="@dimen/vs_10"
+                android:paddingRight="@dimen/vs_2"
+                android:paddingBottom="@dimen/vs_10"
+                android:textColor="@color/color_FFFFFF"
+                android:textColorHint="@color/color_6CFFFFFF"
+                android:textSize="@dimen/ts_26" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/vs_30"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/submitBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/vs_5"
+                android:layout_marginRight="@dimen/vs_5"
+                android:layout_weight="1"
+                android:background="@drawable/button_dialog_main"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="@dimen/vs_10"
+                android:text=" 确 定 "
+                android:textColor="@color/color_FFFFFF"
+                android:textSize="@dimen/ts_22" />
+
+            <TextView
+                android:id="@+id/cancelBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/vs_5"
+                android:layout_marginLeft="@dimen/vs_5"
+                android:layout_weight="1"
+                android:background="@drawable/button_dialog_main"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="@dimen/vs_10"
+                android:text=" 取 消 "
+                android:textColor="@color/color_FFFFFF"
+                android:textSize="@dimen/ts_22" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/loadingBar"
+        android:layout_width="@dimen/vs_50"
+        android:layout_height="@dimen/vs_50"
+        android:layout_gravity="center"
+        android:indeterminateBehavior="repeat"
+        android:indeterminateDrawable="@drawable/anim_loading"
+        android:indeterminateOnly="true"
+        android:visibility="gone" />
+
+</FrameLayout>

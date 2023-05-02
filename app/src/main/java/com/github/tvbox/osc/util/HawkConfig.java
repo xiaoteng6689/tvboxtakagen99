@@ -62,4 +62,17 @@ public class HawkConfig {
         return Hawk.get(DEBUG_OPEN, false);
     }
     public static boolean hotVodDelete;
+
+    public static final class Jellyfin{
+        public static final String sourcebean_key = "tvbox_jellyfin";
+        public static final String sourcebean_name = "Jellyfin";
+        public static final String serverUrl = "tvbox_jellyfin_url";
+        public static final String username = "tvbox_jellyfin_username";
+        public static final String password = "tvbox_jellyfin_password";
+        public static final String userid = "tvbox_jellyfin_userid";
+        public static final String token = "tvbox_jellyfin_token";
+
+        public static final String SortBy = "tvbox_jellyfin_sortby";
+        public static final String SortOrder = "tvbox_jellyfin_sortorder";
+    }
 }

@@ -135,7 +135,7 @@ public class JellyfinDialog extends BaseDialog {
     private void authenticateByName(String url,String username, String password,CallBack cb) {
         String reqjson = "{\"Username\":\"" + username + "\",\"Pw\":\"" + password + "\"}";
         OkGo.<String>post(url + "/Users/authenticatebyname")
-                .headers("X-Emby-Authorization","MediaBrowser Client=\"Jellyfin Web\", Device=\"Edge Chromium\", DeviceId=\"TW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzExMi4wLjAuMCBTYWZhcmkvNTM3LjM2IEVkZy8xMTIuMC4xNzIyLjQ4fDE2ODE5MDQ1NTMwOTc1\", Version=\"10.8.9\"")
+                .headers("X-Emby-Authorization","MediaBrowser Client=\"TVBox\", Device=\"TVBox\", DeviceId=\"TVBox_TW96aWxsYS81LjAgKFdpbmRvd3MgTlQgNi4xOyBXa\", Version=\"1.0.0\"")
                 .upJson(reqjson)
                 .execute(new StringCallback() {
                     @Override

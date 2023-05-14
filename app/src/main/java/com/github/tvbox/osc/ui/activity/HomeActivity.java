@@ -820,12 +820,18 @@ public class HomeActivity extends BaseActivity {
     }
 
     void reloadHome() {
-        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        Bundle bundle = new Bundle();
-        bundle.putBoolean("useCache", true);
-        intent.putExtras(bundle);
-        HomeActivity.this.startActivity(intent);
+        // Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        // intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        // Bundle bundle = new Bundle();
+        // bundle.putBoolean("useCache", true);
+        // intent.putExtras(bundle);
+        // HomeActivity.this.startActivity(intent);
+
+        // 上面的 FLAG_ACTIVITY_CLEAR_TASK 没有效果，换成下面的
+        Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
+        startActivity(intent);
+        System.exit(0);
+        finish();
     }
 
 //    public void onClick(View v) {

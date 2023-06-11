@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.event.RefreshEvent;
 import com.github.tvbox.osc.server.RemoteServer;
+import com.github.tvbox.osc.ui.activity.HomeActivity;
 import com.github.tvbox.osc.util.HawkConfig;
 import com.orhanobut.hawk.Hawk;
 
@@ -68,11 +69,11 @@ public class PushDialog extends BaseDialog {
                 String addr = etAddr.getText().toString();
                 String port = etPort.getText().toString();
                 if (addr == null || addr.length() == 0) {
-                    Toast.makeText(PushDialog.this.getContext(), getString(R.string.push_input_remote_addr), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PushDialog.this.getContext(), HomeActivity.getRes().getString(R.string.push_input_remote_addr), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (port == null || port.length() == 0) {
-                    Toast.makeText(PushDialog.this.getContext(), getString(R.string.push_input_remote_port), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PushDialog.this.getContext(), HomeActivity.getRes().getString(R.string.push_input_remote_port), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Hawk.put(HawkConfig.PUSH_TO_ADDR, addr);
@@ -87,7 +88,7 @@ public class PushDialog extends BaseDialog {
         findViewById(R.id.btnCancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(PushDialog.this.getContext(), getString(R.string.push_function_not_implement), Toast.LENGTH_SHORT).show();
+                Toast.makeText(PushDialog.this.getContext(), HomeActivity.getRes().getString(R.string.push_function_not_implement), Toast.LENGTH_SHORT).show();
             }
         });
     }

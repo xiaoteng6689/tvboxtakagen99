@@ -1715,8 +1715,6 @@ public class LivePlayActivity extends BaseActivity {
         itemsArrayList.add(playerDecoderItems);
         itemsArrayList.add(timeoutItems);
         itemsArrayList.add(personalSettingItems);
-        itemsArrayList.add(liveAdd);
-        itemsArrayList.add(exitConfirm);
 
         liveSettingGroupList.clear();
         for (int i = 0; i < groupNames.size(); i++) {

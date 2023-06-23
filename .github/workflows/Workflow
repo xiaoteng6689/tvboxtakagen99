@@ -1,0 +1,71 @@
+
+logo
+
+Online Traceroute using MTR
+Perform an online traceroute with the mtr command line tool. MTR is an advanced traceroute tool that uses multiple ICMP pings to test the connectivity to each hop across the Internet.
+
+Remove limits & captcha with membership
+
+Start: Fri Jun 23 21:18:08 2023
+HOST: f3f704500579                       Loss%   Snt   Last   Avg  Best  Wrst StDev
+  1.|-- 172.17.0.1                          0.0%     2    0.2   0.2   0.1   0.2   0.0
+  2.|-- 10.206.5.139                        0.0%     2    0.4   0.5   0.4   0.5   0.0
+  3.|-- 10.206.35.7                         0.0%     2    0.4   0.5   0.4   0.6   0.0
+  4.|-- 10.206.32.2                         0.0%     2    2.9  10.5   2.9  18.0  10.6
+  5.|-- lo0-0.gw2.cjj1.us.linode.com        0.0%     2    0.5   0.6   0.5   0.7   0.0
+  6.|-- de-cix.nyc.fb.com                   0.0%     2    3.4   4.4   3.4   5.4   1.4
+  7.|-- po201.asw04.lga1.tfbnw.net          0.0%     2    3.3   3.3   3.3   3.3   0.0
+  8.|-- po299.psw04.lga3.tfbnw.net          0.0%     2    2.4   2.4   2.4   2.5   0.0
+  9.|-- 157.240.39.187                      0.0%     2    3.8   4.8   3.8   5.8   1.0
+ 10.|-- whatsapp-cdn-shv-02-lga3.fbcdn.net  0.0%     2    2.5   2.5   2.5   2.6   0.0
+
+What is Traceroute?
+
+Traceroute is a network testing term that is used to examine the hops that communication will follow across an IP network. It also is commonly referred to by the name of the tools used to perform the trace; typically traceroute on Linux based systems and tracert on Windows operating systems. There are also variations on these such as tcptraceroute. The tools all perform a similar function but have different capabilities or methods for performing the trace.
+
+Why would I run a Traceroute?
+
+A popular reason one might perform a traceroute is for interest sake. It is a good way to see the path your network connection is taking as it traverses the globe. However, the most common reason is its use by networking and computer professionals to diagnose problems in a network path. As the traceroute can pin point routers with high response times, possibly indicating network congestion or other problems.
+
+What techniques are used to measure the IP Path?
+
+Packets are sent across the network and something called a TTL (time to live) is measured, as the packets reach hops (router) in the network the TTL is incremented. The packets are usually ICMP or UDP packets; another version uses the TCP protocol. One advantage of using the different protocols is on some networks a router or firewall may block the packets, thereby giving you an incomplete path across the network. By using different protocols you may be able to get past some of the systems that are blocking the other types of packets. TCP Traceroute is popular as it can be used to trace a path to a TCP service that has to have an open port for that service to be operational. For example a web server on port 80 or a mail server on port 25.
+
+Map Traceroute with GeoIP Location
+
+We have an online Traceroute tool hosted at traceroute-online.com where we attempt to map the network path around the Internet. This mapping is performed by looking up each responding router's IP address against GeoIP based services. These services are not always reliable; therefore always take the mapping data with a grain of salt and beware of strange results that bounce back and forth.
+
+Host Name / IP Address
+Responding hops are resolved in DNS, if the have a PTR record this is included in the table, those with no record will show the IP Address.
+
+Packet Loss and Response Times
+As is pretty obvious these are the results from the traceroute. The packet loss can show if packets are being dropped either along the path or at the router and the response time shows the latency.
+API access to MTR Traceroute
+
+All of our IP Tools have an easy to use API that allows access to remote Traceroute by requesting a URL and receiving the results back in a simple plain text output. Access the API using curl a browser or even netcat if that is your HTTP client of choice. 🙂
+Access to the MTR Traceroute API
+
+https://api.hackertarget.com/mtr/?q=8.8.8.8&apikey=**apikeyrequired**
+
+The API is simple to use and aims to be a quick reference tool; access to this API endpoint requires a membership and valid API key. Usage is calculated daily and depends on the level of Membership.
+
+Have you seen our other Free IP and Network Testing tools.
+
+Discover. Explore. Learn.
+
+Next level testing with advanced Security Vulnerability Scanners.
+
+Trusted tools. Hosted for easy access.
+
+    About
+    From attack surface discovery to vulnerability identification, we host tools to make the job of securing your systems easier.
+
+    Membership Learn More
+
+    Connect
+
+    Mailing List
+    Subscribe to the low volume list
+    Security news, site updates and more.
+
+© 2023 Hacker Target Pty Ltd - ACN 600827263 | Terms of Use & Privacy Policy | Powered by Open Source Software

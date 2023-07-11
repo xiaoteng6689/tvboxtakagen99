@@ -1,6 +1,7 @@
 package com.github.tvbox.osc.util;
 
 import com.github.tvbox.osc.base.App;
+import com.github.tvbox.osc.picasso.CustomImageDownloader;
 import com.github.tvbox.osc.util.SSL.SSLSocketFactoryCompat;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.https.HttpsUtils;
@@ -14,7 +15,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.security.cert.CertificateException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -27,7 +27,7 @@ import okhttp3.Cache;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.dnsoverhttps.DnsOverHttps;
-import okhttp3.internal.Util;
+import okhttp3.internal.Version;
 import xyz.doikki.videoplayer.exo.ExoMediaSourceHelper;
 
 public class OkGoHelper {
@@ -153,12 +153,12 @@ public class OkGoHelper {
                 .connectTimeout(DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS)
                 .dns(dnsOverHttps);
         try {
-            builder = setOkHttpSsl(builder);
+            setOkHttpSsl(builder);
         } catch (Throwable th) {
             th.printStackTrace();
         }
 
-        HttpHeaders.setUserAgent(Util.userAgent);
+        HttpHeaders.setUserAgent(Version.userAgent());
 
         OkHttpClient okHttpClient = builder.build();
         OkGo.getInstance().setOkHttpClient(okHttpClient);
@@ -174,22 +174,23 @@ public class OkGoHelper {
     }
 
     static void initPicasso(OkHttpClient client) {
-        OkHttp3Downloader downloader = new OkHttp3Downloader(client);
+//        OkHttp3Downloader downloader = new OkHttp3Downloader(client);
+        CustomImageDownloader downloader = new CustomImageDownloader();
         Picasso picasso = new Picasso.Builder(App.getInstance()).downloader(downloader).build();
         Picasso.setSingletonInstance(picasso);
     }
 
-    private static synchronized OkHttpClient.Builder setOkHttpSsl(OkHttpClient.Builder builder) {
+    private static synchronized void setOkHttpSsl(OkHttpClient.Builder builder) {
         try {
             // 自定义一个信任所有证书的TrustManager，添加SSLSocketFactory的时候要用到
             final X509TrustManager trustAllCert =
                     new X509TrustManager() {
                         @Override
-                        public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                        public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) {
                         }
 
                         @Override
-                        public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                        public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) {
                         }
 
                         @Override
@@ -197,10 +198,9 @@ public class OkGoHelper {
                             return new java.security.cert.X509Certificate[]{};
                         }
                     };
-            final Tls12SocketFactory sslSocketFactory = new Tls12SocketFactory(new SSLSocketFactoryCompat(trustAllCert));
-            return builder
-                    .sslSocketFactory(sslSocketFactory, trustAllCert)
-                    .hostnameVerifier(HttpsUtils.UnSafeHostnameVerifier);
+            final SSLSocketFactory sslSocketFactory = new SSLSocketFactoryCompat(trustAllCert);
+            builder.sslSocketFactory(sslSocketFactory, trustAllCert);
+            builder.hostnameVerifier(HttpsUtils.UnSafeHostnameVerifier);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

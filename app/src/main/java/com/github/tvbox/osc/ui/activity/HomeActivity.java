@@ -222,6 +222,7 @@ public class HomeActivity extends BaseActivity {
                 if (direction != View.FOCUS_DOWN) {
                     return false;
                 }
+                HomeActivity.this.isDownOrUp = true;
                 BaseLazyFragment baseLazyFragment = fragments.get(sortFocused);
                 if (!(baseLazyFragment instanceof GridFragment)) {
                     return false;

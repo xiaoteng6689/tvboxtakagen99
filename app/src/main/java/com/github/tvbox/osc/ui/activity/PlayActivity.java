@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Rational;
 import android.view.KeyEvent;
 import android.view.View;
@@ -54,6 +55,7 @@ import com.acsbendi.requestinspectorwebview.WebViewRequest;
 import com.github.catvod.crawler.Spider;
 import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.api.ApiConfig;
+import com.github.tvbox.osc.base.App;
 import com.github.tvbox.osc.base.BaseActivity;
 import com.github.tvbox.osc.bean.ParseBean;
 import com.github.tvbox.osc.bean.SourceBean;
@@ -113,6 +115,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -125,6 +128,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import me.jessyan.autosize.AutoSize;
+import okhttp3.Cache;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -149,6 +153,8 @@ public class PlayActivity extends BaseActivity {
     private static final int PIP_BOARDCAST_ACTION_NEXT = 2;
 
     private String videoURL;
+
+    private List<String> videoSegmentationURL = new ArrayList<>();
 
     @Override
     protected int getLayoutResID() {
@@ -213,6 +219,15 @@ public class PlayActivity extends BaseActivity {
         mController.setListener(new VodController.VodControlListener() {
             @Override
             public void playNext(boolean rmProgress) {
+                if (videoSegmentationURL.size() > 0) {
+                    for (int i=0; i<videoSegmentationURL.size()-1; i++) {
+                        if (videoSegmentationURL.get(i).equals(videoURL)) {
+                            mVideoView.setPlayFromZeroPositionOnce(true);
+                            startPlayUrl(videoSegmentationURL.get(i+1), new HashMap<>());//todo header
+                            return;
+                        }
+                    }
+                }
                 if (mVodInfo.reverseSort) {
                     PlayActivity.this.playPrevious();
                 } else {
@@ -225,6 +240,15 @@ public class PlayActivity extends BaseActivity {
 
             @Override
             public void playPre() {
+                if (videoSegmentationURL.size() > 0) {
+                    for (int i=1; i<videoSegmentationURL.size(); i++) {
+                        if (videoSegmentationURL.get(i).equals(videoURL)) {
+                            mVideoView.setPlayFromZeroPositionOnce(true);
+                            startPlayUrl(videoSegmentationURL.get(i-1), new HashMap<>());//todo header
+                            return;
+                        }
+                    }
+                }
                 if (mVodInfo.reverseSort) {
                     PlayActivity.this.playNext(false);
                 } else {
@@ -573,6 +597,26 @@ public class PlayActivity extends BaseActivity {
                     }
                 }
             });
+        }
+    }
+
+    private void yxdm(String url, Map<String, String> headers) {
+        if (url.startsWith("https://www.ziyuantt.com/") && url.endsWith(".mp4")) {
+            int st = url.indexOf("&url=");
+            if (st > 1) {
+                String [] urls = url.substring(st + 5).split("\\|");
+                if (urls.length < 2) return;
+                stopLoadWebView(false);
+                videoSegmentationURL.clear();
+                videoSegmentationURL.addAll(Arrays.asList(urls));
+                HashMap<String, String> hm = new HashMap<>();
+                if (headers != null && headers.keySet().size() > 0) {
+                    for (String k : headers.keySet()) {
+                        hm.put(k, " " + headers.get(k));
+                    }
+                }
+                startPlayUrl(videoSegmentationURL.get(0), hm);
+            }
         }
     }
 
@@ -1953,6 +1997,7 @@ public class PlayActivity extends BaseActivity {
             }
 
             if (ad || loadFoundCount.get() > 0) return AdBlocker.createEmptyResource();
+            yxdm(url, request.getHeaders());
             if ("POST".equals(request.getMethod())) {
                 if (request.getBody().isEmpty())//得不到jquery.post内容，后面再看看第三方webview类有没有更新
                     return null;
@@ -1974,6 +2019,7 @@ public class PlayActivity extends BaseActivity {
                 clientBuilder.connectTimeout(10000, TimeUnit.MILLISECONDS);
                 clientBuilder.followRedirects(false);
                 clientBuilder.followSslRedirects(false);
+                clientBuilder.cache(new Cache(new File(App.getInstance().getCacheDir().getAbsolutePath(), "xiutancache"), 10 * 1024 * 1024));
                 okhttp3.Response response = clientBuilder.build().newCall(requestBuilder.build()).execute();
 
                 final String contentTypeValue = response.header("Content-Type");

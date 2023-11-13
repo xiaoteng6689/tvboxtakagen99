@@ -925,18 +925,11 @@ public class DetailActivity extends BaseActivity {
             PictureInPictureParams params = new PictureInPictureParams.Builder()
                     .setAspectRatio(ratio)
                     .setActions(actions).build();
-            playFragment.getPlayer().postDelayed(() -> {//代码模拟home键时会立即执行,toggleFullPreview中竖屏有切换横屏操作,
-                if (!fullWindows) {
+            if (!fullWindows) {
                     toggleFullPreview();
                 }
-            },300);
             enterPictureInPictureMode(params);
-            playFragment.getVodController().hideBottom();
-            playFragment.getPlayer().postDelayed(() -> {
-                if (!playFragment.getPlayer().isPlaying()){
-                    playFragment.getVodController().togglePlay();
-                }
-            },400);
+            playFragment.getVodController().hideBottom();            
         }
         super.onUserLeaveHint();
     }

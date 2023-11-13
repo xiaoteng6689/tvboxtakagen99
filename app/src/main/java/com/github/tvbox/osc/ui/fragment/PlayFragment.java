@@ -137,6 +137,10 @@ public class PlayFragment extends BaseLazyFragment {
     private String videoURL;
 
     private List<String> videoSegmentationURL = new ArrayList<>();
+    
+    public MyVideoView getPlayer() {
+        return mVideoView;
+    }
 
     @Override
     protected int getLayoutResID() {

@@ -929,7 +929,12 @@ public class DetailActivity extends BaseActivity {
                     toggleFullPreview();
                 }
             enterPictureInPictureMode(params);
-            playFragment.getVodController().hideBottom();            
+            playFragment.getVodController().hideBottom();
+            playFragment.getPlayer().postDelayed(() -> {
+                if (!playFragment.getPlayer().isPlaying()){
+                    playFragment.getVodController().togglePlay();
+                }
+            },400);
         }
         super.onUserLeaveHint();
     }

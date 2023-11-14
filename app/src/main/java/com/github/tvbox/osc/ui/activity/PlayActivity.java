@@ -1131,19 +1131,6 @@ public class PlayActivity extends BaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (mVideoView != null) {
-            if (supportsPiPMode()) {
-                if (isInPictureInPictureMode()) {
-                    // Continue playback
-                    mVideoView.resume();
-                } else {
-                    // Pause playback
-                    mVideoView.pause();
-                }
-            } else {
-                mVideoView.pause();
-            }
-        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

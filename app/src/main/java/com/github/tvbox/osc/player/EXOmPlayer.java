@@ -68,8 +68,7 @@ public class EXOmPlayer extends ExoMediaPlayer {
     @SuppressLint("UnsafeOptInUsageError")
     private void getExoSelectedTrack() {
         audioId = "";
-        subtitleId = "";
-        videoId = "";
+        subtitleId = "";        
         for (Tracks.Group group : mMediaPlayer.getCurrentTracks().getGroups()) {
             if (!group.isSelected()) continue;
             for (int trackIndex = 0; trackIndex < group.length; trackIndex++) {
@@ -80,10 +79,7 @@ public class EXOmPlayer extends ExoMediaPlayer {
                 }
                 if (MimeTypes.isText(format.sampleMimeType)) {
                     subtitleId = format.id;
-                }
-                if (MimeTypes.isVideo(format.sampleMimeType)) {
-                    videoId = format.id;
-                }
+                }                
             }
         }
     }

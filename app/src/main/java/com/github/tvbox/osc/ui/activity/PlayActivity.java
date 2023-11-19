@@ -342,13 +342,13 @@ public class PlayActivity extends BaseActivity {
                         });
                     }
                 });
-                EventBus.getDefault().register(searchSubtitleDialog);
+              /*  EventBus.getDefault().register(searchSubtitleDialog);
                 searchSubtitleDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 	@Override
                     public void onDismiss(DialogInterface dialog) {
                         EventBus.getDefault().unregister(dialog);
                     }
-                });
+                });*/
                 if (mVodInfo.playFlag.contains("Ali") || mVodInfo.playFlag.contains("parse")) {
                     searchSubtitleDialog.setSearchWord(mVodInfo.playNote);
                 } else {

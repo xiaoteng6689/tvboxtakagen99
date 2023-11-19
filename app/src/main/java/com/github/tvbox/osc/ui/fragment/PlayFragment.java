@@ -4,8 +4,8 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
@@ -347,13 +347,13 @@ public class PlayFragment extends BaseLazyFragment {
                         });
                     }
                 });
-                EventBus.getDefault().register(searchSubtitleDialog);
+              /*  EventBus.getDefault().register(searchSubtitleDialog);
                 searchSubtitleDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 	@Override
                     public void onDismiss(DialogInterface dialog) {
                         EventBus.getDefault().unregister(dialog);
                     }
-                });
+                });*/
                 if (mVodInfo.playFlag.contains("Ali") || mVodInfo.playFlag.contains("parse")) {
                     searchSubtitleDialog.setSearchWord(mVodInfo.playNote);
                 } else {

@@ -26,7 +26,7 @@ import com.github.tvbox.osc.base.App;
 import com.github.tvbox.osc.util.HawkConfig;
 import com.github.tvbox.osc.util.LOG;
 import com.orhanobut.hawk.Hawk;
-
+import java.util.Locale;
 import java.util.Map;
 
 import xyz.doikki.videoplayer.player.AbstractPlayer;
@@ -70,7 +70,7 @@ public class ExoMediaPlayer extends AbstractPlayer implements Player.Listener {
         if (mLoadControl == null) {
             mLoadControl = new DefaultLoadControl();
         }
-        mTrackSelector.setParameters(mTrackSelector.getParameters().buildUpon().setPreferredTextLanguage("zh").setTunnelingEnabled(true));
+        mTrackSelector.setParameters(mTrackSelector.getParameters().buildUpon().setPreferredTextLanguage(Locale.getDefault().getISO3Language()).setTunnelingEnabled(Hawk.get(HawkConfig.EXO_TUNNELING, false)));
         /*mMediaPlayer = new ExoPlayer.Builder(
                 mAppContext,
                 mRenderersFactory,
@@ -338,4 +338,5 @@ public class ExoMediaPlayer extends AbstractPlayer implements Player.Listener {
             }
         }
     }
+
 }

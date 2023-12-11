@@ -443,9 +443,9 @@ public class ModelSettingFragment extends BaseLazyFragment {
                 players.add(1);
                 players.add(2);
                 players.add(3);
-                players.add(10);
-                players.add(11);
-                players.add(12);
+                MXPlayer.getPackageInfo() != null ? players.add(10) : null;
+                ReexPlayer.getPackageInfo() != null? players.add(11) : null;
+                Kodi.getPackageInfo() != null? players.add(12) : null;
                 SelectDialog<Integer> dialog = new SelectDialog<>(mActivity);
                 dialog.setTip(getString(R.string.dia_player));
                 dialog.setAdapter(new SelectDialogAdapter.SelectDialogInterface<Integer>() {

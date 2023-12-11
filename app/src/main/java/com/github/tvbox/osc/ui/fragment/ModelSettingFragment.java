@@ -52,6 +52,12 @@ import me.jessyan.autosize.utils.AutoSizeUtils;
 import okhttp3.HttpUrl;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
+import com.github.tvbox.osc.player.thirdparty.Kodi;
+import com.github.tvbox.osc.player.thirdparty.MXPlayer;
+import com.github.tvbox.osc.player.thirdparty.ReexPlayer;
+import com.github.tvbox.osc.player.thirdparty.RemoteTVBox;
+import com.github.tvbox.osc.player.thirdparty.VlcPlayer;
+
 /**
  * @author pj567
  * @date :2020/12/23

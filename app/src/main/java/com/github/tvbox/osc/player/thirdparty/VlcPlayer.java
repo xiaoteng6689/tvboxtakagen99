@@ -11,6 +11,7 @@ import android.util.Log;
 import com.github.tvbox.osc.base.App;
 import java.net.URLEncoder;
 import java.util.HashMap;
+//import java.io.UnsupportedEncodingException;
 
 public class VlcPlayer {
     public static final String TAG = "ThirdParty.VLC";
@@ -58,17 +59,21 @@ public class VlcPlayer {
             intent.setPackage(packageInfo.packageName);
             intent.setDataAndTypeAndNormalize(Uri.parse(url), "video/*");
             intent.putExtra("title", title);
-		    if (headers != null && headers.size() > 0) {
-                url = url + "|";
-                int idx = 0;
-                for (String hk : headers.keySet()) {
-                    url += hk + "=" + URLEncoder.encode(headers.get(hk), "UTF-8");
-                    if (idx < headers.keySet().size() -1) {
-                        url += "&";
-                    }
-                    idx ++;
-                }
-            }
+		    // if (headers != null && headers.size() > 0) {
+                // url = url + "|";
+                // int idx = 0;
+                // for (String hk : headers.keySet()) {
+                    // try {
+                        // url += hk + "=" + URLEncoder.encode(headers.get(hk), "UTF-8");
+                    // } catch (UnsupportedEncodingException e) {
+                        // e.printStackTrace();
+                    // }
+                    // if (idx < headers.keySet().size() -1) {
+                        // url += "&";
+                    // }
+                    // idx ++;
+                // }
+            // }
 		    
             if (subtitle != null && !subtitle.isEmpty()) {
                 intent.putExtra("subtitles_location", subtitle);

@@ -849,7 +849,7 @@ public class PlayActivity extends BaseActivity {
                                     }
 									case 14: {
                                         extPlay = true;
-                                        callResult = VlcPlayer.run(requireActivity(), url, playTitle, playSubtitle, headers);
+                                        callResult = VlcPlayer.run(PlayActivity.this, url, playTitle, playSubtitle, headers);
                                         break;
                                     }
                                 }

@@ -129,7 +129,7 @@ public class PlayerHelper {
             return "Reex";
         } else if (playType == 12) {
             return "Kodi";
-        }} else if (playType == 14) {
+        } else if (playType == 14) {
             return "VLC";
         } else {
             return "系统";

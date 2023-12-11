@@ -51,34 +51,35 @@ public class VlcPlayer {
         VlcPackageInfo packageInfo = getPackageInfo();
         if (packageInfo == null)
             return false;
+		try {
 
-        // https://wiki.videolan.org/Android_Player_Intents/
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setPackage(packageInfo.packageName);
-        intent.setDataAndTypeAndNormalize(Uri.parse(url), "video/*");
-        intent.putExtra("title", title);
-		if (headers != null && headers.size() > 0) {
-            url = url + "|";
-            int idx = 0;
-            for (String hk : headers.keySet()) {
-                url += hk + "=" + URLEncoder.encode(headers.get(hk), "UTF-8");
-                if (idx < headers.keySet().size() -1) {
-                    url += "&";
+            // https://wiki.videolan.org/Android_Player_Intents/
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setPackage(packageInfo.packageName);
+            intent.setDataAndTypeAndNormalize(Uri.parse(url), "video/*");
+            intent.putExtra("title", title);
+		    if (headers != null && headers.size() > 0) {
+                url = url + "|";
+                int idx = 0;
+                for (String hk : headers.keySet()) {
+                    url += hk + "=" + URLEncoder.encode(headers.get(hk), "UTF-8");
+                    if (idx < headers.keySet().size() -1) {
+                        url += "&";
+                    }
+                    idx ++;
                 }
-                idx ++;
             }
-        }
-
-        if (subtitle != null && !subtitle.isEmpty()) {
-            intent.putExtra("subtitles_location", subtitle);
-        }
-
-        //if (progress > 0) {
-        //    intent.putExtra("from_start", false);
-        //    intent.putExtra("position", progress);
-        //}
-
-        try {
+		    
+            if (subtitle != null && !subtitle.isEmpty()) {
+                intent.putExtra("subtitles_location", subtitle);
+            }
+		    
+            //if (progress > 0) {
+            //    intent.putExtra("from_start", false);
+            //    intent.putExtra("position", progress);
+            //}
+		    
+            
             activity.startActivity(intent);
             return true;
         } catch (ActivityNotFoundException ex) {

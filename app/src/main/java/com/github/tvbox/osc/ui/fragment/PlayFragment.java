@@ -846,7 +846,7 @@ public class PlayFragment extends BaseLazyFragment {
                                     }
 									case 14: {
                                         extPlay = true;
-                                        callResult = Kodi.run(requireActivity(), url, playTitle, playSubtitle, headers);
+                                        callResult = VlcPlayer.run(requireActivity(), url, playTitle, playSubtitle, headers);
                                         break;
                                     }
                                 }

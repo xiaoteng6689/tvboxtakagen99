@@ -86,6 +86,7 @@ public class ModelSettingFragment extends BaseLazyFragment {
     private TextView tvRender;
     private TextView tvParseWebView;
     private TextView tvSearchView;
+	private TextView tvFastSearchText;//快速搜索text
     private TextView tvDns;
 
     public static ModelSettingFragment newInstance() {
@@ -126,7 +127,7 @@ public class ModelSettingFragment extends BaseLazyFragment {
         tvMediaCodec = findViewById(R.id.tvMediaCodec);
         tvMediaCodec.setText(Hawk.get(HawkConfig.IJK_CODEC, ""));
         tvVideoPurifyText = findViewById(R.id.tvVideoPurifyText);
-        tvVideoPurifyText.setText(Hawk.get(HawkConfig.VIDEO_PURIFY, true) ? "开启" : "关闭");
+        tvVideoPurifyText.setText(Hawk.get(HawkConfig.VIDEO_PURIFY, true) ? "内置" : "接口");
         // System Section
         tvLocale = findViewById(R.id.tvLocale);
         tvLocale.setText(getLocaleView(Hawk.get(HawkConfig.HOME_LOCALE, 0)));
@@ -138,6 +139,8 @@ public class ModelSettingFragment extends BaseLazyFragment {
         tvParseWebView.setText(Hawk.get(HawkConfig.PARSE_WEBVIEW, true) ? "系统自带" : "XWalkView");
         tvSearchView = findViewById(R.id.tvSearchView);
         tvSearchView.setText(getSearchView(Hawk.get(HawkConfig.SEARCH_VIEW, 0)));
+		tvFastSearchText = findViewById(R.id.showFastSearchText);//快速搜索
+        tvFastSearchText.setText(Hawk.get(HawkConfig.FAST_SEARCH_MODE, false) ? "开启" : "关闭");
         tvDns = findViewById(R.id.tvDns);
         tvDns.setText(OkGoHelper.dnsHttpsList.get(Hawk.get(HawkConfig.DOH_URL, 0)));
 		tvHomeDefaultShow = findViewById(R.id.tvHomeDefaultShow);
@@ -538,7 +541,7 @@ public class ModelSettingFragment extends BaseLazyFragment {
         findViewById(R.id.llVideoPurify).setOnClickListener(v -> {
             FastClickCheckUtil.check(v);
             Hawk.put(HawkConfig.VIDEO_PURIFY, !Hawk.get(HawkConfig.VIDEO_PURIFY, true));
-            tvVideoPurifyText.setText(Hawk.get(HawkConfig.VIDEO_PURIFY, true) ? "开启" : "关闭");
+            tvVideoPurifyText.setText(Hawk.get(HawkConfig.VIDEO_PURIFY, true) ? "内置" : "接口");
         });
         // 3. SYSTEM Configuration -------------------------------------------------------------- //
         // Select Webview ---------------------------------------------
@@ -716,6 +719,17 @@ public class ModelSettingFragment extends BaseLazyFragment {
                 dialog.show();
             }
         });
+		
+		// Select Search Mode
+	    findViewById(R.id.showFastSearch).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FastClickCheckUtil.check(v);
+                Hawk.put(HawkConfig.FAST_SEARCH_MODE, !Hawk.get(HawkConfig.FAST_SEARCH_MODE, false));
+                tvFastSearchText.setText(Hawk.get(HawkConfig.FAST_SEARCH_MODE, false) ? "开启" : "关闭");
+            }
+        });  
+		
         // Select App Language ( English / Chinese ) -----------------
         findViewById(R.id.llLocale).setOnClickListener(new View.OnClickListener() {
             private final int chkLang = Hawk.get(HawkConfig.HOME_LOCALE, 0);

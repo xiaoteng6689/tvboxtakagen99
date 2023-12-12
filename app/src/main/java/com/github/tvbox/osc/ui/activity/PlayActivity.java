@@ -71,6 +71,7 @@ import com.github.tvbox.osc.player.controller.VodController;
 import com.github.tvbox.osc.player.thirdparty.Kodi;
 import com.github.tvbox.osc.player.thirdparty.MXPlayer;
 import com.github.tvbox.osc.player.thirdparty.ReexPlayer;
+import com.github.tvbox.osc.player.thirdparty.VlcPlayer;
 import com.github.tvbox.osc.server.ControlManager;
 import com.github.tvbox.osc.server.RemoteServer;
 import com.github.tvbox.osc.subtitle.model.Subtitle;
@@ -844,6 +845,11 @@ public class PlayActivity extends BaseActivity {
                                     case 12: {
                                         extPlay = true;
                                         callResult = Kodi.run(PlayActivity.this, url, playTitle, playSubtitle, headers);
+                                        break;
+                                    }
+									case 14: {
+                                        extPlay = true;
+                                        callResult = VlcPlayer.run(PlayActivity.this, url, playTitle, playSubtitle, headers);
                                         break;
                                     }
                                 }

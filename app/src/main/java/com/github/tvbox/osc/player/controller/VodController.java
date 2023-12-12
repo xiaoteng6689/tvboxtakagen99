@@ -38,6 +38,7 @@ import com.github.tvbox.osc.event.RefreshEvent;
 import com.github.tvbox.osc.player.thirdparty.Kodi;
 import com.github.tvbox.osc.player.thirdparty.MXPlayer;
 import com.github.tvbox.osc.player.thirdparty.ReexPlayer;
+import com.github.tvbox.osc.player.thirdparty.VlcPlayer;
 import com.github.tvbox.osc.subtitle.widget.SimpleSubtitleView;
 import com.github.tvbox.osc.ui.activity.DetailActivity;
 import com.github.tvbox.osc.ui.activity.HomeActivity;
@@ -634,6 +635,9 @@ public class VodController extends BaseController {
                     if (KodiExist) {
                         players.add(12);
                     }
+					if (VlcExist) {
+                        players.add(14);
+                    }
                     SelectDialog<Integer> dialog = new SelectDialog<>(mActivity);
                     dialog.setTip(HomeActivity.getRes().getString(R.string.dia_player));
                     dialog.setAdapter(new SelectDialogAdapter.SelectDialogInterface<Integer>() {
@@ -868,6 +872,7 @@ public class VodController extends BaseController {
     private boolean mxPlayerExist = false;
     private boolean reexPlayerExist = false;
     private boolean KodiExist = false;
+	private boolean VlcExist = false;
 
     public void setPlayerConfig(JSONObject playerCfg) {
         this.mPlayerConfig = playerCfg;
@@ -875,6 +880,7 @@ public class VodController extends BaseController {
         mxPlayerExist = MXPlayer.getPackageInfo() != null;
         reexPlayerExist = ReexPlayer.getPackageInfo() != null;
         KodiExist = Kodi.getPackageInfo() != null;
+		VlcExist = VlcPlayer.getPackageInfo() != null;
     }
 
     void updatePlayerCfgView() {

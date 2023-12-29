@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TVBox</string>
+    <string name="app_name">滑稽TV-T</string>
     <string name="app_home">首页</string>
-    <string name="app_source"></string>
+    <string name="app_source">http://alist.nebula-nas.space:666/d/json/cat.json?pw=b3a3a10687d1d25b</string>
 
     // Home Page //
     <string name="hm_ok">加载成功</string>

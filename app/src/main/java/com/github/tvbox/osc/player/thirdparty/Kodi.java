@@ -17,8 +17,8 @@ import java.util.HashMap;
 public class Kodi {
     public static final String TAG = "ThirdParty.Kodi";
 
-    private static final String PACKAGE_NAME = "org.xbmc.kodi";
-    private static final String PLAYBACK_ACTIVITY = "org.xbmc.kodi.Splash";
+    private static final String PACKAGE_NAME = "org.xbmc.kodi.fandangos";
+    private static final String PLAYBACK_ACTIVITY = "org.xbmc.kodi.fandangos.Splash";
 
     private static class KodiPackageInfo {
         final String packageName;

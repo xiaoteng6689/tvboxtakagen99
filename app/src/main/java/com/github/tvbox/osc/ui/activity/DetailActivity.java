@@ -415,8 +415,9 @@ public class DetailActivity extends BaseActivity {
                         reload = true;
                     }
                     //选集全屏 想选集不全屏的注释下面一行
-                    if (showPreview && !fullWindows) toggleFullPreview();
+                    //if (showPreview && !fullWindows) toggleFullPreview();
                     if (reload || !showPreview) jumpToPlay();
+                    PlayFull();
                 }
             }
         });
@@ -1101,6 +1102,15 @@ public class DetailActivity extends BaseActivity {
             hideSystemUI(false);
         } else {
             showSystemUI();
+        }
+    }
+
+    private long mExitTime = 0;
+    private void PlayFull() {
+        if (System.currentTimeMillis() - mExitTime < 3000) {
+            toggleFullPreview();
+        } else {
+            mExitTime = System.currentTimeMillis();
         }
     }
 

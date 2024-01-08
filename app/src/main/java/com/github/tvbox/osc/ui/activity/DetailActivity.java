@@ -1,5 +1,6 @@
 package com.github.tvbox.osc.ui.activity;
 
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.app.PictureInPictureParams;
 import android.app.RemoteAction;
@@ -17,15 +18,19 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Rational;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.util.DisplayMetrics;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.lifecycle.Observer;
@@ -109,6 +114,7 @@ public class DetailActivity extends BaseActivity {
     private TextView tvPush;
     private TextView tvQuickSearch;
     private TextView tvCollect;
+    private TextView tvSynopsis;
     private TvRecyclerView mGridViewFlag;
     private TvRecyclerView mGridView;
     private LinearLayout mEmptyPlayList;
@@ -208,6 +214,7 @@ public class DetailActivity extends BaseActivity {
         tvPush = findViewById(R.id.tvPush);
         tvCollect = findViewById(R.id.tvCollect);
         tvQuickSearch = findViewById(R.id.tvQuickSearch);
+        tvSynopsis = findViewById(R.id.tvSynopsis);
         tvPlayUrl = findViewById(R.id.tvPlayUrl);
         mEmptyPlayList = findViewById(R.id.mEmptyPlaylist);
         mGridView = findViewById(R.id.mGridView);
@@ -340,6 +347,28 @@ public class DetailActivity extends BaseActivity {
                 Toast.makeText(DetailActivity.this, getString(R.string.det_url), Toast.LENGTH_SHORT).show();
             }
         });
+        tvSynopsis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FastClickCheckUtil.check(v);
+                if (mVideo.des != null && !TextUtils.isEmpty(mVideo.des)) {
+                    showDialog("影片简介", removeHtmlTag(mVideo.des));
+                } else {
+                    Toast.makeText(DetailActivity.this, "影片简介为空", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        tvDes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FastClickCheckUtil.check(v);
+                if (mVideo.des != null && !TextUtils.isEmpty(mVideo.des)) {
+                    showDialog("影片简介", removeHtmlTag(mVideo.des));
+                } else {
+                    Toast.makeText(DetailActivity.this, "影片简介为空", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         mGridView.setOnItemListener(new TvRecyclerView.OnItemListener() {
             @Override
             public void onItemPreSelected(TvRecyclerView parent, View itemView, int position) {
@@ -415,9 +444,8 @@ public class DetailActivity extends BaseActivity {
                         reload = true;
                     }
                     //选集全屏 想选集不全屏的注释下面一行
-                    //if (showPreview && !fullWindows) toggleFullPreview();
+                    if (showPreview && !fullWindows) toggleFullPreview();
                     if (reload || !showPreview) jumpToPlay();
-                    PlayFull();
                 }
             }
         });
@@ -641,6 +669,52 @@ public class DetailActivity extends BaseActivity {
                     showEmpty();
                     llPlayerFragmentContainer.setVisibility(View.GONE);
                     llPlayerFragmentContainerBlock.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
+    
+    private void showDialog(String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(DetailActivity.this);
+        TextView titleText = new TextView(DetailActivity.this);
+        titleText.setText(title);
+        titleText.setTextColor(0xCCFFFFFF);
+        titleText.setTextSize(18);
+        titleText.setGravity(Gravity.CENTER);
+        TextView messageText = new TextView(DetailActivity.this);
+        messageText.setText(message);
+        messageText.setTextColor(0xCC000000);
+        messageText.setTextSize(16);
+        messageText.setGravity(Gravity.CENTER);
+        ScrollView scrollView = new ScrollView(DetailActivity.this);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        scrollView.setLayoutParams(layoutParams);
+        scrollView.addView(messageText);
+        LinearLayout layout = new LinearLayout(DetailActivity.this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setPadding(20, 0, 20, 20);
+        layout.addView(titleText);
+        layout.addView(scrollView);
+        builder.setView(layout);
+        AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        int screenWidth = getResources().getDisplayMetrics().widthPixels;
+        int maxWidth = (int) (screenWidth * 0.6);
+        dialog.show();
+        dialog.getWindow().setLayout(maxWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
+        int screenHeight = getResources().getDisplayMetrics().heightPixels;
+        int maxHeight = (int) (screenHeight * 0.5);
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                int contentHeight = scrollView.getChildAt(0).getHeight();
+                if (contentHeight > maxHeight) {
+                    scrollView.getLayoutParams().height = maxHeight;
+                    scrollView.requestLayout();
+                } else {
+                    scrollView.getLayoutParams().height = contentHeight;
+                    scrollView.requestLayout();
                 }
             }
         });
@@ -1095,6 +1169,7 @@ public class DetailActivity extends BaseActivity {
         tvPush.setFocusable(!fullWindows);
         tvCollect.setFocusable(!fullWindows);
         tvQuickSearch.setFocusable(!fullWindows);
+        tvSynopsis.setFocusable(!fullWindows);
         toggleSubtitleTextSize();
 
         // Hide navbar only when video playing on full window, else show navbar
@@ -1102,15 +1177,6 @@ public class DetailActivity extends BaseActivity {
             hideSystemUI(false);
         } else {
             showSystemUI();
-        }
-    }
-
-    private long mExitTime = 0;
-    private void PlayFull() {
-        if (System.currentTimeMillis() - mExitTime < 3000) {
-            toggleFullPreview();
-        } else {
-            mExitTime = System.currentTimeMillis();
         }
     }
 

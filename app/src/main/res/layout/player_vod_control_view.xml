@@ -1086,7 +1086,7 @@
 	                    android:layout_width="wrap_content"
 	                    android:layout_height="@dimen/vs_45"
 	                    android:layout_gravity="center"
-	                    android:src="@drawable/ic_clock_digital" />
+	                    android:src="@drawable/ic_clock" />
 	            </LinearLayout>
 	
 	            <TextView

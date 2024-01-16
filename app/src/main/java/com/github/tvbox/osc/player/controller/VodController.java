@@ -707,7 +707,7 @@ public class VodController extends BaseController {
                     }
                     SelectDialog<Integer> dialog = new SelectDialog<>(mActivity);
                     dialog.setTip(HomeActivity.getRes().getString(R.string.dia_player));
-                    dialog.setAdapter(new SelectDialogAdapter.SelectDialogInterface<Integer>() {
+                    dialog.setAdapter(null, new SelectDialogAdapter.SelectDialogInterface<Integer>() {
                         @Override
                         public void click(Integer value, int pos) {
                             try {
@@ -782,26 +782,21 @@ public class VodController extends BaseController {
         mSubtitleBtn.setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                mSubtitleView.setVisibility(View.GONE);
-                mSubtitleView.destroy();
-                mSubtitleView.clearSubtitleCache();
-                mSubtitleView.isInternal = false;
-                hideBottom();
-                Toast.makeText(getContext(), HomeActivity.getRes().getString(R.string.vod_sub_off), Toast.LENGTH_SHORT).show();
+            	if (mSubtitleView.getVisibility() == View.GONE) {
+                    mSubtitleView.setVisibility(VISIBLE)
+                    Toast.makeText(getContext(), HomeActivity.getRes().getString(R.string.vod_sub_on), Toast.LENGTH_SHORT).show();
+                } else {
+	                mSubtitleView.setVisibility(View.GONE);
+	                mSubtitleView.destroy();
+	                mSubtitleView.clearSubtitleCache();
+	                mSubtitleView.isInternal = false;
+	                hideBottom();
+	                Toast.makeText(getContext(), HomeActivity.getRes().getString(R.string.vod_sub_off), Toast.LENGTH_SHORT).show();
+	            }
                 return true;
             }
         });
-        
-        // akumajac : 长按开字幕（vod_sub_on）
-        mSubtitleBtn.setOnLongClickListener(new OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                if (mSubtitleView.getVisibility() == View.GONE) {
-                    Toast.makeText(getContext(), HomeActivity.getRes().getString(R.string.vod_sub_on), Toast.LENGTH_SHORT).show();}
-                return true;                                
-            }
-        });
-
+                
         // Button : AUDIO track selection --------------------------------------
         mAudioTrackBtn.setOnClickListener(new OnClickListener() {
             @Override

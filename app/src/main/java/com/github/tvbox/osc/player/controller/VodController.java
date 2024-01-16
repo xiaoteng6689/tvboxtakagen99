@@ -783,7 +783,7 @@ public class VodController extends BaseController {
             @Override
             public boolean onLongClick(View view) {
             	if (mSubtitleView.getVisibility() == View.GONE) {
-                    mSubtitleView.setVisibility(VISIBLE)
+                    mSubtitleView.setVisibility(VISIBLE);
                     Toast.makeText(getContext(), HomeActivity.getRes().getString(R.string.vod_sub_on), Toast.LENGTH_SHORT).show();
                 } else {
 	                mSubtitleView.setVisibility(View.GONE);

@@ -45,7 +45,7 @@
 
         <com.owen.tvrecyclerview.widget.TvRecyclerView
             android:id="@+id/mGroupGridView"
-            android:layout_width="@dimen/vs_200"
+            android:layout_width="@dimen/vs_300"
             android:layout_height="match_parent"
             android:divider="@null"
             android:fadeScrollbars="false"

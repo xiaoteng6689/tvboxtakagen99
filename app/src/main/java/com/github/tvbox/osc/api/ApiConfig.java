@@ -130,11 +130,16 @@ public class ApiConfig {
 
     public void loadConfig(boolean useCache, LoadConfigCallback callback, Activity activity) {
         // Embedded Source : Update in Strings.xml if required
-        String apiUrl = Hawk.get(HawkConfig.API_URL, HomeActivity.getRes().getString(R.string.app_source));
-        if (apiUrl.isEmpty()) {
-            callback.error("源地址为空");
-            return;
+        // String apiUrl = Hawk.get(HawkConfig.API_URL, HomeActivity.getRes().getString(R.string.app_source));
+        // if (apiUrl.isEmpty()) {
+        //     callback.error("源地址为空");
+        //     return;
+        // }
+        String appSource = HomeActivity.getRes().getString(R.string.app_source);
+         if (appSource.isEmpty()) {
+        	appSource = "https://tv.xjss.eu.org/17.json";
         }
+        String apiUrl = Hawk.get(HawkConfig.API_URL, appSource)
         File cache = new File(App.getInstance().getFilesDir().getAbsolutePath() + "/" + MD5.encode(apiUrl));
         if (useCache && cache.exists()) {
             try {

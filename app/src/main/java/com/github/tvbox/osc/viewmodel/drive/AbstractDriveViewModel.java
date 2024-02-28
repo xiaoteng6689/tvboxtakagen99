@@ -73,5 +73,4 @@ public abstract class AbstractDriveViewModel extends ViewModel {
 
         void fail(String message);
     }
-
 }

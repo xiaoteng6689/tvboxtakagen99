@@ -19,6 +19,9 @@ import com.github.tvbox.osc.base.BaseActivity;
 import com.github.tvbox.osc.base.BaseLazyFragment;
 import com.github.tvbox.osc.bean.IJKCode;
 import com.github.tvbox.osc.bean.SourceBean;
+import com.github.tvbox.osc.player.thirdparty.Kodi;
+import com.github.tvbox.osc.player.thirdparty.MXPlayer;
+import com.github.tvbox.osc.player.thirdparty.ReexPlayer;
 import com.github.tvbox.osc.ui.activity.SettingActivity;
 import com.github.tvbox.osc.ui.adapter.ApiHistoryDialogAdapter;
 import com.github.tvbox.osc.ui.adapter.SelectDialogAdapter;
@@ -452,9 +455,15 @@ public class ModelSettingFragment extends BaseLazyFragment {
                 players.add(1);
                 players.add(2);
                 players.add(3);
-                players.add(10);
-                players.add(11);
-                players.add(12);
+                if (MXPlayer.getPackageInfo()!=null){
+                    players.add(10);
+                }
+                if (ReexPlayer.getPackageInfo() != null){
+                    players.add(11);
+                }
+                if (Kodi.getPackageInfo() != null){
+                    players.add(12);
+                }
                 SelectDialog<Integer> dialog = new SelectDialog<>(mActivity);
                 dialog.setTip(getString(R.string.dia_player));
                 dialog.setAdapter(null, new SelectDialogAdapter.SelectDialogInterface<Integer>() {

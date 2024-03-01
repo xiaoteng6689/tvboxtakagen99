@@ -2,7 +2,6 @@ package com.github.tvbox.osc.ui.activity;
 
 import android.app.PendingIntent;
 import android.app.PictureInPictureParams;
-import android.app.RemoteAction;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -1126,17 +1125,20 @@ public class DetailActivity extends BaseActivity {
             } else {
                 ratio = new Rational(16, 9);
             }
-            List<RemoteAction> actions = new ArrayList<>();
-            actions.add(generateRemoteAction(android.R.drawable.ic_media_previous, BROADCAST_ACTION_PREV, "Prev", "Play Previous"));
-            actions.add(generateRemoteAction(android.R.drawable.ic_media_play, BROADCAST_ACTION_PLAYPAUSE, "Play", "Play/Pause"));
-            actions.add(generateRemoteAction(android.R.drawable.ic_media_next, BROADCAST_ACTION_NEXT, "Next", "Play Next"));
-            PictureInPictureParams params = new PictureInPictureParams.Builder()
-                    .setAspectRatio(ratio)
-                    .setActions(actions).build();
+            //此处需要大于23 版本才能执行
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
+                List<android.app.RemoteAction> actions = new ArrayList<>();
+                actions.add(generateRemoteAction(android.R.drawable.ic_media_previous, BROADCAST_ACTION_PREV, "Prev", "Play Previous"));
+                actions.add(generateRemoteAction(android.R.drawable.ic_media_play, BROADCAST_ACTION_PLAYPAUSE, "Play", "Play/Pause"));
+                actions.add(generateRemoteAction(android.R.drawable.ic_media_next, BROADCAST_ACTION_NEXT, "Next", "Play Next"));
+                PictureInPictureParams params = new PictureInPictureParams.Builder()
+                        .setAspectRatio(ratio)
+                        .setActions(actions).build();
+                enterPictureInPictureMode(params);
+            }
             if (!fullWindows) {
                 toggleFullPreview();
             }
-            enterPictureInPictureMode(params);
             playFragment.getVodController().hideBottom();
             playFragment.getPlayer().postDelayed(() -> {
                 if (!playFragment.getPlayer().isPlaying()) {
@@ -1147,7 +1149,7 @@ public class DetailActivity extends BaseActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private RemoteAction generateRemoteAction(int iconResId, int actionCode, String title, String desc) {
+    private android.app.RemoteAction generateRemoteAction(int iconResId, int actionCode, String title, String desc) {
         final PendingIntent intent =
                 PendingIntent.getBroadcast(
                         DetailActivity.this,
@@ -1155,7 +1157,7 @@ public class DetailActivity extends BaseActivity {
                         new Intent(BROADCAST_ACTION).putExtra("action", actionCode),
                         0);
         final Icon icon = Icon.createWithResource(DetailActivity.this, iconResId);
-        return (new RemoteAction(icon, title, desc, intent));
+        return (new android.app.RemoteAction(icon, title, desc, intent));
     }
 
     /**

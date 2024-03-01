@@ -43,6 +43,9 @@
 -keep public class * extends android.preference.Preference
 -keep public class * extends android.view.View
 
+#单独保留该文件 防止低版本由于导包 异常闪退
+-keep public class * extends android.app.RemoteAction
+
 # 保留support下的所有类及其内部类
 -keep class android.support.** {*;}
 # 保留继承的

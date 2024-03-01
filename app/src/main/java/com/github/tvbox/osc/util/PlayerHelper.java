@@ -17,14 +17,16 @@ import xyz.doikki.videoplayer.aliplayer.AliyunMediaPlayerFactory;
 import xyz.doikki.videoplayer.player.AndroidMediaPlayerFactory;
 import xyz.doikki.videoplayer.player.PlayerFactory;
 import xyz.doikki.videoplayer.player.VideoView;
+import xyz.doikki.videoplayer.render.PlayerViewRenderViewFactory;
 import xyz.doikki.videoplayer.render.RenderViewFactory;
 import xyz.doikki.videoplayer.render.TextureRenderViewFactory;
 
 public class PlayerHelper {
     public static void updateCfg(VideoView videoView, JSONObject playerCfg) {
-        updateCfg(videoView,playerCfg,-1);
+        updateCfg(videoView, playerCfg, -1);
     }
-    public static void updateCfg(VideoView videoView, JSONObject playerCfg,int forcePlayerType) {
+
+    public static void updateCfg(VideoView videoView, JSONObject playerCfg, int forcePlayerType) {
         int playerType = Hawk.get(HawkConfig.PLAY_TYPE, 0);
         int renderType = Hawk.get(HawkConfig.PLAY_RENDER, 0);
         String ijkCode = Hawk.get(HawkConfig.IJK_CODEC, "软解码");
@@ -37,7 +39,7 @@ public class PlayerHelper {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if(forcePlayerType>=0)playerType = forcePlayerType;
+        if (forcePlayerType >= 0) playerType = forcePlayerType;
         IJKCode codec = ApiConfig.get().getIJKCodec(ijkCode);
         PlayerFactory playerFactory;
         if (playerType == 1) {
@@ -63,10 +65,18 @@ public class PlayerHelper {
         switch (renderType) {
             case 0:
             default:
-                renderViewFactory = TextureRenderViewFactory.create();
+                if (playerType == 2) {
+                    renderViewFactory = PlayerViewRenderViewFactory.create(renderType);
+                } else {
+                    renderViewFactory = TextureRenderViewFactory.create();
+                }
                 break;
             case 1:
-                renderViewFactory = SurfaceRenderViewFactory.create();
+                if (playerType == 2) {
+                    renderViewFactory = PlayerViewRenderViewFactory.create(renderType);
+                } else {
+                    renderViewFactory = SurfaceRenderViewFactory.create();
+                }
                 break;
         }
         videoView.setPlayerFactory(playerFactory);
@@ -165,6 +175,6 @@ public class PlayerHelper {
                 break;
         }
         return scaleText;
-    }  
+    }
 
 }

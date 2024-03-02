@@ -63,15 +63,20 @@ public class PlayerHelper {
             playerFactory = AndroidMediaPlayerFactory.create();
         }
         RenderViewFactory renderViewFactory = null;
-        switch (renderType) {
-            case 0:
-            default:
-                renderViewFactory = TextureRenderViewFactory.create();
-                break;
-            case 1:
-                renderViewFactory = SurfaceRenderViewFactory.create();
-                break;
+        if (playerType==2){
+            renderViewFactory = PlayerViewRenderViewFactory.create(renderType);
+        }else{
+            switch (renderType) {
+                case 0:
+                default:
+                    renderViewFactory = TextureRenderViewFactory.create();
+                    break;
+                case 1:
+                    renderViewFactory = SurfaceRenderViewFactory.create();
+                    break;
+            }
         }
+
         videoView.setPlayerFactory(playerFactory);
         videoView.setRenderViewFactory(renderViewFactory);
         videoView.setScreenScaleType(scale);

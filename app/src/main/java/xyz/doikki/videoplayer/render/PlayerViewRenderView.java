@@ -15,6 +15,7 @@ import android.view.ViewParent;
 import androidx.media3.common.util.UnstableApi;
 import androidx.media3.ui.AspectRatioFrameLayout;
 import androidx.media3.ui.PlayerView;
+import androidx.media3.ui.SubtitleView;
 
 import com.github.tvbox.osc.player.EXOmPlayer;
 import com.lzy.okgo.utils.OkLogger;
@@ -35,10 +36,16 @@ public class PlayerViewRenderView extends PlayerView implements IRenderView {
         this(context, attrs, 0);
     }
 
-    public PlayerViewRenderView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public @androidx.annotation.OptIn(markerClass = UnstableApi.class)
+    PlayerViewRenderView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         // mMeasureHelper = new MeasureHelper();
         setUseController(false);
+        SubtitleView subtitleView = getSubtitleView();
+        if (subtitleView != null) {//隐藏PlayerView自带的字幕
+            subtitleView.setAlpha(0);
+        }
+
     }
 
     @UnstableApi

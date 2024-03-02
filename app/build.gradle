@@ -107,7 +107,7 @@ dependencies {
     implementation "androidx.media3:media3-exoplayer-rtsp:1.1.1"
     implementation "androidx.media3:media3-datasource-rtmp:1.1.1"
 
-    implementation "com.aliyun.sdk.android:AliyunPlayer:5.5.6.0-full"
+    implementation "com.aliyun.sdk.android:AliyunPlayer:5.5.2.0-full"
     implementation 'com.alivc.conan:AlivcConan:0.9.5'
     implementation 'xyz.doikki.android.dkplayer:dkplayer-ui:3.3.7'
     implementation 'xyz.doikki.android.dkplayer:videocache:3.3.7'

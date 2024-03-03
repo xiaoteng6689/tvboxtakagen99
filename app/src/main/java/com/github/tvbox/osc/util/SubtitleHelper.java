@@ -61,6 +61,7 @@ public class SubtitleHelper {
     }
 
     public static int getTextStyleSize() {
-        return App.getInstance().getSubtitleTextColor()[0].length;
+        int[][] subtitleTextColor = App.getInstance().getSubtitleTextColor();
+        return Math.min(subtitleTextColor[0].length, subtitleTextColor[1].length);
     }
 }

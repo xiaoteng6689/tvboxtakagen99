@@ -42,11 +42,15 @@ public class App extends MultiDexApplication {
     public static String burl;
     private static String dashData;
     public static ViewPump viewPump = null;
+    private int[][] subtitleTextColor = null;
+
+
 
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
+        initSubtitleColor();
         initParams();
         // takagen99 : Initialize Locale
         initLocale();
@@ -164,5 +168,15 @@ public class App extends MultiDexApplication {
 
     public String getDashData() {
         return dashData;
+    }
+
+    private void initSubtitleColor() {
+        int[] subtitleColor = getResources().getIntArray(R.array.subtitle_text_color);
+        int[] shadowColor = getResources().getIntArray(R.array.subtitle_text_shadow_color);
+        this.subtitleTextColor = new int[][]{subtitleColor, shadowColor};
+    }
+
+    public int[][] getSubtitleTextColor() {
+        return subtitleTextColor;
     }
 }

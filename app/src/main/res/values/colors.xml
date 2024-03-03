@@ -49,4 +49,46 @@
     <!-- Unused Subtitle Text -->
     <color name="color_FFB6C1">#FFB6C1</color>
     <color name="color_6CFFFFFF">#6CFFFFFF</color>
+
+
+    <color name="subtitle_text_color_1">#FFFFFF</color>
+    <color name="subtitle_text_color_2">#E5E5E5</color>
+    <color name="subtitle_text_color_3">#CCCCCC</color>
+    <color name="subtitle_text_color_4">#B2B2B2</color>
+    <color name="subtitle_text_color_5">#999999</color>
+    <color name="subtitle_text_color_6">#7F7F7F</color>
+    <color name="subtitle_text_color_7">#666666</color>
+    <color name="subtitle_text_color_8">#4C4C4C</color>
+    <color name="subtitle_text_color_9">#333333</color>
+
+
+    <!-- 定义颜色数组 -->
+    <array name="subtitle_text_color">
+        <item>@color/subtitle_text_color_1</item>
+        <item>@color/subtitle_text_color_2</item>
+        <item>@color/subtitle_text_color_3</item>
+        <item>@color/subtitle_text_color_4</item>
+        <item>@color/subtitle_text_color_5</item>
+        <item>@color/subtitle_text_color_6</item>
+        <item>@color/subtitle_text_color_7</item>
+        <item>@color/subtitle_text_color_8</item>
+        <item>@color/subtitle_text_color_9</item>
+        <item>@color/color_FFB6C1</item>
+
+    </array>
+    <array name="subtitle_text_shadow_color">
+        <item>@color/color_000000_80</item>
+        <item>@color/color_000000_80</item>
+        <item>@color/color_000000_80</item>
+        <item>@color/color_000000_80</item>
+        <item>@color/color_000000_80</item>
+        <item>@color/color_000000_80</item>
+        <item>@color/color_000000_80</item>
+        <item>@color/color_000000_80</item>
+        <item>@color/color_000000_80</item>
+        <item>@color/color_6CFFFFFF</item>
+
+
+    </array>
+
 </resources>

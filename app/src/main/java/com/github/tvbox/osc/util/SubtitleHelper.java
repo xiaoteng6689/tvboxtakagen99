@@ -2,6 +2,8 @@ package com.github.tvbox.osc.util;
 
 import android.app.Activity;
 
+import com.github.tvbox.osc.base.App;
+import com.github.tvbox.osc.subtitle.widget.SimpleSubtitleView;
 import com.orhanobut.hawk.Hawk;
 
 public class SubtitleHelper {
@@ -38,4 +40,27 @@ public class SubtitleHelper {
         Hawk.put(HawkConfig.SUBTITLE_TIME_DELAY, delay);
     }
 
+    public static void upTextStyle(SimpleSubtitleView mSubtitleView) {
+        upTextStyle(mSubtitleView, -1);
+    }
+
+    public static void upTextStyle(SimpleSubtitleView mSubtitleView, int style) {
+        Integer colorIndex = style;
+        if (style == -1) {
+            colorIndex = Hawk.get(HawkConfig.SUBTITLE_TEXT_STYLE, 0);
+        } else {
+            Hawk.put(HawkConfig.SUBTITLE_TEXT_STYLE, style);
+        }
+        int[][] subtitleTextColor = App.getInstance().getSubtitleTextColor();
+        mSubtitleView.setTextColor(subtitleTextColor[0][colorIndex]);
+        mSubtitleView.setShadowLayer(3, 2, 2, subtitleTextColor[1][colorIndex]);
+    }
+
+    public static int getTextStyle() {
+        return Hawk.get(HawkConfig.SUBTITLE_TEXT_STYLE, 0);
+    }
+
+    public static int getTextStyleSize() {
+        return App.getInstance().getSubtitleTextColor()[0].length;
+    }
 }

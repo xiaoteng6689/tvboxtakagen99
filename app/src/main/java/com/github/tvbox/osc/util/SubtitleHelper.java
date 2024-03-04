@@ -53,7 +53,8 @@ public class SubtitleHelper {
         }
         int[][] subtitleTextColor = App.getInstance().getSubtitleTextColor();
         mSubtitleView.setTextColor(subtitleTextColor[0][colorIndex]);
-        mSubtitleView.setShadowLayer(3, 2, 2, subtitleTextColor[1][colorIndex]);
+        mSubtitleView.setShadowLayer(10, 0, 0, subtitleTextColor[1][colorIndex]);
+        // mSubtitleView.setBackGroundTextColor(subtitleTextColor[1][colorIndex]);
     }
 
     public static int getTextStyle() {

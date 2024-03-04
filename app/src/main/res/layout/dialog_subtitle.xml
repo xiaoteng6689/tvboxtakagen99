@@ -209,6 +209,7 @@
                     android:padding="@dimen/vs_8"
                     app:srcCompat="@drawable/scrollviewleft" />
 
+                <!--android:shadowColor="@color/color_FF000000"-->
                 <com.github.tvbox.osc.subtitle.widget.SimpleSubtitleView
                     android:id="@+id/subtitleStyleText"
                     android:layout_width="@dimen/vs_95"
@@ -217,10 +218,6 @@
                     android:layout_marginLeft="@dimen/vs_40"
                     android:layout_marginRight="@dimen/vs_40"
                     android:gravity="center"
-                    android:shadowColor="@color/color_FF000000"
-                    android:shadowDx="2"
-                    android:shadowDy="2"
-                    android:shadowRadius="3"
                     android:text="@string/sub_style_text"
                     android:textColor="@color/color_FFFFFF"
                     android:textSize="@dimen/ts_24"

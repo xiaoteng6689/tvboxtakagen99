@@ -474,7 +474,7 @@ public class SourceViewModel extends ViewModel {
         }
         String id = urlid;
         SourceBean sourceBean = ApiConfig.get().getSource(sourceKey);
-		if (sourceBean == null) {
+        if (sourceBean == null) {
             detailResult.postValue(null);
             Log.e("sourceBean", "get sourceBean got null, this should not be happended, maybe apiconfig get from http failed and use cache, sourceKey is " + sourceKey);
             return;
@@ -697,11 +697,13 @@ public class SourceViewModel extends ViewModel {
             quickSearchResult.postValue(null);
         }
     }
+
     // playerContent
     //开销会不会太大了 参考 FongMi 写法优化 获取播放地址代码
     public ExecutorService threadPoolGetPlay = null;
+
     public void getPlay(String sourceKey, String playFlag, String progressKey, String url, String subtitleKey) {
-        if (threadPoolGetPlay!= null)threadPoolGetPlay.shutdownNow();
+        if (threadPoolGetPlay != null) threadPoolGetPlay.shutdownNow();
         threadPoolGetPlay = Executors.newFixedThreadPool(2);
         Callable<JSONObject> callable = () -> {
             if (Thread.currentThread().isInterrupted()) return null;
@@ -733,7 +735,7 @@ public class SourceViewModel extends ViewModel {
             }
             return result;
         };
-        threadPoolGetPlay.execute(()->{
+        threadPoolGetPlay.execute(() -> {
             Future<JSONObject> future = threadPoolGetPlay.submit(callable);
             try {
                 JSONObject jsonObject = future.get(15, TimeUnit.SECONDS);
@@ -892,7 +894,7 @@ public class SourceViewModel extends ViewModel {
                                         if (sb.getType() == 4) {
                                             OkGo.<String>get(sb.getApi())
                                                     .tag("detail")
-                                                    .params("ac","detail")
+                                                    .params("ac", "detail")
                                                     .params("ids", finalPushUrl)
                                                     .execute(new AbsCallback<String>() {
                                                         @Override
@@ -929,13 +931,14 @@ public class SourceViewModel extends ViewModel {
                                         } else {
                                             try {
                                                 Spider sp = ApiConfig.get().getCSP(sb);
-                                             //   ApiConfig.get().setPlayJarKey(sb.getJar());
+                                                //   ApiConfig.get().setPlayJarKey(sb.getJar());
                                                 List<String> ids = new ArrayList<>();
                                                 ids.add(finalPushUrl);
                                                 String res = sp.detailContent(ids);
                                                 if (!TextUtils.isEmpty(res)) {
                                                     try {
-                                                        AbsJson absJson = new Gson().fromJson(res, new TypeToken<AbsJson>() {}.getType());
+                                                        AbsJson absJson = new Gson().fromJson(res, new TypeToken<AbsJson>() {
+                                                        }.getType());
                                                         resData[0] = absJson.toAbsXml();
                                                         absXml(resData[0], sb.getKey());
                                                     } catch (Exception e) {
@@ -1074,7 +1077,7 @@ public class SourceViewModel extends ViewModel {
                 EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_QUICK_SEARCH_RESULT, data));
             } else if (result != null) {
                 if (result == detailResult) {
-                	data = checkPush(data);
+                    data = checkPush(data);
                     checkThunder(data, 0);
                 } else {
                     result.postValue(data);
@@ -1122,7 +1125,7 @@ public class SourceViewModel extends ViewModel {
                 EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_QUICK_SEARCH_RESULT, data));
             } else if (result != null) {
                 if (result == detailResult) {
-                	data = checkPush(data);
+                    data = checkPush(data);
                     checkThunder(data, 0);
                 } else {
                     result.postValue(data);
@@ -1144,5 +1147,17 @@ public class SourceViewModel extends ViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
+        closeExecutor(searchExecutorService);
+        closeExecutor(threadPoolGetPlay);
+
+    }
+
+    private void closeExecutor(ExecutorService executorService) {
+        if (executorService != null) {
+            try {
+                executorService.shutdownNow();
+            } catch (Throwable ignored) {
+            }
+        }
     }
 }

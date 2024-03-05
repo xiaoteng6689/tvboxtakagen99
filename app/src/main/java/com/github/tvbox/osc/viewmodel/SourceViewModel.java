@@ -1147,7 +1147,6 @@ public class SourceViewModel extends ViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
-        closeExecutor(searchExecutorService);
         closeExecutor(threadPoolGetPlay);
 
     }

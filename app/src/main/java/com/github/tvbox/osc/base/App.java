@@ -4,6 +4,7 @@ import android.os.Environment;
 
 import androidx.multidex.MultiDexApplication;
 
+import com.github.catvod.crawler.JarLoader;
 import com.github.catvod.crawler.JsLoader;
 import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.callback.EmptyCallback;
@@ -17,6 +18,7 @@ import com.github.tvbox.osc.util.LocaleHelper;
 import com.github.tvbox.osc.util.LOG;
 import com.github.tvbox.osc.util.OkGoHelper;
 import com.github.tvbox.osc.util.PlayerHelper;
+import com.github.tvbox.osc.util.SubtitleHelper;
 import com.hjq.permissions.XXPermissions;
 import com.kingja.loadsir.core.LoadSir;
 import com.orhanobut.hawk.Hawk;
@@ -42,15 +44,13 @@ public class App extends MultiDexApplication {
     public static String burl;
     private static String dashData;
     public static ViewPump viewPump = null;
-    private int[][] subtitleTextColor = null;
-
 
 
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
-        initSubtitleColor();
+        SubtitleHelper.initSubtitleColor(this);
         initParams();
         // takagen99 : Initialize Locale
         initLocale();
@@ -168,15 +168,5 @@ public class App extends MultiDexApplication {
 
     public String getDashData() {
         return dashData;
-    }
-
-    private void initSubtitleColor() {
-        int[] subtitleColor = getResources().getIntArray(R.array.subtitle_text_color);
-        int[] shadowColor = getResources().getIntArray(R.array.subtitle_text_shadow_color);
-        this.subtitleTextColor = new int[][]{subtitleColor, shadowColor};
-    }
-
-    public int[][] getSubtitleTextColor() {
-        return subtitleTextColor;
     }
 }

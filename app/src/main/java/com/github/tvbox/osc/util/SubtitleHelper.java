@@ -1,12 +1,27 @@
 package com.github.tvbox.osc.util;
 
 import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
 
+import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.base.App;
 import com.github.tvbox.osc.subtitle.widget.SimpleSubtitleView;
 import com.orhanobut.hawk.Hawk;
 
 public class SubtitleHelper {
+    private static int[][] subtitleTextColor = null;
+
+    //初始化字幕颜色
+    public static void initSubtitleColor(Context context) {
+        int[] subtitleColor = context.getApplicationContext().getResources().getIntArray(R.array.subtitle_text_color);
+        int[] shadowColor = context.getApplicationContext().getResources().getIntArray(R.array.subtitle_text_shadow_color);
+        SubtitleHelper.subtitleTextColor = new int[][]{subtitleColor, shadowColor};
+    }
+
+    public static int[][] getSubtitleTextColor() {
+        return subtitleTextColor;
+    }
 
     public static int getSubtitleTextAutoSize(Activity activity) {
         double screenSqrt = ScreenUtils.getSqrt(activity);
@@ -51,7 +66,7 @@ public class SubtitleHelper {
         } else {
             Hawk.put(HawkConfig.SUBTITLE_TEXT_STYLE, style);
         }
-        int[][] subtitleTextColor = App.getInstance().getSubtitleTextColor();
+        int[][] subtitleTextColor = getSubtitleTextColor();
         mSubtitleView.setTextColor(subtitleTextColor[0][colorIndex]);
         mSubtitleView.setShadowLayer(10, 0, 0, subtitleTextColor[1][colorIndex]);
         // mSubtitleView.setBackGroundTextColor(subtitleTextColor[1][colorIndex]);
@@ -62,7 +77,7 @@ public class SubtitleHelper {
     }
 
     public static int getTextStyleSize() {
-        int[][] subtitleTextColor = App.getInstance().getSubtitleTextColor();
+        int[][] subtitleTextColor = getSubtitleTextColor();
         return Math.min(subtitleTextColor[0].length, subtitleTextColor[1].length);
     }
 }

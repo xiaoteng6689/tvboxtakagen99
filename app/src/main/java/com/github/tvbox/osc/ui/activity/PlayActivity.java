@@ -1142,16 +1142,18 @@ public class PlayActivity extends BaseActivity {
             } else {
                 ratio = new Rational(16, 9);
             }
-            if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O) {
-                List<android.app.RemoteAction> actions = new ArrayList<>();
+
+            List<android.app.RemoteAction> actions = new ArrayList<>();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 actions.add(generateRemoteAction(android.R.drawable.ic_media_previous, BROADCAST_ACTION_PREV, "Prev", "Play Previous"));
                 actions.add(generateRemoteAction(android.R.drawable.ic_media_play, BROADCAST_ACTION_PLAYPAUSE, "Play/Pause", "Play or Pause"));
                 actions.add(generateRemoteAction(android.R.drawable.ic_media_next, BROADCAST_ACTION_NEXT, "Next", "Play Next"));
-                PictureInPictureParams params = new PictureInPictureParams.Builder()
-                        .setAspectRatio(ratio)
-                        .setActions(actions).build();
-                enterPictureInPictureMode(params);
             }
+            PictureInPictureParams params = new PictureInPictureParams.Builder()
+                    .setAspectRatio(ratio)
+                    .setActions(actions).build();
+            enterPictureInPictureMode(params);
+
             mController.hideBottom();
             mVideoView.postDelayed(() -> {
                 if (!mVideoView.isPlaying()) {
@@ -1209,9 +1211,7 @@ public class PlayActivity extends BaseActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private android.app.RemoteAction generateRemoteAction(int iconResId, int actionCode, String title, String desc) {
-
-        final PendingIntent intent =
-                PendingIntent.getBroadcast(
+        final PendingIntent intent = PendingIntent.getBroadcast(
                         PlayActivity.this,
                         actionCode,
                         new Intent(BROADCAST_ACTION).putExtra("action", actionCode),

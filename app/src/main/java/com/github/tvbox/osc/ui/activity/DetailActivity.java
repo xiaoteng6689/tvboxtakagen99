@@ -1125,20 +1125,20 @@ public class DetailActivity extends BaseActivity {
             } else {
                 ratio = new Rational(16, 9);
             }
-            //此处需要大于23 版本才能执行
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
-                List<android.app.RemoteAction> actions = new ArrayList<>();
+            List<android.app.RemoteAction> actions = new ArrayList<>();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 actions.add(generateRemoteAction(android.R.drawable.ic_media_previous, BROADCAST_ACTION_PREV, "Prev", "Play Previous"));
                 actions.add(generateRemoteAction(android.R.drawable.ic_media_play, BROADCAST_ACTION_PLAYPAUSE, "Play", "Play/Pause"));
                 actions.add(generateRemoteAction(android.R.drawable.ic_media_next, BROADCAST_ACTION_NEXT, "Next", "Play Next"));
-                PictureInPictureParams params = new PictureInPictureParams.Builder()
-                        .setAspectRatio(ratio)
-                        .setActions(actions).build();
-                enterPictureInPictureMode(params);
             }
+            PictureInPictureParams params = new PictureInPictureParams.Builder()
+                    .setAspectRatio(ratio)
+                    .setActions(actions).build();
             if (!fullWindows) {
                 toggleFullPreview();
             }
+            enterPictureInPictureMode(params);
+
             playFragment.getVodController().hideBottom();
             playFragment.getPlayer().postDelayed(() -> {
                 if (!playFragment.getPlayer().isPlaying()) {

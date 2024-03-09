@@ -31,6 +31,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ServiceUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.api.ApiConfig;
@@ -98,7 +99,7 @@ public class DetailActivity extends BaseActivity {
     private FragmentContainerView llPlayerFragmentContainer;
     private View llPlayerFragmentContainerBlock;
     private View llPlayerPlace;
-    private static PlayFragment playFragment = null;
+    private PlayFragment playFragment = null;
     private ImageView ivThumb;
     private TextView tvName;
     private TextView tvYear;
@@ -701,7 +702,7 @@ public class DetailActivity extends BaseActivity {
         } catch (Exception e) {
         }
         return arrayList;
-    }  
+    }
 
     private void setTextShow(TextView view, String tag, String info) {
         if (info == null || info.trim().isEmpty()) {
@@ -1110,9 +1111,16 @@ public class DetailActivity extends BaseActivity {
         // takagen99 : Additional check for external player
         if (supportsPiPMode() && showPreview && !playFragment.extPlay && Hawk.get(HawkConfig.BACKGROUND_PLAY_TYPE, 0) == 2) {
             // 创建一个Intent对象，模拟按下Home键
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            startActivity(intent);
+            try { //我的电视上不允许 手动启动 Home
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                startActivity(intent);
+            } catch (SecurityException e) {
+                e.printStackTrace();
+                ToastUtils.showShort("画中画 开启失败!");
+                return;
+            }
+
             // Calculate Video Resolution
             int vWidth = playFragment.mVideoView.getVideoSize()[0];
             int vHeight = playFragment.mVideoView.getVideoSize()[1];
@@ -1226,7 +1234,7 @@ public class DetailActivity extends BaseActivity {
         if (fullWindows) {
             if (playFragment.onBackPressed())
                 return;
-            VodController.mProgressTop.setVisibility(View.INVISIBLE);
+            playFragment.getVodController().mProgressTop.setVisibility(View.INVISIBLE);
             toggleFullPreview();
             mGridView.requestFocus();
             return;

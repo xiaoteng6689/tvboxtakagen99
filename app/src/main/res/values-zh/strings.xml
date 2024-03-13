@@ -185,4 +185,9 @@
     <string name="exo_track_bitrate">%1$.2f Mbps</string>
     <string name="exo_item_list">%1$s，%2$s</string>
 
+    <string name="sub_size">大小</string>
+    <string name="sub_delay">偏移</string>
+    <string name="sub_style">样式</string>
+    <string name="sub_style_text">字幕</string>
+
 </resources>

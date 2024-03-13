@@ -184,6 +184,10 @@
     <string name="exo_track_role_closed_captions">CC</string>
     <string name="exo_track_bitrate">%1$.2f Mbps</string>
     <string name="exo_item_list">%1$s，%2$s</string>
+    <string name="sub_size">Size</string>
+    <string name="sub_delay">Delay</string>
+    <string name="sub_style">Style</string>
+    <string name="sub_style_text">ABC.</string>
 
     <string-array name="doh_name">
         <item>System</item>

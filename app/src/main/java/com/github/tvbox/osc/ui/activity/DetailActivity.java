@@ -32,6 +32,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ServiceUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.api.ApiConfig;
@@ -99,7 +100,7 @@ public class DetailActivity extends BaseActivity {
     private FragmentContainerView llPlayerFragmentContainer;
     private View llPlayerFragmentContainerBlock;
     private View llPlayerPlace;
-    private static PlayFragment playFragment = null;
+    private PlayFragment playFragment = null;
     private ImageView ivThumb;
     private TextView tvName;
     private TextView tvYear;
@@ -422,8 +423,7 @@ public class DetailActivity extends BaseActivity {
                 //获取剪切板管理器
                 ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                 //设置内容到剪切板
-//                cm.setPrimaryClip(ClipData.newPlainText(null, vodInfo.seriesMap.get(vodInfo.playFlag).get(0).url));
-                cm.setPrimaryClip(ClipData.newPlainText(null, vodInfo.seriesMap.get(vodInfo.playFlag).get(vodInfo.playIndex).url));
+                cm.setPrimaryClip(ClipData.newPlainText(null, vodInfo.seriesMap.get(vodInfo.playFlag).get(vodInfo.getplayIndex()).url));
                 Toast.makeText(DetailActivity.this, getString(R.string.det_url), Toast.LENGTH_SHORT).show();
             }
         });
@@ -603,7 +603,13 @@ public class DetailActivity extends BaseActivity {
                 vodInfo.playIndex = 0;
             }
             if (vodInfo.seriesMap.get(vodInfo.playFlag) != null) {
-                vodInfo.seriesMap.get(vodInfo.playFlag).get(this.vodInfo.getplayIndex()).selected = true;
+                int playIndex = this.vodInfo.getplayIndex();
+                if (vodInfo.seriesMap.get(vodInfo.playFlag).size() >= playIndex) {
+                    vodInfo.seriesMap.get(vodInfo.playFlag).get(playIndex).selected = true;
+                } else {
+                    // 到了这里说明当前选中的播放源总播放集数 小于 上次选中的播放源的总集数
+                    vodInfo.playGroup = 0;
+                }
             }
 
             List<VodInfo.VodSeries> list = vodInfo.seriesMap.get(vodInfo.playFlag);
@@ -651,6 +657,7 @@ public class DetailActivity extends BaseActivity {
                 }
             }, 100);
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -700,6 +707,7 @@ public class DetailActivity extends BaseActivity {
                 uu.add(info);
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return arrayList;
     }  
@@ -1111,9 +1119,15 @@ public class DetailActivity extends BaseActivity {
         // takagen99 : Additional check for external player
         if (supportsPiPMode() && showPreview && !playFragment.extPlay && Hawk.get(HawkConfig.BACKGROUND_PLAY_TYPE, 0) == 2) {
             // 创建一个Intent对象，模拟按下Home键
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            startActivity(intent);
+            try { //部分电视使用该方法启动首页闪退比如小米的澎湃OS
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                startActivity(intent);
+            } catch (SecurityException e) {
+                e.printStackTrace();
+                ToastUtils.showShort("画中画 开启失败!");
+                return;
+            }
             // Calculate Video Resolution
             int vWidth = playFragment.mVideoView.getVideoSize()[0];
             int vHeight = playFragment.mVideoView.getVideoSize()[1];
@@ -1224,7 +1238,7 @@ public class DetailActivity extends BaseActivity {
         if (fullWindows) {
             if (playFragment.onBackPressed())
                 return;
-            VodController.mProgressTop.setVisibility(View.INVISIBLE);
+            playFragment.getVodController().mProgressTop.setVisibility(View.INVISIBLE);
             toggleFullPreview();
             mGridView.requestFocus();
             return;

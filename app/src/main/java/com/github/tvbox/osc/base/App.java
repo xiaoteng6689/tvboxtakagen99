@@ -4,7 +4,6 @@ import android.os.Environment;
 
 import androidx.multidex.MultiDexApplication;
 
-import com.github.catvod.crawler.JarLoader;
 import com.github.catvod.crawler.JsLoader;
 import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.callback.EmptyCallback;
@@ -14,8 +13,8 @@ import com.github.tvbox.osc.server.ControlManager;
 import com.github.tvbox.osc.util.EpgUtil;
 import com.github.tvbox.osc.util.FileUtils;
 import com.github.tvbox.osc.util.HawkConfig;
-import com.github.tvbox.osc.util.LocaleHelper;
 import com.github.tvbox.osc.util.LOG;
+import com.github.tvbox.osc.util.LocaleHelper;
 import com.github.tvbox.osc.util.OkGoHelper;
 import com.github.tvbox.osc.util.PlayerHelper;
 import com.github.tvbox.osc.util.SubtitleHelper;
@@ -23,6 +22,7 @@ import com.hjq.permissions.XXPermissions;
 import com.kingja.loadsir.core.LoadSir;
 import com.orhanobut.hawk.Hawk;
 import com.p2p.P2PClass;
+import com.tencent.mmkv.MMKV;
 import com.whl.quickjs.android.QuickJSLoader;
 
 import java.io.File;
@@ -85,6 +85,8 @@ public class App extends MultiDexApplication {
         // Add JS support
         QuickJSLoader.init();
 
+        MMKV.initialize(this);
+
         // add font support, my tv embed font not include emoji
         String extStorageDir = Environment.getExternalStorageDirectory().getAbsolutePath();
         File fontFile = new File(extStorageDir + "/tvbox.ttf");
@@ -98,6 +100,7 @@ public class App extends MultiDexApplication {
                     .build();
         }
     }
+
 
     public static P2PClass getp2p() {
         try {

@@ -71,4 +71,10 @@
     <dimen name="vs_640">640mm</dimen>
     <dimen name="vs_720">720mm</dimen>
     <dimen name="vs_960">960mm</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="title_text_size">30sp</dimen>
+    <dimen name="group_text_size">25sp</dimen>
+    <dimen name="channel_text_size">20sp</dimen>
+    <dimen name="channel_icon_width">100dp</dimen>
+    <dimen name="channel_icon_height">40dp</dimen>
 </resources>

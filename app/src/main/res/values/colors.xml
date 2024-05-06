@@ -72,6 +72,15 @@
     <color name="subtitle_text_color_8">#4C4C4C</color>
     <color name="subtitle_text_color_9">#333333</color>
 
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="text_color">#FFFFFFFF</color>
+    <color name="bg_color">#242E35</color>
+    <color name="item_color">#234A6B</color>
+    <color name="switch_off_color">#395456</color>
+    <color name="switch_on_color">#70B3AC</color>
+    <color name="switch_bg_color">#808080</color>
+
 
     <!-- 定义颜色数组 -->
     <array name="subtitle_text_color">

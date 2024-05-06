@@ -259,7 +259,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tv_MPBS_top"
+                        android:id="@+id/tv_mpbs_top"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|right"

@@ -296,6 +296,7 @@ public class HomeActivity extends BaseActivity {
             @Override
             public boolean onLongClick(View v) {
                 reloadHome();
+                Toast.makeText(HomeActivity.this, getString(R.string.hm_reload), Toast.LENGTH_SHORT).show();
                 return true;
             }
         });

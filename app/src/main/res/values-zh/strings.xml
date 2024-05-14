@@ -22,6 +22,7 @@
     <string name="hm_setting">设置</string>
     <string name="hm_style_line">一行显示</string>
     <string name="hm_style_grid">多行显示</string>
+    <string name="hm_reload">重载首页</string>
     <string name="hm_hist_del">已删除当前记录</string>
     <string name="hm_cache_del">已删除缓存</string>
 

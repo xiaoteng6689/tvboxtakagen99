@@ -22,6 +22,7 @@
     <string name="hm_setting">Menu</string>
     <string name="hm_style_line">Line View</string>
     <string name="hm_style_grid">Grid View</string>
+    <string name="hm_reload">Reload Homepage</string>
     <string name="hm_hist_del">Removed from History</string>
     <string name="hm_cache_del">Cache Cleared</string>
 

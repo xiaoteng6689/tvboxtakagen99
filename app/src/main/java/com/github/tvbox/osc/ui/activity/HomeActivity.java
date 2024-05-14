@@ -234,24 +234,23 @@ public class HomeActivity extends BaseActivity {
                 return !((GridFragment) baseLazyFragment).isLoad();
             }
         });
-        // Button : TVBOX >> Delete Cache / Longclick to Refresh Source --
+        // Button : TVBOX: 点击 >> 更换源 / 长按 >> 清空缓存
         tvName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                dataInitOk = false;
-//                jarInitOk = true;
-//                showSiteSwitch();
-                File dir = getCacheDir();
-                FileUtils.recursiveDelete(dir);
-                dir = getExternalCacheDir();
-                FileUtils.recursiveDelete(dir);
-                Toast.makeText(HomeActivity.this, getString(R.string.hm_cache_del), Toast.LENGTH_SHORT).show();
+                dataInitOk = false;
+                jarInitOk = true;
+                showSiteSwitch();
             }
         });
         tvName.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                reloadHome();
+                File dir = getCacheDir();
+                FileUtils.recursiveDelete(dir);
+                dir = getExternalCacheDir();
+                FileUtils.recursiveDelete(dir);
+                Toast.makeText(HomeActivity.this, getString(R.string.hm_cache_del), Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -261,7 +260,7 @@ public class HomeActivity extends BaseActivity {
             public void onClick(View view) {
                 try {
                     startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-                }catch (Exception ignored){
+                } catch (Exception ignored) {
                 }
             }
         });
@@ -272,7 +271,7 @@ public class HomeActivity extends BaseActivity {
                 jumpActivity(SearchActivity.class);
             }
         });
-        // Button : Style --------------------------------------------
+        // Button : Style: 点击 >> 横竖展示切换 / 长按 >> 重载首页
         tvStyle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -291,6 +290,13 @@ public class HomeActivity extends BaseActivity {
                     }
                 } catch (Exception ex) {
                 }
+            }
+        });
+        tvStyle.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                reloadHome();
+                return true;
             }
         });
         // Button : Drawer >> To go into App Drawer -------------------
@@ -325,7 +331,7 @@ public class HomeActivity extends BaseActivity {
         setLoadSir(this.contentLayout);
         //mHandler.postDelayed(mFindFocus, 250);
     }
-    
+
     public static boolean reHome(Context appContext) {
         Intent intent = new Intent(appContext, HomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -335,7 +341,7 @@ public class HomeActivity extends BaseActivity {
         appContext.startActivity(intent);
         return true;
     }
-    
+
     public static void homeRecf() { //站点切换
         int homeRec = Hawk.get(HawkConfig.HOME_REC, -1);
         int limit = 2;
@@ -414,7 +420,7 @@ public class HomeActivity extends BaseActivity {
             }
             if (Hawk.get(HawkConfig.HOME_DEFAULT_SHOW, false)) {
                 jumpActivity(LivePlayActivity.class);
-            }         
+            }
             return;
         }
         showLoading();

@@ -5,6 +5,7 @@ import com.github.tvbox.osc.base.App;
 import com.github.tvbox.osc.bean.GithubTagEntity;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
 import java.util.List;
 
 import io.noties.markwon.Markwon;
@@ -29,6 +30,7 @@ public class Github {
     //选择的Tag数据
     private GithubTagEntity currentTagEntity;
     private String currentApkUrl;
+    private long currentApkSize;
 
     private OnCurrentApkUrlListener l;
 
@@ -74,6 +76,7 @@ public class Github {
                 String assetName = asset.getName();
                 if (assetName.contains(BuildConfig.FLAVOR_abi) && assetName.contains(BuildConfig.FLAVOR_brand)) {
                     currentApkUrl = GithubProxy.getGithubProxyUrl(asset.getBrowser_download_url());
+                    currentApkSize = asset.getSize();
                     if (this.l != null) {
                         this.l.onCurrentApkUrlListener(currentApkUrl);
                     }
@@ -119,6 +122,10 @@ public class Github {
     public CharSequence findVersion() {
         if (!find()) return "";
         return currentTagEntity.getName();
+    }
+
+    public boolean checkFileSize(File file) {
+        return currentApkSize == file.length();
     }
 
     public interface OnCurrentApkUrlListener {

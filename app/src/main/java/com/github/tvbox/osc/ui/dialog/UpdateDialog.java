@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.github.tvbox.osc.R;
+import com.github.tvbox.osc.util.Github;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -17,6 +18,15 @@ public class UpdateDialog extends BaseDialog {
     private final TextView version, desc, confirm, cancel;
     private View.OnClickListener listenerConfirm;
     private View.OnClickListener listenerCancel;
+    private Github github;
+
+    public Github getGithub() {
+        return github;
+    }
+
+    public void setGithub(Github github) {
+        this.github = github;
+    }
 
     public UpdateDialog(@NonNull @NotNull Context context) {
         super(context);

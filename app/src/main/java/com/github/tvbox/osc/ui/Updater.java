@@ -90,6 +90,7 @@ public class Updater implements Download.Callback {
     private void show(Activity activity, Github github) {
         dismiss();
         updateDialog = new UpdateDialog(activity).setVersionDesc(github.findVersion(), github.findDesc());
+        updateDialog.setGithub(github);
         updateDialog.setConfirmClickListener(view -> {
             updateDialog.setButtonEnable(false);
             progress(0);
@@ -124,7 +125,16 @@ public class Updater implements Download.Callback {
 
     @Override
     public void success(File file) {
+        //简单校验一下文件完整性
+        if (updateDialog != null) {
+            boolean checkFileSize = updateDialog.getGithub().checkFileSize(file);
+            if (!checkFileSize) {
+                error(App.get().getResources().getString(R.string.update_check_file_size));
+                return;
+            }
+        }
         FileUtils.openFileBySystem(file);
+        ToastUtils.showShort(R.string.update_install_tip);
         dismiss();
     }
 

@@ -4,6 +4,12 @@
     <string name="app_home">Home</string>
     <string name="app_source"></string>
 
+    <string name="update_version">New version</string>
+    <string name="update_no_new_version">It\'s already the latest version</string>
+    <string name="update_check">Checking for updates…</string>
+    <string name="update_confirm">Update</string>
+    <string name="update_check_confirm">checkForUpdates </string>
+
     // Home Page //
     <string name="hm_ok">Load Complete</string>
     <string name="hm_notok">Load Fail</string>
@@ -190,6 +196,7 @@
     <string name="sub_delay">Delay</string>
     <string name="sub_style">Style</string>
     <string name="sub_style_text">ABC.</string>
+    <string name="about_text_string">This software only provides aggregation and display functions. All resources come from the internet. The software does not participate in any creation, uploading, storage, or downloading activities. This software is for educational reference only, please delete it within 24 hours after installation.\n\nWhen distributing the package, please retain the source information:\nhttps://github.com/CatVodTVOfficial/TVBoxOSC</string>
 
     <string-array name="doh_name">
         <item>System</item>

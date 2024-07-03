@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -43,6 +44,7 @@ import com.github.tvbox.osc.bean.MovieSort;
 import com.github.tvbox.osc.bean.SourceBean;
 import com.github.tvbox.osc.event.RefreshEvent;
 import com.github.tvbox.osc.server.ControlManager;
+import com.github.tvbox.osc.ui.Updater;
 import com.github.tvbox.osc.ui.adapter.HomePageAdapter;
 import com.github.tvbox.osc.ui.adapter.SelectDialogAdapter;
 import com.github.tvbox.osc.ui.adapter.SortAdapter;
@@ -112,8 +114,7 @@ public class HomeActivity extends BaseActivity {
         @Override
         public void run() {
             Date date = new Date();
-            @SuppressLint("SimpleDateFormat")
-            SimpleDateFormat timeFormat = new SimpleDateFormat(getString(R.string.hm_date1) + ", " + getString(R.string.hm_date2));
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat timeFormat = new SimpleDateFormat(getString(R.string.hm_date1) + ", " + getString(R.string.hm_date2));
             tvDate.setText(timeFormat.format(date));
             mHandler.postDelayed(this, 1000);
         }
@@ -142,6 +143,12 @@ public class HomeActivity extends BaseActivity {
             useCacheConfig = bundle.getBoolean("useCache", false);
         }
         initData();
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Updater.get().update(this);
     }
 
     // takagen99: Added to allow read string
@@ -261,7 +268,7 @@ public class HomeActivity extends BaseActivity {
             public void onClick(View view) {
                 try {
                     startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-                }catch (Exception ignored){
+                } catch (Exception ignored) {
                 }
             }
         });
@@ -325,7 +332,7 @@ public class HomeActivity extends BaseActivity {
         setLoadSir(this.contentLayout);
         //mHandler.postDelayed(mFindFocus, 250);
     }
-    
+
     public static boolean reHome(Context appContext) {
         Intent intent = new Intent(appContext, HomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -335,7 +342,7 @@ public class HomeActivity extends BaseActivity {
         appContext.startActivity(intent);
         return true;
     }
-    
+
     public static void homeRecf() { //站点切换
         int homeRec = Hawk.get(HawkConfig.HOME_REC, -1);
         int limit = 2;
@@ -368,8 +375,7 @@ public class HomeActivity extends BaseActivity {
 
     // takagen99 : Check if network is available
     boolean isNetworkAvailable() {
-        ConnectivityManager cm
-                = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = cm.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
@@ -414,7 +420,7 @@ public class HomeActivity extends BaseActivity {
             }
             if (Hawk.get(HawkConfig.HOME_DEFAULT_SHOW, false)) {
                 jumpActivity(LivePlayActivity.class);
-            }         
+            }
             return;
         }
         showLoading();
@@ -540,8 +546,7 @@ public class HomeActivity extends BaseActivity {
                                     });
                                 }
                             });
-                        if (!dialog.isShowing())
-                            dialog.show();
+                        if (!dialog.isShowing()) dialog.show();
                     }
                 });
             }
@@ -700,8 +705,7 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        if (topHide < 0)
-            return false;
+        if (topHide < 0) return false;
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             if (event.getKeyCode() == KeyEvent.KEYCODE_MENU) {
                 showSiteSwitch();
@@ -745,13 +749,7 @@ public class HomeActivity extends BaseActivity {
         });
         // Hide Top =======================================================
         if (hide && topHide == 0) {
-            animatorSet.playTogether(ObjectAnimator.ofObject(viewObj, "marginTop", new IntEvaluator(),
-                            Integer.valueOf(AutoSizeUtils.mm2px(this.mContext, 20.0f)),
-                            Integer.valueOf(AutoSizeUtils.mm2px(this.mContext, 0.0f))),
-                    ObjectAnimator.ofObject(viewObj, "height", new IntEvaluator(),
-                            Integer.valueOf(AutoSizeUtils.mm2px(this.mContext, 50.0f)),
-                            Integer.valueOf(AutoSizeUtils.mm2px(this.mContext, 1.0f))),
-                    ObjectAnimator.ofFloat(this.topLayout, "alpha", 1.0f, 0.0f));
+            animatorSet.playTogether(ObjectAnimator.ofObject(viewObj, "marginTop", new IntEvaluator(), Integer.valueOf(AutoSizeUtils.mm2px(this.mContext, 20.0f)), Integer.valueOf(AutoSizeUtils.mm2px(this.mContext, 0.0f))), ObjectAnimator.ofObject(viewObj, "height", new IntEvaluator(), Integer.valueOf(AutoSizeUtils.mm2px(this.mContext, 50.0f)), Integer.valueOf(AutoSizeUtils.mm2px(this.mContext, 1.0f))), ObjectAnimator.ofFloat(this.topLayout, "alpha", 1.0f, 0.0f));
             animatorSet.setDuration(250);
             animatorSet.start();
             tvName.setFocusable(false);
@@ -764,13 +762,7 @@ public class HomeActivity extends BaseActivity {
         }
         // Show Top =======================================================
         if (!hide && topHide == 1) {
-            animatorSet.playTogether(ObjectAnimator.ofObject(viewObj, "marginTop", new IntEvaluator(),
-                            Integer.valueOf(AutoSizeUtils.mm2px(this.mContext, 0.0f)),
-                            Integer.valueOf(AutoSizeUtils.mm2px(this.mContext, 20.0f))),
-                    ObjectAnimator.ofObject(viewObj, "height", new IntEvaluator(),
-                            Integer.valueOf(AutoSizeUtils.mm2px(this.mContext, 1.0f)),
-                            Integer.valueOf(AutoSizeUtils.mm2px(this.mContext, 50.0f))),
-                    ObjectAnimator.ofFloat(this.topLayout, "alpha", 0.0f, 1.0f));
+            animatorSet.playTogether(ObjectAnimator.ofObject(viewObj, "marginTop", new IntEvaluator(), Integer.valueOf(AutoSizeUtils.mm2px(this.mContext, 0.0f)), Integer.valueOf(AutoSizeUtils.mm2px(this.mContext, 20.0f))), ObjectAnimator.ofObject(viewObj, "height", new IntEvaluator(), Integer.valueOf(AutoSizeUtils.mm2px(this.mContext, 1.0f)), Integer.valueOf(AutoSizeUtils.mm2px(this.mContext, 50.0f))), ObjectAnimator.ofFloat(this.topLayout, "alpha", 0.0f, 1.0f));
             animatorSet.setDuration(250);
             animatorSet.start();
             tvName.setFocusable(true);

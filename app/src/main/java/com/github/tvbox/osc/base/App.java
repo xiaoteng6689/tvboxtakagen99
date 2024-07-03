@@ -90,12 +90,6 @@ public class App extends MultiDexApplication {
     }
 
     @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        Init.set(base);
-    }
-
-    @Override
     public void onCreate() {
         super.onCreate();
         instance = this;

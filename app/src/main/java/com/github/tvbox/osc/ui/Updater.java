@@ -4,14 +4,12 @@ package com.github.tvbox.osc.ui;
 import android.app.Activity;
 
 import com.blankj.utilcode.util.ToastUtils;
-import com.github.catvod.utils.Path;
 import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.base.App;
 import com.github.tvbox.osc.ui.dialog.UpdateDialog;
 import com.github.tvbox.osc.util.Download;
 import com.github.tvbox.osc.util.FileUtils;
 import com.github.tvbox.osc.util.Github;
-
 
 import java.io.File;
 
@@ -38,7 +36,7 @@ public class Updater implements Download.Callback {
     }
 
     private File getFile() {
-        return Path.cache("update.apk");
+        return FileUtils.cache("update.apk");
     }
 
     public void update(Activity activity) {

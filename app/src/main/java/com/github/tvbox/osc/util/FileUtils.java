@@ -8,6 +8,7 @@ import android.util.Base64;
 
 import androidx.core.content.FileProvider;
 
+import com.github.catvod.Init;
 import com.github.tvbox.osc.base.App;
 import com.github.tvbox.osc.server.ControlManager;
 import com.github.tvbox.osc.util.StringUtils;
@@ -368,4 +369,9 @@ public class FileUtils {
         // 如果路径中有点号，并且点号在最后一个斜杠之后，认为有后缀
         return lastDotIndex > lastSlashIndex && lastDotIndex < path.length() - 1;
     }
+
+    public static File cache(String name) {
+        return new File(getCacheDir(), name);
+    }
+
 }

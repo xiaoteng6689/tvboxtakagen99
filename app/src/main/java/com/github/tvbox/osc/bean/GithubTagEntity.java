@@ -1,8 +1,9 @@
 package com.github.tvbox.osc.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class GithubTagEntity   {
+public class GithubTagEntity implements Serializable {
 
 
     private String url;
@@ -151,7 +152,7 @@ public class GithubTagEntity   {
         this.assets = assets;
     }
 
-    public static class AssetsBean {
+    public static class AssetsBean  implements Serializable{
         private String url;
         private int id;
         private String node_id;
@@ -270,7 +271,7 @@ public class GithubTagEntity   {
             this.browser_download_url = browser_download_url;
         }
 
-        public static class UploaderBean {
+        public static class UploaderBean implements Serializable {
             private String login;
             private int id;
             private String node_id;

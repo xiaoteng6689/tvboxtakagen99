@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TVBox</string>
+    <string name="app_name">葫芦影视</string>
     <string name="app_home">Home</string>
-    <string name="app_source"></string>
+    <string name="app_source">http://a668.cfd/ma2/m668a.txt</string>
 
     // Home Page //
     <string name="hm_ok">Load Complete</string>

@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.和roid.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
@@ -151,9 +151,9 @@ dependencies {
     implementation 'xyz.doikki.android.dkplayer:dkplayer-ui:3.3.7'
     implementation 'xyz.doikki.android.dkplayer:videocache:3.3.7'
 
-    implementation('org.xwalk:xwalk_shared_library:23.53.589.4') {
+    /*implementation('org.xwalk:xwalk_shared_library:23.53.589.4') {
         exclude group: 'com.android.support'
-    }
+    }*/
     implementation 'com.lzy.net:okgo:3.0.4'
     implementation 'com.owen:tv-recyclerview:3.0.0'
     implementation 'com.blankj:utilcodex:1.31.0'

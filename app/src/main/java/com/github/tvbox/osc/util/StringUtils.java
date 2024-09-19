@@ -2,13 +2,9 @@ package com.github.tvbox.osc.util;
 
 
 import java.lang.reflect.Array;
-import java.text.Collator;
 import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class StringUtils {
 
@@ -217,53 +213,5 @@ public class StringUtils {
             }
         }
         return result;
-    }
-
-    public static int compare(String s1, String s2) {
-        String[] split1 = splitString(replaceBracketsContent(s1));
-        String[] split2 = splitString(replaceBracketsContent(s2));
-
-        Collator collator = Collator.getInstance(Locale.CHINA);
-
-        // Compare each segment of the strings
-        for (int i = 0; i < Math.min(split1.length, split2.length); i++) {
-            if (Character.isDigit(split1[i].charAt(0)) && Character.isDigit(split2[i].charAt(0))) {
-                // Both segments are numeric, compare as numbers
-                int num1 = Integer.parseInt(split1[i]);
-                int num2 = Integer.parseInt(split2[i]);
-                int numComparison = Integer.compare(num1, num2);
-                if (numComparison != 0) {
-                    return numComparison;
-                }
-            } else {
-                // Compare as strings or Chinese characters
-                int stringComparison = collator.compare(split1[i], split2[i]);
-                if (stringComparison != 0) {
-                    return stringComparison;
-                }
-            }
-        }
-
-        // Handle case where one string is a prefix of the other
-        return Integer.compare(split1.length, split2.length);
-    }
-
-    private static String[] splitString(String s) {
-        return s.split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
-    }
-
-    public static String replaceBracketsContent(String text) {
-        // 定义正则表达式来匹配 [] 括起来的字符串
-        String regex = "\\[.*?\\]";
-        // 创建 Pattern 对象
-        Pattern pattern = Pattern.compile(regex);
-        // 创建 Matcher 对象
-        Matcher matcher = pattern.matcher(text);
-        // 如果找到匹配内容，进行替换
-        if (matcher.find()) {
-            return matcher.replaceAll("");  // 将匹配到的内容替换为空字符串
-        }
-        // 如果没有匹配到内容，返回原始字符串
-        return text;
     }
 }

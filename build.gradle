@@ -6,7 +6,7 @@ buildscript {
         google()
         mavenCentral()
         maven { url "https://jitpack.io" }
-        maven { url "https://maven.aliyun.com/repository/releases" }
+        flatDir { dirs './libs' }
         maven { url "https://maven.aliyun.com/repository/public" }
         maven {
             url "https://storage.googleapis.com/r8-releases/raw"
@@ -27,7 +27,7 @@ allprojects {
         google()
         mavenCentral()
         maven { url "https://jitpack.io" }
-        maven { url "https://maven.aliyun.com/repository/releases" }
+        flatDir { dirs './libs' }
         maven { url "https://maven.aliyun.com/repository/public" }
         gradlePluginPortal()
     }
